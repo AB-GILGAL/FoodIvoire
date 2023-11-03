@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/food_detail.dart';
 import 'package:foodivoire/presentation/home.dart';
-import 'package:foodivoire/shared/utils/colors.dart';
-import 'package:foodivoire/shared/utils/images.dart';
+import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:readmore/readmore.dart';
 
 class VendorDetailView extends StatefulWidget {

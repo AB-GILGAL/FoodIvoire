@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodivoire/shared/utils/colors.dart';
-import 'package:foodivoire/shared/utils/images.dart';
+import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/utils/images.dart';
 
 class OrderView extends StatefulWidget {
   const OrderView({super.key});
