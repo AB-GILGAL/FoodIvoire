@@ -9,7 +9,11 @@ class OTPRequestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
+        foregroundColor: black,
+        elevation: 0,
+        backgroundColor: white,
         automaticallyImplyLeading: true,
       ),
       body: SingleChildScrollView(

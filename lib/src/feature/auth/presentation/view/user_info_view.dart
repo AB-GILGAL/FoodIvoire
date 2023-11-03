@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:foodivoire/src/feature/auth/presentation/otp_validation.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 
@@ -33,7 +32,7 @@ class UserInfoView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Name'),
+                const Text('Name'),
                 const SizedBox(height: 10),
                 Container(
                   height: 50,
@@ -43,7 +42,7 @@ class UserInfoView extends StatelessWidget {
                     border: Border.all(width: 1.0, color: Colors.green),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: TextField(
+                  child: const TextField(
                     decoration: InputDecoration(
                         isDense: true, border: InputBorder.none),
                     keyboardType: TextInputType.name,
@@ -56,7 +55,7 @@ class UserInfoView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Surname'),
+                const Text('Surname'),
                 const SizedBox(height: 10),
                 Container(
                   height: 50,
@@ -66,7 +65,7 @@ class UserInfoView extends StatelessWidget {
                     border: Border.all(width: 1.0, color: Colors.green),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: TextField(
+                  child: const TextField(
                     decoration: InputDecoration(
                         isDense: true, border: InputBorder.none),
                     keyboardType: TextInputType.name,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodivoire/src/feature/auth/presentation/view/otp_request_view.dart';
+import 'package:foodivoire/splash.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,9 +10,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
-      home: const OTPRequestView(),
+    return const MaterialApp(
+      home: SplashView()
     );
   }
 }
