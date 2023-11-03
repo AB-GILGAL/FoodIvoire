@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodivoire/presentation/drawer.dart';
 import 'package:foodivoire/presentation/food_detail.dart';
 import 'package:foodivoire/presentation/vendor_detail.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
@@ -20,12 +21,12 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
+        foregroundColor: black,
           backgroundColor: white,
           elevation: 0,
-          leading: const Icon(
-            Icons.menu,
-            color: black,
-          )),
+      ),
+          
+      drawer: DrawerView(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
@@ -83,7 +84,6 @@ class _HomeViewState extends State<HomeView> {
                 )
               ],
             ),
-
             SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.28,
                 child: ListView.separated(
@@ -109,9 +109,11 @@ class _HomeViewState extends State<HomeView> {
                           onTap: () {
                             setState(() {
                               isSelected = index;
-                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return const FoodDetailView();
-                          },));
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return const FoodDetailView();
+                                },
+                              ));
                             });
                           });
                     })),
@@ -208,9 +210,11 @@ class _HomeViewState extends State<HomeView> {
                       onTap: () {
                         setState(() {
                           isSelected1 = index;
-                          Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return VendorDetailView();
-                          },));
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return VendorDetailView();
+                            },
+                          ));
                         });
                       });
                 }),

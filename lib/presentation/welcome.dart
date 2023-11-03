@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:foodivoire/presentation/home.dart';
 import 'package:foodivoire/src/feature/auth/presentation/view/otp_request_view.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
