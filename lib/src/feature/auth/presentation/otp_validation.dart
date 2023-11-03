@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/home.dart';
+import 'package:foodivoire/src/feature/auth/presentation/view/user_info_view.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -61,7 +62,7 @@ class OTPValidationView extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const HomeView(),
+                  builder: (context) => const UserInfoView(),
                 ));
               },
               style: ButtonStyle(
