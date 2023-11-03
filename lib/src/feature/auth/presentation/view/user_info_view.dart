@@ -86,7 +86,7 @@ class UserInfoView extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>  PreferencePage(),
+                  builder: (context) =>  const PreferencePage(),
                 ));
               },
               style: ButtonStyle(
