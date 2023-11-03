@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/select_lang.dart';
-import 'package:foodivoire/shared/utils/colors.dart';
-import 'package:foodivoire/shared/utils/images.dart';
+import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/utils/images.dart';
+
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
