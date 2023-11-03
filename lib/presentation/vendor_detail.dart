@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/food_detail.dart';
 import 'package:foodivoire/presentation/home.dart';
+import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
+import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
 class VendorDetailView extends StatefulWidget {
@@ -20,6 +22,7 @@ class _VendorDetailViewState extends State<VendorDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -44,7 +47,7 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             Navigator.pop(context);
                           },
                           child: const CircleAvatar(
@@ -67,11 +70,11 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                         color: Colors.white60,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "OUVERT",
-                            style: TextStyle(
+                            languageProvider.isEnglish ? "OPEN" : "OUVERT",
+                            style: const TextStyle(
                                 color: green, fontWeight: FontWeight.w600),
                           ),
                         ),
@@ -125,17 +128,19 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                             children: [
                               SizedBox(
                                 height: MediaQuery.sizeOf(context).height * .03,
-                                child: const TabBar(
+                                child: TabBar(
                                     labelColor: green,
                                     unselectedLabelColor: grey,
                                     indicatorColor: green,
                                     indicatorSize: TabBarIndicatorSize.label,
                                     tabs: [
-                                      Tab(
+                                      const Tab(
                                         text: "DETAILS",
                                       ),
                                       Tab(
-                                        text: "COMMENTAIRE",
+                                        text: languageProvider.isEnglish
+                                            ? 'COMMENT'
+                                            : "COMMENTAIRE",
                                       ),
                                     ]),
                               ),
@@ -186,8 +191,7 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                                             itemCount: foodItems.length,
                                             scrollDirection: Axis.vertical,
                                             itemBuilder: (context, index) {
-                                              final food =
-                                                  foodItems[index];
+                                              final food = foodItems[index];
                                               final img = food["image"];
                                               final name = food["name"];
 
@@ -217,18 +221,19 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                                         const Comments(),
                                         const Comments(),
                                         SizedBox(
-                                          height:
-                                              MediaQuery.sizeOf(context).height *
-                                                  .04,
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              .04,
                                         ),
                                         const Align(
                                           alignment: Alignment.centerLeft,
-                                          child: Text("Autres",
-                                          style: TextStyle(
-                                            color: green,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w600
-                                          ),),
+                                          child: Text(
+                                            "Autres",
+                                            style: TextStyle(
+                                                color: green,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         ),
                                         ListView.separated(
                                             separatorBuilder: (context,
@@ -243,8 +248,7 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                                             itemCount: foodItems.length,
                                             scrollDirection: Axis.vertical,
                                             itemBuilder: (context, index) {
-                                              final food =
-                                                  foodItems[index];
+                                              final food = foodItems[index];
                                               final img = food["image"];
                                               final name = food["name"];
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:foodivoire/presentation/select_lang.dart';
+import 'package:foodivoire/src/feature/language/presentation/views/select_lang.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
 

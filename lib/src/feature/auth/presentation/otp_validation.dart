@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/home.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../language/presentation/provider/lang_provider.dart';
 
 class OTPValidationView extends StatelessWidget {
   const OTPValidationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
@@ -30,9 +34,11 @@ class OTPValidationView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const Center(
+            Center(
                 child: Text(
-              'Please enter the code sent by SMS to\nphone number',
+              languageProvider.isEnglish
+                  ? 'Please enter the code sent by SMS to\nphone number'
+                  : 'Veuillez saisir le code envoyé par SMS au\ntelephone',
               textAlign: TextAlign.center,
             )),
             const SizedBox(height: 20),
@@ -59,23 +65,27 @@ class OTPValidationView extends StatelessWidget {
                 ));
               },
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(green),
-                  foregroundColor: MaterialStateProperty.all(Colors.white),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)))),
-              child: const Text('Next'),
+                backgroundColor: MaterialStateProperty.all(green),
+                foregroundColor: MaterialStateProperty.all(Colors.white),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+              ),
+              child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {
-                
-              },
+              onPressed: () {},
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(grey),
                   foregroundColor: MaterialStateProperty.all(Colors.white),
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5)))),
-              child: const Text('Send another code'),
+              child: Text(languageProvider.isEnglish
+                  ? 'Send another code'
+                  : 'Envoyer un autre code'),
             ),
           ],
         ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
+import 'package:provider/provider.dart';
 
 class OrderView extends StatefulWidget {
   const OrderView({super.key});
@@ -44,9 +46,10 @@ class _OrderViewState extends State<OrderView> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -66,56 +69,61 @@ class _OrderViewState extends State<OrderView> {
               style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
             ),
             SizedBox(
-                      height: MediaQuery.sizeOf(context).height * .02,
-                    ),
+              height: MediaQuery.sizeOf(context).height * .02,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Vendeur :",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    Text(
+                      languageProvider.isEnglish ? 'Vendor' : "Vendeur :",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: MediaQuery.sizeOf(context).height * .02,
                     ),
-                    const Text(
-                      "Quantité :",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    Text(
+                      languageProvider.isEnglish ? 'Quantity :' : "Quantité :",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: MediaQuery.sizeOf(context).height * .02,
                     ),
-                    const Text(
-                      "Suplément :",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    Text(
+                      languageProvider.isEnglish
+                          ? 'Supplement :'
+                          : "Suplément :",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: MediaQuery.sizeOf(context).height * .02,
                     ),
-                    const Text(
-                      "Prix :",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    Text(
+                      languageProvider.isEnglish ? 'Price :' : "Prix :",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: MediaQuery.sizeOf(context).height * .02,
                     ),
-                    const Text(
-                      "Temps de cuisson :",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    Text(
+                      languageProvider.isEnglish
+                          ? 'Cooking time :'
+                          : "Temps de cuisson :",
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                     SizedBox(
                       height: MediaQuery.sizeOf(context).height * .02,
                     ),
-                    const Text("Livraison :",
-                        style: TextStyle(
+                    Text(
+                        languageProvider.isEnglish ? "Delivery" : "Livraison :",
+                        style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         )),
@@ -277,26 +285,26 @@ class _OrderViewState extends State<OrderView> {
                   Text(option),
                 ],
               ),
-              SizedBox(
-              height: MediaQuery.sizeOf(context).height * .04,
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height * .03,
             ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    onPressed: (){},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(green)
-                    ),
-                    child: const Text("VALIDER"),),
-                    const Text("SUR PLACE",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: green,
-                        fontWeight: FontWeight.w500
-                      ),)
-                ],
-              )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(green)),
+                  child:
+                      Text(languageProvider.isEnglish ? 'CONFIRM' : "VALIDER"),
+                ),
+                Text(
+                  languageProvider.isEnglish ? "ON PLACE" : "SUR PLACE",
+                  style: const TextStyle(
+                      fontSize: 15, color: green, fontWeight: FontWeight.w500),
+                )
+              ],
+            )
           ],
         ),
       ),

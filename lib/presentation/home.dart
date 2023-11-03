@@ -3,6 +3,9 @@ import 'package:foodivoire/presentation/food_detail.dart';
 import 'package:foodivoire/presentation/vendor_detail.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
+import 'package:provider/provider.dart';
+
+import '../src/feature/language/presentation/provider/lang_provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -17,6 +20,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
@@ -62,20 +66,23 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
-            const Text(
+             Text(
+              languageProvider.isEnglish?"enjoy an unforgettable gastronomic experience in côte D'ivoire":
               "vivez une expeience gastronomique inoubliable en côte D’ivoire",
               textAlign: TextAlign.center,
             ),
-            const Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
+                  languageProvider.isEnglish?"Popular food":
                   "Nouriture populaire",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 Text(
+                  languageProvider.isEnglish?"All":
                   "Tout",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -118,7 +125,7 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
-            const Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -128,6 +135,7 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 Text(
+                  languageProvider.isEnglish?'All':
                   "Tout",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -166,16 +174,18 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
-            const Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
+                  languageProvider.isEnglish?'Popular vendors':
                   "Vendeurs populaires",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 Text(
+                  languageProvider.isEnglish?'All':
                   "Tout",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,

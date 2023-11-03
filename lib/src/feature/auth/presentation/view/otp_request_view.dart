@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:foodivoire/src/feature/auth/presentation/otp_validation.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../../../language/presentation/provider/lang_provider.dart';
 
 class OTPRequestView extends StatelessWidget {
   const OTPRequestView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
       backgroundColor: white,
       appBar: AppBar(
@@ -32,7 +36,10 @@ class OTPRequestView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const Center(child: Text('Enter your phone number')),
+            Center(
+                child: Text(languageProvider.isEnglish
+                    ? 'Enter your phone number'
+                    : 'Saisissez votre numéro de telephone')),
             const SizedBox(height: 20),
             Container(
               height: 50,
@@ -61,9 +68,7 @@ class OTPRequestView extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       decoration: InputDecoration(
-                          isDense: true,
-                          hintText: 'Phone number',
-                          border: InputBorder.none),
+                          isDense: true, border: InputBorder.none),
                       keyboardType: TextInputType.phone,
                       // Add necessary logic to capture the entered phone number
                     ),
@@ -87,7 +92,7 @@ class OTPRequestView extends StatelessWidget {
                   ),
                 ),
               ),
-              child: const Text('Next'),
+              child:  Text(languageProvider.isEnglish?'Next':'Suivant'),
             ),
           ],
         ),

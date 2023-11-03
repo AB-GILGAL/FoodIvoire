@@ -4,7 +4,10 @@ import 'package:foodivoire/presentation/order.dart';
 import 'package:foodivoire/presentation/vendor_detail.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
+import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
+
+import '../src/feature/language/presentation/provider/lang_provider.dart';
 
 class FoodDetailView extends StatefulWidget {
   const FoodDetailView({super.key});
@@ -21,6 +24,7 @@ class _FoodDetailViewState extends State<FoodDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -110,17 +114,17 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                             children: [
                               SizedBox(
                                 height: MediaQuery.sizeOf(context).height * .03,
-                                child: const TabBar(
+                                child:  TabBar(
                                     labelColor: green,
                                     unselectedLabelColor: grey,
                                     indicatorColor: green,
                                     indicatorSize: TabBarIndicatorSize.label,
                                     tabs: [
                                       Tab(
-                                        text: "DETAILS",
+                                        text:"DETAILS",
                                       ),
                                       Tab(
-                                        text: "COMMENTAIRE",
+                                        text:languageProvider.isEnglish?'COMMENT':  "COMMENTAIRE",
                                       ),
                                     ]),
                               ),
@@ -164,9 +168,9 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                                                 },
                                               ));
                                             },
-                                            child: const Text(
-                                              "SAVOIR +",
-                                              style: TextStyle(
+                                            child:  Text(
+                                             languageProvider.isEnglish?'ORDER': "SAVOIR +",
+                                              style:const TextStyle(
                                                   color: green,
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w500),
