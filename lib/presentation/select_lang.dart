@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/welcome.dart';
-import 'package:foodivoire/shared/utils/colors.dart';
-import 'package:foodivoire/shared/utils/images.dart';
+import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/utils/images.dart';
 
 class SelectLanguage extends StatefulWidget {
   const SelectLanguage({super.key});
