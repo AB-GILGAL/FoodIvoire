@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodivoire/src/feature/auth/presentation/view/user_info_view.dart';
+import 'package:foodivoire/presentation/home.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 
 class OTPValidationView extends StatelessWidget {
@@ -8,7 +8,10 @@ class OTPValidationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: white,
         automaticallyImplyLeading: true,
       ),
       body: SingleChildScrollView(
@@ -50,7 +53,11 @@ class OTPValidationView extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const HomeView(),
+                ));
+              },
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(green),
                   foregroundColor: MaterialStateProperty.all(Colors.white),
@@ -61,9 +68,7 @@ class OTPValidationView extends StatelessWidget {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const UserInfoView(),
-                ));
+                
               },
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(grey),
