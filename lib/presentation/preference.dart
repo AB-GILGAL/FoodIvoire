@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -26,18 +27,18 @@ class PreferencePage extends StatelessWidget {
                 languageProvider.isEnglish
                     ? 'Select your preferences and allegories'
                     : 'Sélectionné vos préfences et allegires',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               _buildDescription(
-                  "💖${languageProvider.isEnglish ? 'Preferences' : 'Préferences'}"),
-              _buildStaggeredGrid(9), // Preference Builder
+                  "💖 ${languageProvider.isEnglish ? 'Preferences' : 'Préferences'}"),
+              _buildStaggeredGrid(9, 'Allergy'), // Preference Builder
               _buildDescription(
-                  "🚫${languageProvider.isEnglish ? 'Allergies' : 'Allégires'}"),
-              _buildStaggeredGrid(9), // Allergies Builder
+                  "🚫 ${languageProvider.isEnglish ? 'Allergies' : 'Allégires'}"),
+              _buildStaggeredGrid(9, 'Preference'), // Allergies Builder
               SizedBox(
                 width: MediaQuery.sizeOf(context).width,
                 child: ElevatedButton(
@@ -77,7 +78,7 @@ class PreferencePage extends StatelessWidget {
     );
   }
 
-  Widget _buildStaggeredGrid(int itemCount) {
+  Widget _buildStaggeredGrid(int itemCount, String label) {
     return StaggeredGridView.countBuilder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -92,16 +93,26 @@ class PreferencePage extends StatelessWidget {
         // Build your grid items here
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            // color: orange,
-            padding: const EdgeInsets.all(10),
-            decoration: ShapeDecoration(
-              color: grey,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
-            ),
-            child: Center(
-              child: Text('Item $index'), // Example: Text widget as child
+          child: Flexible(
+            child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(10),
+              decoration: ShapeDecoration(
+                color: grey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Text(
+                index == 0
+                    ? 'spice'
+                    : index == 1
+                        ? 'rice'
+                        : index == 2
+                            ? 'medium-spicy'
+                            : '$label $index',
+                maxLines: 1,
+              ),
             ),
           ),
         );
