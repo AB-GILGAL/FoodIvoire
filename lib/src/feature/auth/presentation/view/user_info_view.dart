@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/src/feature/auth/presentation/view/preference.dart';
-import 'package:foodivoire/src/feature/auth/presentation/otp_validation.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:provider/provider.dart';
 

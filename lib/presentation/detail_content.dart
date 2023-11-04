@@ -45,7 +45,7 @@ class _DetailViewState extends State<DetailView> {
                     isSelected1 = index;
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return VendorDetailView();
+                        return const VendorDetailView();
                       },
                     ));
                   });

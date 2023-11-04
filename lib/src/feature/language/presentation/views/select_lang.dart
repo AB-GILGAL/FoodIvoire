@@ -34,7 +34,7 @@ class SelectLanguage extends StatelessWidget {
                 languageProvider.isEnglish
                     ? "Choose your language"
                     : "Choisissez -votre langue",
-                style: TextStyle(fontSize: 20.6),
+                style: const TextStyle(fontSize: 20.6),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,

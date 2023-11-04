@@ -29,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: white,
         elevation: 0,
       ),
-      drawer: DrawerView(),
+      drawer: const DrawerView(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
@@ -79,13 +79,13 @@ class _HomeViewState extends State<HomeView> {
                   languageProvider.isEnglish
                       ? "Popular food"
                       : "Nouriture populaire",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 Text(
                   languageProvider.isEnglish ? "All" : "Tout",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
                 )
@@ -130,7 +130,7 @@ class _HomeViewState extends State<HomeView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Suggestion",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -138,7 +138,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 Text(
                   languageProvider.isEnglish ? 'All' : "Tout",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
                 )
@@ -182,13 +182,13 @@ class _HomeViewState extends State<HomeView> {
                   languageProvider.isEnglish
                       ? 'Popular vendors'
                       : "Vendeurs populaires",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 Text(
                   languageProvider.isEnglish ? 'All' : "Tout",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
                 )
@@ -221,7 +221,7 @@ class _HomeViewState extends State<HomeView> {
                           isSelected1 = index;
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
-                              return VendorDetailView();
+                              return const VendorDetailView();
                             },
                           ));
                         });

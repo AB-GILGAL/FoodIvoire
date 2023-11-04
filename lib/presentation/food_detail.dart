@@ -120,7 +120,7 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                                     indicatorColor: green,
                                     indicatorSize: TabBarIndicatorSize.label,
                                     tabs: [
-                                      Tab(
+                                      const Tab(
                                         text: "DETAILS",
                                       ),
                                       Tab(
