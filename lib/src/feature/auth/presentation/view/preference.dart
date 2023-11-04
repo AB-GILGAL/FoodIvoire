@@ -1,10 +1,10 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:foodivoire/presentation/home.dart';
 import 'package:provider/provider.dart';
 
-import '../src/feature/language/presentation/provider/lang_provider.dart';
-import '../src/shared/utils/colors.dart';
+import '../../../language/presentation/provider/lang_provider.dart';
+import '../../../../shared/constant/colors.dart';
 
 class PreferencePage extends StatelessWidget {
   const PreferencePage({super.key});
@@ -40,6 +40,9 @@ class PreferencePage extends StatelessWidget {
                   "🚫 ${languageProvider.isEnglish ? 'Allergies' : 'Allégires'}"),
               _buildStaggeredGrid(9, 'Preference'), // Allergies Builder
               SizedBox(
+                height: MediaQuery.sizeOf(context).width * 0.1,
+              ),
+              SizedBox(
                 width: MediaQuery.sizeOf(context).width,
                 child: ElevatedButton(
                   style: ButtonStyle(
@@ -51,7 +54,11 @@ class PreferencePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const HomeView(),
+                    ));
+                  },
                   child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
                 ),
               )
@@ -79,44 +86,27 @@ class PreferencePage extends StatelessWidget {
   }
 
   Widget _buildStaggeredGrid(int itemCount, String label) {
-    return StaggeredGridView.countBuilder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      // gridDelegate: SliverStaggeredGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 3,
-      staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
-      mainAxisSpacing: 4.0,
-      crossAxisSpacing: 4.0,
-      // ),
-      itemCount: itemCount,
-      itemBuilder: (BuildContext context, int index) {
-        // Build your grid items here
-        return Padding(
+    return Wrap(
+      children: List.generate(
+        itemCount,
+        (index) => Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Flexible(
-            child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(10),
-              decoration: ShapeDecoration(
-                color: grey,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: Text(
-                index == 0
-                    ? 'spice'
-                    : index == 1
-                        ? 'rice'
-                        : index == 2
-                            ? 'medium-spicy'
-                            : '$label $index',
-                maxLines: 1,
-              ),
+          child: Chip(
+            padding: const EdgeInsets.all(10),
+            backgroundColor: grey,
+            side: const BorderSide(color: grey),
+            label: Text(
+              index == 0
+                  ? 'spice'
+                  : index == 1
+                      ? 'rice'
+                      : index == 2
+                          ? 'medium-spicy'
+                          : '$label $index',
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

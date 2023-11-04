@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:foodivoire/src/feature/auth/presentation/view/otp_request_view.dart';
-import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +19,7 @@ class WelcomeView extends StatelessWidget {
             height: MediaQuery.sizeOf(context).height * 1,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(CustomeImages.foodivuah),
-                  fit: BoxFit.cover),
+                  image: AssetImage(CustomImages.foodivuah), fit: BoxFit.cover),
             ),
             child: BackdropFilter(
                 filter: ImageFilter.blur(
@@ -35,7 +34,7 @@ class WelcomeView extends StatelessWidget {
                       CircleAvatar(
                         radius: 100,
                         backgroundColor: lightGreen,
-                        backgroundImage: AssetImage(CustomeImages.foood),
+                        backgroundImage: AssetImage(CustomImages.foood),
                       ),
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * 0.02,
@@ -43,31 +42,32 @@ class WelcomeView extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                         RichText(
-  text: TextSpan(
-    children: [
-      TextSpan(
-        text: languageProvider.isEnglish ? "Welcome to " : "Akwaba sur ",
-        style: const TextStyle(
-          fontSize: 20.6,
-          color: white,
-          fontWeight: FontWeight.w600,
-          backgroundColor: Colors.black54,
-        ),
-      ),
-      const TextSpan(
-        text: "FOOD IVOIRE",
-        style: TextStyle(
-          fontSize: 20.6,
-          color: orange,
-          fontWeight: FontWeight.w600,
-          backgroundColor: Colors.black54,
-        ),
-      ),
-    ],
-  ),
-),
-
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: languageProvider.isEnglish
+                                      ? "Welcome to "
+                                      : "Akwaba sur ",
+                                  style: const TextStyle(
+                                    fontSize: 20.6,
+                                    color: white,
+                                    fontWeight: FontWeight.w600,
+                                    backgroundColor: Colors.black54,
+                                  ),
+                                ),
+                                const TextSpan(
+                                  text: "FOOD IVOIRE",
+                                  style: TextStyle(
+                                    fontSize: 20.6,
+                                    color: orange,
+                                    fontWeight: FontWeight.w600,
+                                    backgroundColor: Colors.black54,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(

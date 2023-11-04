@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/welcome.dart';
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
-import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,7 @@ class SelectLanguage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.15,
                 child: Image(
                   fit: BoxFit.cover,
-                  image: AssetImage(CustomeImages.log),
+                  image: AssetImage(CustomImages.log),
                 ),
               ),
               SizedBox(

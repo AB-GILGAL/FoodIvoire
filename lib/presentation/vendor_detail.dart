@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/food_detail.dart';
 import 'package:foodivoire/presentation/home.dart';
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
-import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
@@ -31,7 +31,7 @@ class _VendorDetailViewState extends State<VendorDetailView> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                  image: AssetImage(CustomeImages.vndr), fit: BoxFit.cover),
+                  image: AssetImage(CustomImages.vndr), fit: BoxFit.cover),
             ),
           ),
           Column(

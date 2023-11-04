@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/drawer.dart';
 import 'package:foodivoire/presentation/food_detail.dart';
 import 'package:foodivoire/presentation/vendor_detail.dart';
-import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
 
@@ -26,10 +26,9 @@ class _HomeViewState extends State<HomeView> {
       backgroundColor: white,
       appBar: AppBar(
         foregroundColor: black,
-          backgroundColor: white,
-          elevation: 0,
+        backgroundColor: white,
+        elevation: 0,
       ),
-          
       drawer: DrawerView(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -60,31 +59,32 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * .06,
-                  child: Image.asset(CustomeImages.filter),
+                  child: Image.asset(CustomImages.filter),
                 )
               ],
             ),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
-             Text(
-              languageProvider.isEnglish?"enjoy an unforgettable gastronomic experience in côte D'ivoire":
-              "vivez une expeience gastronomique inoubliable en côte D’ivoire",
+            Text(
+              languageProvider.isEnglish
+                  ? "enjoy an unforgettable gastronomic experience in côte D'ivoire"
+                  : "vivez une expeience gastronomique inoubliable en côte D’ivoire",
               textAlign: TextAlign.center,
             ),
-             Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  languageProvider.isEnglish?"Popular food":
-                  "Nouriture populaire",
+                  languageProvider.isEnglish
+                      ? "Popular food"
+                      : "Nouriture populaire",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 Text(
-                  languageProvider.isEnglish?"All":
-                  "Tout",
+                  languageProvider.isEnglish ? "All" : "Tout",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
@@ -127,7 +127,7 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
-             Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -137,8 +137,7 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 Text(
-                  languageProvider.isEnglish?'All':
-                  "Tout",
+                  languageProvider.isEnglish ? 'All' : "Tout",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
@@ -176,19 +175,19 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
-             Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  languageProvider.isEnglish?'Popular vendors':
-                  "Vendeurs populaires",
+                  languageProvider.isEnglish
+                      ? 'Popular vendors'
+                      : "Vendeurs populaires",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 Text(
-                  languageProvider.isEnglish?'All':
-                  "Tout",
+                  languageProvider.isEnglish ? 'All' : "Tout",
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                   ),
@@ -417,19 +416,19 @@ class FoodCard extends StatelessWidget {
 
 List<Map<String, dynamic>> foodItems = [
   {
-    "image": CustomeImages.fd,
+    "image": CustomImages.fd,
     "name": "Placali sauce Kopè",
     "origin": "Ivoirien",
     "reviews": 100
   },
   {
-    "image": CustomeImages.fd1,
+    "image": CustomImages.fd1,
     "name": "Aloco poulet",
     "origin": "Ivoirien",
     "reviews": 120
   },
   {
-    "image": CustomeImages.foodivuah,
+    "image": CustomImages.foodivuah,
     "name": "Foutou sauce Graine",
     "origin": "Ivoirien",
     "reviews": 90
@@ -437,7 +436,7 @@ List<Map<String, dynamic>> foodItems = [
 ];
 
 List<Map<String, dynamic>> popularVendors = [
-  {"image": CustomeImages.fd2, "name": "Miss Zahui", "distance": 5},
-  {"image": CustomeImages.fd3, "name": "I-Garba", "distance": 12},
-  {"image": CustomeImages.fd, "name": "Foutou Graine", "distance": 10}
+  {"image": CustomImages.fd2, "name": "Miss Zahui", "distance": 5},
+  {"image": CustomImages.fd3, "name": "I-Garba", "distance": 12},
+  {"image": CustomImages.fd, "name": "Foutou Graine", "distance": 10}
 ];

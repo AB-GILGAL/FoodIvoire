@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/home.dart';
 import 'package:foodivoire/presentation/order.dart';
 import 'package:foodivoire/presentation/vendor_detail.dart';
-import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
@@ -33,7 +33,7 @@ class _FoodDetailViewState extends State<FoodDetailView> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                  image: AssetImage(CustomeImages.fd1), fit: BoxFit.cover),
+                  image: AssetImage(CustomImages.fd1), fit: BoxFit.cover),
             ),
           ),
           Column(
@@ -114,17 +114,19 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                             children: [
                               SizedBox(
                                 height: MediaQuery.sizeOf(context).height * .03,
-                                child:  TabBar(
+                                child: TabBar(
                                     labelColor: green,
                                     unselectedLabelColor: grey,
                                     indicatorColor: green,
                                     indicatorSize: TabBarIndicatorSize.label,
                                     tabs: [
                                       Tab(
-                                        text:"DETAILS",
+                                        text: "DETAILS",
                                       ),
                                       Tab(
-                                        text:languageProvider.isEnglish?'COMMENT':  "COMMENTAIRE",
+                                        text: languageProvider.isEnglish
+                                            ? 'COMMENT'
+                                            : "COMMENTAIRE",
                                       ),
                                     ]),
                               ),
@@ -168,9 +170,11 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                                                 },
                                               ));
                                             },
-                                            child:  Text(
-                                             languageProvider.isEnglish?'ORDER': "SAVOIR +",
-                                              style:const TextStyle(
+                                            child: Text(
+                                              languageProvider.isEnglish
+                                                  ? 'ORDER'
+                                                  : "SAVOIR +",
+                                              style: const TextStyle(
                                                   color: green,
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.w500),

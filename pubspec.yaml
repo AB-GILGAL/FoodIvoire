@@ -28,3 +28,9 @@ flutter:
 
   assets:
     - assets/images/
+    
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: font\Inter-VariableFont_slnt,wght.ttf
+

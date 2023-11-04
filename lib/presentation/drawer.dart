@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/constant/colors.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({super.key});

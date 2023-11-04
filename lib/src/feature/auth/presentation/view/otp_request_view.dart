@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:foodivoire/src/feature/auth/presentation/otp_validation.dart';
-import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../../language/presentation/provider/lang_provider.dart';

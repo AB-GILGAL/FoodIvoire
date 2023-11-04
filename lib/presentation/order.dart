@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
-import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
 
@@ -59,7 +59,7 @@ class _OrderViewState extends State<OrderView> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   image: DecorationImage(
-                      image: AssetImage(CustomeImages.fd1), fit: BoxFit.cover)),
+                      image: AssetImage(CustomImages.fd1), fit: BoxFit.cover)),
             ),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,

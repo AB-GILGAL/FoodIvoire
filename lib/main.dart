@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodivoire/splash.dart';
+import 'package:foodivoire/src/config/theme/light_theme.dart';
+import 'package:foodivoire/src/splash.dart';
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,9 +19,9 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider<LanguageProvider>(
       create: (context) => LanguageProvider()..initPrefs(),)
       ],
-      child: const MaterialApp(
-        
-        home: SplashView()
+      child:  MaterialApp(
+        theme: LightTheme.themeData(),
+        home:const SplashView()
       ),
     );
   }

@@ -1,4 +1,4 @@
-class CustomeImages {
+class CustomImages {
   static String lgo = "assets/images/lgo.png";
   static String log = "assets/images/log.png";
   static String foodivuah = "assets/images/foodivuah.jpg";
@@ -16,11 +16,4 @@ class CustomeImages {
   static String fd2 = "assets/images/fd2.png";
   static String fd3 = "assets/images/fd3.png";
   static String vndr = "assets/images/vndr.png";
-
-
-
-
-
-
-
 }

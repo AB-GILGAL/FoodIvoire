@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/home.dart';
 import 'package:foodivoire/src/feature/auth/presentation/view/user_info_view.dart';
-import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../language/presentation/provider/lang_provider.dart';
