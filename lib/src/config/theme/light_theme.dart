@@ -12,6 +12,13 @@ class LightTheme {
       scaffoldBackgroundColor: white,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
+          textStyle: MaterialStateProperty.all(
+            const TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           shape: MaterialStateProperty.all(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
           backgroundColor: MaterialStateProperty.all(green),

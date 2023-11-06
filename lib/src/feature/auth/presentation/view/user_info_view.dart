@@ -12,29 +12,29 @@ class UserInfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Center(
+            Center(
               child: Text(
                 'Food Ivoire',
-                style: TextStyle(
-                  fontSize: 28,
-                  color: green,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(color: green),
               ),
             ),
             const SizedBox(height: 20),
             Center(
-                child: Text(languageProvider.isEnglish
-                    ? 'Please enter your details'
-                    : 'Veuillez saisir vos informations')),
+                child: Text(
+              languageProvider.isEnglish
+                  ? 'Please enter your details'
+                  : 'Veuillez saisir vos informations',
+              style: Theme.of(context).textTheme.bodyMedium,
+            )),
             const SizedBox(height: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +53,7 @@ class UserInfoView extends StatelessWidget {
                     decoration: InputDecoration(
                         isDense: true, border: InputBorder.none),
                     keyboardType: TextInputType.name,
-                    // Add necessary logic to capture the entered phone number
+                    
                   ),
                 ),
               ],
@@ -85,7 +85,7 @@ class UserInfoView extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>  const PreferencePage(),
+                  builder: (context) => const PreferencePage(),
                 ));
               },
               style: ButtonStyle(

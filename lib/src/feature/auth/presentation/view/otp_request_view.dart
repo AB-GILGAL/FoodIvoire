@@ -13,13 +13,7 @@ class OTPRequestView extends StatelessWidget {
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
-      backgroundColor: white,
-      appBar: AppBar(
-        foregroundColor: black,
-        elevation: 0,
-        backgroundColor: white,
-        automaticallyImplyLeading: true,
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -37,9 +31,12 @@ class OTPRequestView extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Center(
-                child: Text(languageProvider.isEnglish
-                    ? 'Enter your phone number'
-                    : 'Saisissez votre numéro de telephone')),
+                child: Text(
+              languageProvider.isEnglish
+                  ? 'Enter your phone number'
+                  : 'Saisissez votre numéro de telephone',
+              style: Theme.of(context).textTheme.bodyMedium,
+            )),
             const SizedBox(height: 20),
             Container(
               height: 50,
@@ -92,7 +89,7 @@ class OTPRequestView extends StatelessWidget {
                   ),
                 ),
               ),
-              child:  Text(languageProvider.isEnglish?'Next':'Suivant'),
+              child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
             ),
           ],
         ),

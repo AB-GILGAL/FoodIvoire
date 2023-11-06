@@ -12,25 +12,19 @@ class OTPValidationView extends StatelessWidget {
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
-      backgroundColor: white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: white,
-        automaticallyImplyLeading: true,
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Center(
+            Center(
               child: Text(
                 'Food Ivoire',
-                style: TextStyle(
-                  fontSize: 28,
-                  color: green,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge!
+                    .copyWith(color: green),
               ),
             ),
             const SizedBox(height: 20),
@@ -40,6 +34,7 @@ class OTPValidationView extends StatelessWidget {
                   ? 'Please enter the code sent by SMS to\nphone number'
                   : 'Veuillez saisir le code envoyé par SMS au\ntelephone',
               textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
             )),
             const SizedBox(height: 20),
             Container(
