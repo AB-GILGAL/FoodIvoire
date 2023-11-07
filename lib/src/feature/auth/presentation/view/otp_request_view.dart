@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:foodivoire/src/feature/auth/presentation/otp_validation.dart';
+import 'package:foodivoire/src/feature/auth/presentation/view/otp_validation.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -37,9 +37,15 @@ class OTPRequestView extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Center(
-                child: Text(languageProvider.isEnglish
-                    ? 'Enter your phone number'
-                    : 'Saisissez votre numéro de telephone')),
+                child: Text(
+              languageProvider.isEnglish
+                  ? 'Enter your phone number'
+                  : 'Saisissez votre numéro de telephone',
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+              ),
+            )),
             const SizedBox(height: 20),
             Container(
               height: 50,
@@ -92,7 +98,15 @@ class OTPRequestView extends StatelessWidget {
                   ),
                 ),
               ),
-              child:  Text(languageProvider.isEnglish?'Next':'Suivant'),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  languageProvider.isEnglish ? 'Next' : 'Suivant',
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

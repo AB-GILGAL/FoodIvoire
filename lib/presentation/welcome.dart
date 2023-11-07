@@ -49,18 +49,18 @@ class WelcomeView extends StatelessWidget {
       TextSpan(
         text: languageProvider.isEnglish ? "Welcome to " : "Akwaba sur ",
         style: const TextStyle(
-          fontSize: 20.6,
+          fontSize: 20,
           color: white,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.bold,
           backgroundColor: Colors.black54,
         ),
       ),
       const TextSpan(
         text: "FOOD IVOIRE",
         style: TextStyle(
-          fontSize: 20.6,
+          fontSize: 20,
           color: orange,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.bold,
           backgroundColor: Colors.black54,
         ),
       ),
@@ -84,11 +84,11 @@ class WelcomeView extends StatelessWidget {
                                 ? "Welcome to our app dedicated to promoting Ivorian gastronomy during the CAN! Discover the best local dishes, find nearby restaurants and share your opinions."
                                 : "Bienvenue sur notre application dédiée à la promotion de la gastronomie ivoirienne pendant la CAN ! Découvrez les meilleurs plats locaux, trouvez des restaurants à proximité et partagez vos avis. ",
                             style: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 15,
                                 color: white,
-                                fontWeight: FontWeight.w400,
                                 height: 1.5,
                                 letterSpacing: 2),
+                                textAlign: TextAlign.center,
                           ),
                         ),
                       ),
@@ -112,10 +112,13 @@ class WelcomeView extends StatelessWidget {
                                       borderRadius:
                                           BorderRadius.circular(30)))),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                             child: Text(languageProvider.isEnglish
                                 ? 'Get started'
-                                : "c’est parti!"),
+                                : "c’est parti!",
+                                style: TextStyle(
+                                  fontSize: 20
+                                ),),
                           ),
                         ),
                       ),

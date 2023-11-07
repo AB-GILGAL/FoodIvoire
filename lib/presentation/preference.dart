@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:foodivoire/presentation/home.dart';
 import 'package:provider/provider.dart';
 
 import '../src/feature/language/presentation/provider/lang_provider.dart';
@@ -34,24 +35,32 @@ class PreferencePage extends StatelessWidget {
               ),
               _buildDescription(
                   "💖${languageProvider.isEnglish ? 'Preferences' : 'Préferences'}"),
-              _buildStaggeredGrid(9), // Preference Builder
+              _buildStaggeredGrid(9,'Allergy'), // Preference Builder
               _buildDescription(
                   "🚫${languageProvider.isEnglish ? 'Allergies' : 'Allégires'}"),
-              _buildStaggeredGrid(9), // Allergies Builder
+              _buildStaggeredGrid(9,'Preference'), // Allergies Builder
               SizedBox(
-                width: MediaQuery.sizeOf(context).width,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(green),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              .1,
+                                        ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: SizedBox(
+                  width: MediaQuery.sizeOf(context).width,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(green),
+                      foregroundColor: MaterialStateProperty.all(Colors.white),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
                     ),
+                    onPressed: () {Navigator.of(context).push((MaterialPageRoute(builder: (context) => HomeView(),)));},
+                    child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
                   ),
-                  onPressed: () {},
-                  child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
                 ),
               )
             ],
@@ -77,7 +86,7 @@ class PreferencePage extends StatelessWidget {
     );
   }
 
-  Widget _buildStaggeredGrid(int itemCount) {
+  Widget _buildStaggeredGrid(int itemCount,String label) {
     return StaggeredGridView.countBuilder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -101,7 +110,7 @@ class PreferencePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8)),
             ),
             child: Center(
-              child: Text('Item $index'), // Example: Text widget as child
+              child: Text('$label ${index+1}'), // Example: Text widget as child
             ),
           ),
         );

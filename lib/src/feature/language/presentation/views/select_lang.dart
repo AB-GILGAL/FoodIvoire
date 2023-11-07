@@ -21,20 +21,20 @@ class SelectLanguage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.15,
+                height: MediaQuery.of(context).size.height * 0.18,
                 child: Image(
                   fit: BoxFit.cover,
                   image: AssetImage(CustomeImages.log),
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+                height: MediaQuery.of(context).size.height * 0.04,
               ),
               Text(
                 languageProvider.isEnglish
                     ? "Choose your language"
                     : "Choisissez -votre langue",
-                style: TextStyle(fontSize: 20.6),
+                style: const TextStyle(fontSize: 20),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
@@ -48,6 +48,7 @@ class SelectLanguage extends StatelessWidget {
                 ),
                 child: Center(
                   child: DropdownButton<String>(
+                    underline: Container(),
                     iconEnabledColor: white,
                     style: const TextStyle(
                       color: white,
@@ -76,7 +77,7 @@ class SelectLanguage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.02,
+                height: MediaQuery.of(context).size.height * 0.04,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 60),
@@ -98,8 +99,11 @@ class SelectLanguage extends StatelessWidget {
                     )),
                   ),
                   child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("Continue"),
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child: Text("Continue",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),),
                   ),
                 ),
               )

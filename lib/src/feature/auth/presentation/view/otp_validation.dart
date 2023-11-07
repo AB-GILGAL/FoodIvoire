@@ -4,7 +4,7 @@ import 'package:foodivoire/src/feature/auth/presentation/view/user_info_view.dar
 import 'package:foodivoire/src/shared/utils/colors.dart';
 import 'package:provider/provider.dart';
 
-import '../../language/presentation/provider/lang_provider.dart';
+import '../../../language/presentation/provider/lang_provider.dart';
 
 class OTPValidationView extends StatelessWidget {
   const OTPValidationView({Key? key}) : super(key: key);

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:foodivoire/src/shared/utils/colors.dart';
+import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
+import 'package:provider/provider.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Drawer(
       width: MediaQuery.sizeOf(context).width * .8,
       child: Padding(
@@ -72,8 +74,11 @@ class DrawerView extends StatelessWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.shopping_cart_outlined, size: 25),
-                    title: const Text('Mes commandes',
-                        style: TextStyle(fontSize: 17)),
+                    title: Text(
+                        languageProvider.isEnglish
+                            ? 'My orders'
+                            : 'Mes commandes',
+                        style: const TextStyle(fontSize: 17)),
                     onTap: () {},
                   ),
                   ListTile(
@@ -95,14 +100,18 @@ class DrawerView extends StatelessWidget {
                   ),
                   ListTile(
                     leading: const Icon(Icons.event, size: 25),
-                    title:
-                        const Text('Evenement', style: TextStyle(fontSize: 17)),
+                    title: Text(
+                        languageProvider.isEnglish ? 'Event' : 'Evenement',
+                        style: const TextStyle(fontSize: 17)),
                     onTap: () {},
                   ),
                   ListTile(
                     leading: const Icon(Icons.contacts_outlined, size: 20),
-                    title: const Text('Nous contactez',
-                        style: TextStyle(fontSize: 17)),
+                    title: Text(
+                        languageProvider.isEnglish
+                            ? 'Contact us'
+                            : 'Nous contactez',
+                        style: const TextStyle(fontSize: 17)),
                     onTap: () {},
                   ),
                   // ListTile(
@@ -131,9 +140,9 @@ class DrawerView extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * .02,
                 ),
-                const Text(
-                  "Déconnection",
-                  style: TextStyle(
+                Text(
+                  languageProvider.isEnglish ? 'LogOut' : "Déconnection",
+                  style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w600,
                   ),

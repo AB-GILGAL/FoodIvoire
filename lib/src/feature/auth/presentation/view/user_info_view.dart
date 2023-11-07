@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/preference.dart';
-import 'package:foodivoire/src/feature/auth/presentation/otp_validation.dart';
+import 'package:foodivoire/src/feature/auth/presentation/view/otp_validation.dart';
 import 'package:foodivoire/src/shared/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -13,8 +13,12 @@ class UserInfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
+        elevation: 0,
+        foregroundColor: black,
         automaticallyImplyLeading: true,
+        backgroundColor: white,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
