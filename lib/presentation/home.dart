@@ -101,7 +101,7 @@ class _HomeViewState extends State<HomeView> {
               ],
             ),
             SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.28,
+                height: MediaQuery.sizeOf(context).height * 0.29,
                 child: ListView.separated(
                     separatorBuilder: (context, index) => SizedBox(
                           width: MediaQuery.sizeOf(context).width * 0.05,
@@ -154,7 +154,7 @@ class _HomeViewState extends State<HomeView> {
               ],
             ),
             SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.28,
+                height: MediaQuery.sizeOf(context).height * 0.29,
                 child: ListView.separated(
                     separatorBuilder: (context, index) => SizedBox(
                           width: MediaQuery.sizeOf(context).width * 0.05,
@@ -369,7 +369,7 @@ class FoodCard extends StatelessWidget {
                     blurRadius: 2,
                     spreadRadius: 2)
               ]),
-          width: MediaQuery.sizeOf(context).width * 0.6,
+          width: MediaQuery.sizeOf(context).width * 0.55,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(

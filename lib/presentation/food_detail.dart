@@ -83,7 +83,8 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
+                  child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * .05,

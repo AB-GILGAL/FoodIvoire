@@ -39,7 +39,7 @@ class PreferencePage extends StatelessWidget {
                   "🚫 ${languageProvider.isEnglish ? 'Allergies' : 'Allégires'}"),
               _buildStaggeredGrid(9, 'Preference'), // Allergies Builder
               SizedBox(
-                height: MediaQuery.sizeOf(context).width * 0.1,
+                height: MediaQuery.sizeOf(context).width * 0.05,
               ),
               SizedBox(
                 width: MediaQuery.sizeOf(context).width,
