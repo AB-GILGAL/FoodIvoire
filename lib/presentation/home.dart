@@ -39,28 +39,37 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 const Icon(
                   Icons.search,
-                  color: black,
+                  color: Colors.black,
                   size: 30,
                 ),
                 SizedBox(
-                  width: MediaQuery.sizeOf(context).width * .7,
+                  height: MediaQuery.of(context).size.height * .05,
+                  width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
+                    cursorHeight: 20,
+                    cursorColor: grey,
+                    style: const TextStyle(fontSize: 15),
                     decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.all(8.0).copyWith(left: 15),
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: const BorderSide(color: orange)),
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(color: orange),
+                        ),
                         fillColor: grey,
                         filled: true,
                         focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: const BorderSide(color: orange)),
-                        isDense: true),
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(color: orange),
+                        ),
+                        // isDense: true,
+                        isCollapsed: true),
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.sizeOf(context).width * .06,
+                  width: MediaQuery.of(context).size.width * 0.06,
                   child: Image.asset(CustomImages.filter),
-                )
+                ),
               ],
             ),
             SizedBox(
@@ -360,7 +369,7 @@ class FoodCard extends StatelessWidget {
                     blurRadius: 2,
                     spreadRadius: 2)
               ]),
-          width: MediaQuery.sizeOf(context).width * 0.7,
+          width: MediaQuery.sizeOf(context).width * 0.6,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
