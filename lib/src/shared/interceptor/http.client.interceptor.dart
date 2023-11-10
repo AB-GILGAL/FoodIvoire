@@ -183,6 +183,8 @@ Future<String> refreshAccessToken() async {
 setStorageLocator() {
   getIt.registerLazySingleton<FlutterSecureStorage>(
       () => const FlutterSecureStorage());
+  getIt.registerLazySingleton<HttpClientWithInterceptor>(
+      () => HttpClientWithInterceptor(http.Client()));
 }
 
-
+HttpClientWithInterceptor client = getIt<HttpClientWithInterceptor>();
