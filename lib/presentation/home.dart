@@ -47,7 +47,7 @@ class _HomeViewState extends State<HomeView> {
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextField(
                     cursorHeight: 20,
-                    cursorColor: grey,
+                    cursorColor: green,
                     style: const TextStyle(fontSize: 15),
                     decoration: InputDecoration(
                         contentPadding:
@@ -56,7 +56,7 @@ class _HomeViewState extends State<HomeView> {
                           borderRadius: BorderRadius.circular(20),
                           borderSide: const BorderSide(color: orange),
                         ),
-                        fillColor: grey,
+                        fillColor: lightGrey,
                         filled: true,
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -77,9 +77,12 @@ class _HomeViewState extends State<HomeView> {
             ),
             Text(
               languageProvider.isEnglish
-                  ? "enjoy an unforgettable gastronomic experience in côte D'ivoire"
+                  ? "Enjoy an unforgettable gastronomic experience in côte D'ivoire"
                   : "vivez une expeience gastronomique inoubliable en côte D’ivoire",
               textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height * .02,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,15 +91,11 @@ class _HomeViewState extends State<HomeView> {
                   languageProvider.isEnglish
                       ? "Popular food"
                       : "Nouriture populaire",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(context).textTheme.headlineMedium
                 ),
                 Text(
                   languageProvider.isEnglish ? "All" : "Tout",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold)
                 )
               ],
             ),
@@ -139,17 +138,13 @@ class _HomeViewState extends State<HomeView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                 Text(
                   "Suggestion",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(context).textTheme.headlineMedium
                 ),
                 Text(
                   languageProvider.isEnglish ? 'All' : "Tout",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold)
                 )
               ],
             ),
@@ -191,15 +186,11 @@ class _HomeViewState extends State<HomeView> {
                   languageProvider.isEnglish
                       ? 'Popular vendors'
                       : "Vendeurs populaires",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(context).textTheme.headlineMedium
                 ),
                 Text(
                   languageProvider.isEnglish ? 'All' : "Tout",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold)
                 )
               ],
             ),
@@ -384,7 +375,7 @@ class FoodCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.sizeOf(context).height * .012,
+                  height: MediaQuery.sizeOf(context).height * .01,
                 ),
                 Text(
                   name!,

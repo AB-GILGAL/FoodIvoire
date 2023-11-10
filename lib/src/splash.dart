@@ -28,7 +28,7 @@ class _SplashViewState extends State<SplashView>
 
     _animation = Tween<double>(
       begin: 0.1, // Start with a smaller size
-      end: 1.0, // Actual size
+      end: 2.0, // Actual size
     ).animate(_controller)
       ..addListener(() {
         setState(() {});

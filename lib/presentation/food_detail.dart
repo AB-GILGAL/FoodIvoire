@@ -45,23 +45,17 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const CircleAvatar(
-                            backgroundColor: Colors.black45,
-                            child: Center(child: Icon(Icons.arrow_back_ios)),
-                          ),
-                        ),
-                        const CircleAvatar(
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const CircleAvatar(
                           backgroundColor: Colors.black45,
-                          child: Center(child: Icon(Icons.share)),
+                          child: Center(child: Icon(Icons.arrow_back_ios, color: white,)),
                         ),
-                      ],
+                      ),
                     ),
                     SizedBox(
                       height: MediaQuery.sizeOf(context).height * .16,
@@ -87,17 +81,14 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       SizedBox(
-                        height: MediaQuery.sizeOf(context).height * .05,
+                        height: MediaQuery.sizeOf(context).height * .02,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Aloco poulet",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 24),
-                          ),
-                          Row(
+                          Text("Aloco poulet",
+                              style: Theme.of(context).textTheme.headlineLarge),
+                          const Row(
                             children: [
                               Icon(Icons.favorite_outline),
                               Text("100")
@@ -116,6 +107,10 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                               SizedBox(
                                 height: MediaQuery.sizeOf(context).height * .03,
                                 child: TabBar(
+                                    labelStyle: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .copyWith(fontSize: 15),
                                     labelColor: green,
                                     unselectedLabelColor: grey,
                                     indicatorColor: green,
@@ -143,22 +138,27 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                                                   .height *
                                               .01,
                                         ),
-                                        const Padding(
-                                          padding: EdgeInsets.only(right: 5),
-                                          child: ReadMoreText(
-                                            "Le plat de poulet avec aloco est une combinaison savoureuse de morceaux de poulet grillé ou rôti accompagnés de tranches de bananes plantains frites.",
-                                            trimLines: 4,
-                                            textAlign: TextAlign.justify,
-                                            trimMode: TrimMode.Line,
-                                            trimCollapsedText: "Read more",
-                                            trimExpandedText: "Show less",
-                                            lessStyle: TextStyle(
-                                                color: Colors.blue,
-                                                fontWeight: FontWeight.bold),
-                                            moreStyle: TextStyle(
-                                                color: Colors.blue,
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                        ReadMoreText(
+                                          "Le plat de poulet avec aloco est une combinaison savoureuse de morceaux de poulet grillé ou rôti accompagnés de tranches de bananes plantains frites.",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium,
+                                          trimLines: 4,
+                                          textAlign: TextAlign.justify,
+                                          trimMode: TrimMode.Line,
+                                          trimCollapsedText: "Read more",
+                                          trimExpandedText: "Show less",
+                                          lessStyle: const TextStyle(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold),
+                                          moreStyle: const TextStyle(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        SizedBox(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              .02,
                                         ),
                                         Align(
                                           alignment: Alignment.centerRight,
@@ -172,14 +172,13 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                                               ));
                                             },
                                             child: Text(
-                                              languageProvider.isEnglish
-                                                  ? 'ORDER'
-                                                  : "SAVOIR +",
-                                              style: const TextStyle(
-                                                  color: green,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.w500),
-                                            ),
+                                                languageProvider.isEnglish
+                                                    ? 'ORDER'
+                                                    : "SAVOIR",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineMedium!
+                                                    .copyWith(color: green, fontSize: 18)),
                                           ),
                                         ),
                                         SizedBox(
@@ -228,11 +227,21 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                                       ],
                                     ),
                                   ),
-                                  const SingleChildScrollView(
+                                  SingleChildScrollView(
                                     child: Column(
                                       children: [
-                                        Comments(),
-                                        Comments(),
+                                        SizedBox(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              .02,
+                                        ),
+                                        const Comments(),
+                                        SizedBox(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              .03,
+                                        ),
+                                        const Comments(),
                                       ],
                                     ),
                                   )

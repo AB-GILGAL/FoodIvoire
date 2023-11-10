@@ -43,23 +43,21 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const CircleAvatar(
-                            backgroundColor: Colors.black45,
-                            child: Center(child: Icon(Icons.arrow_back_ios)),
-                          ),
-                        ),
-                        const CircleAvatar(
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const CircleAvatar(
                           backgroundColor: Colors.black45,
-                          child: Center(child: Icon(Icons.share)),
+                          child: Center(
+                              child: Icon(
+                            Icons.arrow_back_ios,
+                            color: white,
+                          )),
                         ),
-                      ],
+                      ),
                     ),
                     SizedBox(
                       height: MediaQuery.sizeOf(context).height * .12,
@@ -84,7 +82,7 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.sizeOf(context).height * .04,
+                height: MediaQuery.sizeOf(context).height * .02,
               ),
               Container(
                 height: MediaQuery.sizeOf(context).height * .703,
@@ -102,15 +100,12 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * .05,
                       ),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Miss Zahui",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 24),
-                          ),
-                          Row(
+                          Text("Miss Zahui",
+                              style: Theme.of(context).textTheme.headlineLarge),
+                          const Row(
                             children: [
                               Icon(Icons.favorite_outline),
                               Text("100")
@@ -129,6 +124,10 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                               SizedBox(
                                 height: MediaQuery.sizeOf(context).height * .03,
                                 child: TabBar(
+                                    labelStyle: Theme.of(context)
+                                        .textTheme
+                                        .headlineMedium!
+                                        .copyWith(fontSize: 15),
                                     labelColor: green,
                                     unselectedLabelColor: grey,
                                     indicatorColor: green,
@@ -156,27 +155,27 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                                                   .height *
                                               .01,
                                         ),
-                                        const Padding(
-                                          padding: EdgeInsets.only(right: 5),
-                                          child: ReadMoreText(
-                                            "Resraurant specialise dans la nourriture africaine, Chez Miss Zahoui vous pourrez toujours deguster les meilleurs plats d'attieke poisson au monde. Du sosso au loss en passant par les carpes, nous vous offrons un large choix de poissons frais.",
-                                            trimLines: 4,
-                                            textAlign: TextAlign.justify,
-                                            trimMode: TrimMode.Line,
-                                            trimCollapsedText: "Read more",
-                                            trimExpandedText: "Show less",
-                                            lessStyle: TextStyle(
-                                                color: Colors.blue,
-                                                fontWeight: FontWeight.bold),
-                                            moreStyle: TextStyle(
-                                                color: Colors.blue,
-                                                fontWeight: FontWeight.bold),
-                                          ),
+                                        ReadMoreText(
+                                          "Resraurant specialise dans la nourriture africaine, Chez Miss Zahoui vous pourrez toujours deguster les meilleurs plats d'attieke poisson au monde. Du sosso au loss en passant par les carpes, nous vous offrons un large choix de poissons frais.",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium,
+                                          trimLines: 4,
+                                          textAlign: TextAlign.justify,
+                                          trimMode: TrimMode.Line,
+                                          trimCollapsedText: "Read more",
+                                          trimExpandedText: "Show less",
+                                          lessStyle: const TextStyle(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold),
+                                          moreStyle: const TextStyle(
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold),
                                         ),
                                         SizedBox(
                                           height: MediaQuery.sizeOf(context)
                                                   .height *
-                                              .04,
+                                              .03,
                                         ),
                                         ListView.separated(
                                             separatorBuilder: (context,
@@ -218,21 +217,32 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                                   SingleChildScrollView(
                                     child: Column(
                                       children: [
+                                        SizedBox(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              .02,
+                                        ),
                                         const Comments(),
+                                        SizedBox(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              .03,
+                                        ),
                                         const Comments(),
                                         SizedBox(
                                           height: MediaQuery.sizeOf(context)
                                                   .height *
                                               .04,
                                         ),
-                                        const Align(
+                                        Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
                                             "Autres",
-                                            style: TextStyle(
-                                                color: green,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headlineMedium!
+                                                .copyWith(
+                                                    color: green, fontSize: 18),
                                           ),
                                         ),
                                         ListView.separated(
@@ -308,9 +318,12 @@ class Comments extends StatelessWidget {
             SizedBox(
               width: MediaQuery.sizeOf(context).width * .1,
             ),
-            const Text(
+            Text(
               "Siaka",
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 17),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineMedium!
+                  .copyWith(fontSize: 17),
             )
           ],
         ),

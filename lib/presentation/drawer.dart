@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:share_plus/share_plus.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({super.key});
@@ -108,7 +109,8 @@ class DrawerView extends StatelessWidget {
                   //   leading: const Icon(Icons.share, size: 20),
                   //   title: const Text('Share',
                   //       style: TextStyle(fontSize: 17)),
-                  //   onTap: () {},
+                  //   onTap: ()async => await Share.share("Check out the amazing Food Delivery App."
+                  //   ),
                   // ),
                   SizedBox(
                     height: MediaQuery.sizeOf(context).height * .05,

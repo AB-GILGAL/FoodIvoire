@@ -30,10 +30,10 @@ class LightTheme {
           color: black,
           fontFamily: 'Inter',
           fontWeight: FontWeight.w700,
-          fontSize: 28,
+          fontSize: 25,
         ),
         headlineMedium: TextStyle(
-          fontSize: 24,
+          fontSize: 20,
           color: black,
           fontWeight: FontWeight.w700,
         ),
@@ -46,7 +46,7 @@ class LightTheme {
         ),
         bodyMedium: TextStyle(
           fontFamily: 'Inter',
-          fontSize: 14,
+          fontSize: 15,
           fontWeight: FontWeight.w500,
         ),
         bodySmall: TextStyle(

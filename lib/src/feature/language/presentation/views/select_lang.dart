@@ -48,6 +48,7 @@ class SelectLanguage extends StatelessWidget {
                 ),
                 child: Center(
                   child: DropdownButton<String>(
+                    underline: Container(),
                     iconEnabledColor: white,
                     style: const TextStyle(
                       color: white,
@@ -97,9 +98,9 @@ class SelectLanguage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     )),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("Continue"),
+                  child:  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Text(languageProvider.isEnglish ? "Continue" : "Continuer"),
                   ),
                 ),
               )
