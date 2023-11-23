@@ -10,9 +10,12 @@ import 'package:provider/provider.dart';
 
 void main() {
   setStorageLocator();
+  injectAuthDependencies();
   runApp(const MainApp());
 }
+
 final getIt = GetIt.instance;
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 

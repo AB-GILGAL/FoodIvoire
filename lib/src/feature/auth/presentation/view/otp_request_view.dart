@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:foodivoire/src/feature/auth/presentation/otp_validation.dart';
+import 'package:foodivoire/src/feature/auth/presentation/provider/auth_provider.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../../language/presentation/provider/lang_provider.dart';
 
-class OTPRequestView extends StatelessWidget {
+class OTPRequestView extends StatefulWidget {
   const OTPRequestView({Key? key}) : super(key: key);
 
+  @override
+  State<OTPRequestView> createState() => _OTPRequestViewState();
+}
+
+class _OTPRequestViewState extends State<OTPRequestView> {
+  final phoneController = TextEditingController();
+  String code = '';
   @override
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
@@ -46,24 +54,29 @@ class OTPRequestView extends StatelessWidget {
                 border: Border.all(width: 1.0, color: Colors.green),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Row(
+              child: Row(
                 children: [
                   CountryCodePicker(
-                    onChanged: print, // Handle country code selection
+                    onChanged: (newCode) {
+                      setState(() {
+                        code = newCode.dialCode!;
+                      });
+                    }, // Handle country code selection
                     initialSelection: 'GH', // Initial country code
-                    favorite: ['+1', 'US'], // Favorite country codes
+                    favorite: const ['+1', 'US'], // Favorite country codes
                     showFlagMain: false,
                     showCountryOnly: false,
-                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
                     showOnlyCountryWhenClosed: false,
                     alignLeft: false,
                   ),
-                  VerticalDivider(
+                  const VerticalDivider(
                     color: green,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: TextField(
+                      controller: phoneController,
                       decoration: InputDecoration(
                           isDense: true, border: InputBorder.none),
                       keyboardType: TextInputType.phone,
@@ -75,10 +88,19 @@ class OTPRequestView extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const OTPValidationView(),
-                ));
+              onPressed: () async {
+                await context
+                    .read<AuthProvider>()
+                    .requestOTP(code + phoneController.text)
+                    .then((value) {
+                  value.fold((failure) {
+                    print(failure.message);
+                  }, (success) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const OTPValidationView(),
+                    ));
+                  });
+                });
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(green),
