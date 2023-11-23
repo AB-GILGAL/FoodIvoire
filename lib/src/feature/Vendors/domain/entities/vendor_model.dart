@@ -1,23 +1,23 @@
 // To parse this JSON data, do
 //
-//     final vendorModel = vendorModelFromJson(jsonString);
+//     final restaurantModel = restaurantModelFromJson(jsonString);
 
 import 'dart:convert';
 
-VendorModel vendorModelFromJson(String str) => VendorModel.fromJson(json.decode(str));
+RestaurantModel restaurantModelFromJson(String str) => RestaurantModel.fromJson(json.decode(str));
 
-String vendorModelToJson(VendorModel data) => json.encode(data.toJson());
+String restaurantModelToJson(RestaurantModel data) => json.encode(data.toJson());
 
-class VendorModel {
+class RestaurantModel {
     Data data;
     bool status;
 
-    VendorModel({
+    RestaurantModel({
         required this.data,
         required this.status,
     });
 
-    factory VendorModel.fromJson(Map<String, dynamic> json) => VendorModel(
+    factory RestaurantModel.fromJson(Map<String, dynamic> json) => RestaurantModel(
         data: Data.fromJson(json["data"]),
         status: json["status"],
     );
@@ -30,7 +30,7 @@ class VendorModel {
 
 class Data {
     int count;
-    List<VendorDataModel> data;
+    List<RestaurantDataModel> data;
 
     Data({
         required this.count,
@@ -39,7 +39,7 @@ class Data {
 
     factory Data.fromJson(Map<String, dynamic> json) => Data(
         count: json["count"],
-        data: List<VendorDataModel>.from(json["data"].map((x) => VendorDataModel.fromJson(x))),
+        data: List<RestaurantDataModel>.from(json["data"].map((x) => RestaurantDataModel.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -48,48 +48,60 @@ class Data {
     };
 }
 
-class VendorDataModel {
+class RestaurantDataModel {
     int id;
     String name;
     String phone;
     String otherPhone;
-    String email;
     String location;
-    DateTime openHour;
-    DateTime closeHour;
+    double latitude;
+    double longitude;
+    String description;
+    String openHour;
+    String closeHour;
     String banner;
+    int rating;
+    dynamic comments;
+    List<Menu> menu;
     DateTime createdAt;
     DateTime updatedAt;
-    List<Menu>? menu;
 
-    VendorDataModel({
+    RestaurantDataModel({
         required this.id,
         required this.name,
         required this.phone,
         required this.otherPhone,
-        required this.email,
         required this.location,
+        required this.latitude,
+        required this.longitude,
+        required this.description,
         required this.openHour,
         required this.closeHour,
         required this.banner,
+        required this.rating,
+        required this.comments,
+        required this.menu,
         required this.createdAt,
         required this.updatedAt,
-        this.menu,
     });
 
-    factory VendorDataModel.fromJson(Map<String, dynamic> json) => VendorDataModel(
+    factory RestaurantDataModel.fromJson(Map<String, dynamic> json) => RestaurantDataModel(
         id: json["id"],
         name: json["name"],
         phone: json["phone"],
         otherPhone: json["otherPhone"],
-        email: json["email"],
         location: json["location"],
-        openHour: DateTime.parse(json["openHour"]),
-        closeHour: DateTime.parse(json["closeHour"]),
+        latitude: json["latitude"],
+        longitude: json["longitude"],
+        description: json["description"],
+        openHour: json["openHour"],
+        closeHour: json["closeHour"],
         banner: json["banner"],
+        rating: json["rating"],
+        comments: json["comments"],
+        menu: List<Menu>.from(json["menu"].map((x) => Menu.fromJson(x))),
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
-        menu: json["menu"] == null ? [] : List<Menu>.from(json["menu"]!.map((x) => Menu.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -97,14 +109,18 @@ class VendorDataModel {
         "name": name,
         "phone": phone,
         "otherPhone": otherPhone,
-        "email": email,
         "location": location,
-        "openHour": openHour.toIso8601String(),
-        "closeHour": closeHour.toIso8601String(),
+        "latitude": latitude,
+        "longitude": longitude,
+        "description": description,
+        "openHour": openHour,
+        "closeHour": closeHour,
         "banner": banner,
+        "rating": rating,
+        "comments": comments,
+        "menu": List<dynamic>.from(menu.map((x) => x.toJson())),
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
-        "menu": menu == null ? [] : List<dynamic>.from(menu!.map((x) => x.toJson())),
     };
 }
 
@@ -113,14 +129,28 @@ class Menu {
     String name;
     int price;
     String description;
+    String origin;
     String banner;
+    int like;
+    bool likeStatus;
+    dynamic comments;
+    dynamic restaurant;
+    dynamic preferences;
+    dynamic allergies;
 
     Menu({
         required this.id,
         required this.name,
         required this.price,
         required this.description,
+        required this.origin,
         required this.banner,
+        required this.like,
+        required this.likeStatus,
+        required this.comments,
+        required this.restaurant,
+        required this.preferences,
+        required this.allergies,
     });
 
     factory Menu.fromJson(Map<String, dynamic> json) => Menu(
@@ -128,7 +158,14 @@ class Menu {
         name: json["name"],
         price: json["price"],
         description: json["description"],
+        origin: json["origin"],
         banner: json["banner"],
+        like: json["like"],
+        likeStatus: json["likeStatus"],
+        comments: json["comments"],
+        restaurant: json["restaurant"],
+        preferences: json["preferences"],
+        allergies: json["allergies"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -136,6 +173,13 @@ class Menu {
         "name": name,
         "price": price,
         "description": description,
+        "origin": origin,
         "banner": banner,
+        "like": like,
+        "likeStatus": likeStatus,
+        "comments": comments,
+        "restaurant": restaurant,
+        "preferences": preferences,
+        "allergies": allergies,
     };
 }

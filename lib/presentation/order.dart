@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodivoire/presentation/delivery_map.dart';
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
@@ -304,7 +305,13 @@ class _OrderViewState extends State<OrderView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return  const MapScreen();
+                                },
+                              ));
+                    },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(green)),
                     child: Text(

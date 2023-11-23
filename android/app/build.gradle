@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.foodivoire"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -45,7 +45,7 @@ android {
         applicationId "com.example.foodivoire"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 20
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -66,5 +66,12 @@ flutter {
 }
 
 dependencies {
-    implementation 'com.android.support:multidex:2.0.1'
+    constraints {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
+        because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+    }
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
+        because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+    }
+}
 }

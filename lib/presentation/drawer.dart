@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 // import 'package:share_plus/share_plus.dart';
 
 class DrawerView extends StatelessWidget {
@@ -6,6 +9,7 @@ class DrawerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final languageProvider = Provider.of<LanguageProvider>(context);
     return Drawer(
       width: MediaQuery.sizeOf(context).width * .8,
       child: Padding(
@@ -57,7 +61,9 @@ class DrawerView extends StatelessWidget {
                       const Text(
                         "Jojoo McSam",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 17),
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                  ),
                       )
                     ],
                   ),
@@ -96,7 +102,11 @@ class DrawerView extends StatelessWidget {
                   ListTile(
                     leading: const Icon(Icons.event, size: 25),
                     title:
-                        const Text('Evenement', style: TextStyle(fontSize: 17)),
+                         Text(
+                          languageProvider.isEnglish
+                  ? "Event"
+                  : "Evenement",
+                 style: const TextStyle(fontSize: 17)),
                     onTap: () {},
                   ),
                   ListTile(
@@ -105,13 +115,14 @@ class DrawerView extends StatelessWidget {
                         style: TextStyle(fontSize: 17)),
                     onTap: () {},
                   ),
-                  // ListTile(
-                  //   leading: const Icon(Icons.share, size: 20),
-                  //   title: const Text('Share',
-                  //       style: TextStyle(fontSize: 17)),
-                  //   onTap: ()async => await Share.share("Check out the amazing Food Delivery App."
-                  //   ),
-                  // ),
+                  ListTile(
+                    leading: const Icon(Icons.share, size: 20),
+                    title: const Text('Share App',
+                        style: TextStyle(fontSize: 17)),
+                    onTap: ()async => await Share.share("Check out the amazing Food Delivery App. "
+                    "https://play.google.com/store/apps/details?id=com.drivncustomer.drivn_customer."
+                    ),
+                  ),
                   SizedBox(
                     height: MediaQuery.sizeOf(context).height * .05,
                   ),
@@ -132,8 +143,10 @@ class DrawerView extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * .02,
                 ),
-                const Text(
-                  "Déconnection",
+                Text(
+                  languageProvider.isEnglish
+                  ? "LogOut"
+                  : "Déconnection",
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w600,

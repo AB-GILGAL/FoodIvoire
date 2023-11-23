@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/home.dart';
-import 'package:foodivoire/presentation/vendor_detail.dart';
+import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_detail.dart';
+import 'package:foodivoire/src/feature/Vendors/presentation/widgets/vendor_card.dart';
 
 class DetailView extends StatefulWidget {
   const DetailView({super.key});
@@ -34,7 +35,7 @@ class _DetailViewState extends State<DetailView> {
             final name = vendor["name"];
             final distance = vendor["distance"];
 
-            return PopularVendors(
+            return PopularRestaurants(
                 image: img,
                 name: name,
                 distance: distance,
@@ -45,7 +46,7 @@ class _DetailViewState extends State<DetailView> {
                     isSelected1 = index;
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return const VendorDetailView();
+                        return const RestaurantDetailView();
                       },
                     ));
                   });

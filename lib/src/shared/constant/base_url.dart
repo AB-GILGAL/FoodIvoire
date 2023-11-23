@@ -1,1 +1,1 @@
-const baseUrl = 'https://foodivoiredb.drivnapp.net/api';
+const baseUrl = 'https://foodivoireapi.drivnapp.net/api';

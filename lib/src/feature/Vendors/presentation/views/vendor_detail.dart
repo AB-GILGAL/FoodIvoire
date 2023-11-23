@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:foodivoire/presentation/food_detail.dart';
-import 'package:foodivoire/presentation/home.dart';
+import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
+import 'package:foodivoire/src/feature/menu/presentation/views/menu_detail.dart';
+import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart';
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
-import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
-class VendorDetailView extends StatefulWidget {
-  const VendorDetailView({super.key});
+class RestaurantDetailView extends StatefulWidget {
+  const RestaurantDetailView({super.key, this.restaurant});
   // final String? image;
   // final String? name;
   // final String? description
-
+  final RestaurantDataModel? restaurant;
   @override
-  State<VendorDetailView> createState() => _VendorDetailViewState();
+  State<RestaurantDetailView> createState() => _RestaurantDetailViewState();
 }
 
-class _VendorDetailViewState extends State<VendorDetailView> {
+class _RestaurantDetailViewState extends State<RestaurantDetailView> {
   int isSelected = 0;
 
   @override
@@ -31,7 +31,8 @@ class _VendorDetailViewState extends State<VendorDetailView> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                  image: AssetImage(CustomImages.vndr), fit: BoxFit.cover),
+                  image: NetworkImage(widget.restaurant!.banner),
+                  fit: BoxFit.cover),
             ),
           ),
           Column(
@@ -96,6 +97,7 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * .05,
@@ -103,12 +105,35 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Miss Zahui",
+                          Text(widget.restaurant!.name,
                               style: Theme.of(context).textTheme.headlineLarge),
                           const Row(
                             children: [
-                              Icon(Icons.favorite_outline),
-                              Text("100")
+                              Icon(
+                                Icons.star_border_outlined,
+                                color: orange,
+                                size: 20,
+                              ),
+                              Icon(
+                                Icons.star_border_outlined,
+                                color: orange,
+                                size: 20,
+                              ),
+                              Icon(
+                                Icons.star_border_outlined,
+                                color: orange,
+                                size: 20,
+                              ),
+                              Icon(
+                                Icons.star_border_outlined,
+                                color: grey,
+                                size: 20,
+                              ),
+                              Icon(
+                                Icons.star_border_outlined,
+                                color: grey,
+                                size: 20,
+                              )
                             ],
                           )
                         ],
@@ -156,7 +181,7 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                                               .01,
                                         ),
                                         ReadMoreText(
-                                          "Resraurant specialise dans la nourriture africaine, Chez Miss Zahoui vous pourrez toujours deguster les meilleurs plats d'attieke poisson au monde. Du sosso au loss en passant par les carpes, nous vous offrons un large choix de poissons frais.",
+                                          widget.restaurant!.description,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyMedium,
@@ -187,16 +212,22 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                                                           0.03,
                                                 ),
                                             shrinkWrap: true,
-                                            itemCount: foodItems.length,
+                                            itemCount:
+                                                widget.restaurant!.menu.length,
                                             scrollDirection: Axis.vertical,
                                             itemBuilder: (context, index) {
-                                              final food = foodItems[index];
-                                              final img = food["image"];
-                                              final name = food["name"];
+                                              final food = widget
+                                                  .restaurant!.menu[index];
+                                              final img = food.banner;
+                                              final name = food.name;
+                                              final origin = food.origin;
+                                              final price = food.price;
 
                                               return PopularFoods(
                                                   image: img,
                                                   name: name,
+                                                  origin: origin,
+                                                  price: price,
                                                   index: index,
                                                   isSelectedIndex: isSelected,
                                                   onTap: () {
@@ -205,7 +236,9 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                                                       Navigator.push(context,
                                                           MaterialPageRoute(
                                                         builder: (context) {
-                                                          return const FoodDetailView();
+                                                          return MenuDetailView(
+                                                            food: food,
+                                                          );
                                                         },
                                                       ));
                                                     });
@@ -215,70 +248,65 @@ class _VendorDetailViewState extends State<VendorDetailView> {
                                     ),
                                   ),
                                   SingleChildScrollView(
-                                    child: Column(
+                                    child: Stack(
                                       children: [
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              height: MediaQuery.sizeOf(context)
+                                                      .height *
+                                                  .02,
+                                            ),
+                                            const Comments(),
+                                            SizedBox(
+                                              height: MediaQuery.sizeOf(context)
+                                                      .height *
+                                                  .03,
+                                            ),
+                                            const Comments(),
+                                            SizedBox(
+                                              height: MediaQuery.sizeOf(context)
+                                                      .height *
+                                                  .04,
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                languageProvider.isEnglish ? "Others" : "Autres",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headlineMedium!
+                                                    .copyWith(
+                                                        color: green, fontSize: 18),
+                                              ),
+                                            ),
+                                            const RestaurantBuilder()
+                                          ],
+                                        ),
                                         SizedBox(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .02,
-                                        ),
-                                        const Comments(),
-                                        SizedBox(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .03,
-                                        ),
-                                        const Comments(),
-                                        SizedBox(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .04,
-                                        ),
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            "Autres",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineMedium!
-                                                .copyWith(
-                                                    color: green, fontSize: 18),
-                                          ),
-                                        ),
-                                        ListView.separated(
-                                            separatorBuilder: (context,
-                                                    index) =>
-                                                SizedBox(
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.03,
-                                                ),
-                                            shrinkWrap: true,
-                                            itemCount: foodItems.length,
-                                            scrollDirection: Axis.vertical,
-                                            itemBuilder: (context, index) {
-                                              final food = foodItems[index];
-                                              final img = food["image"];
-                                              final name = food["name"];
-
-                                              return PopularFoods(
-                                                  image: img,
-                                                  name: name,
-                                                  index: index,
-                                                  isSelectedIndex: isSelected,
-                                                  onTap: () {
-                                                    setState(() {
-                                                      isSelected = index;
-                                                      Navigator.push(context,
-                                                          MaterialPageRoute(
-                                                        builder: (context) {
-                                                          return const FoodDetailView();
-                                                        },
-                                                      ));
-                                                    });
-                                                  });
-                                            }),
+                  height: MediaQuery.of(context).size.height * .05,
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: TextField(
+                    cursorHeight: 20,
+                    cursorColor: green,
+                    style: const TextStyle(fontSize: 15),
+                    decoration: InputDecoration(
+                        contentPadding:
+                            const EdgeInsets.all(8.0).copyWith(left: 15),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: orange),
+                        ),
+                        fillColor: lightGrey,
+                        filled: true,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: const BorderSide(color: orange),
+                        ),
+                        // isDense: true,
+                        isCollapsed: true),
+                  ),
+                ),
                                       ],
                                     ),
                                   )
@@ -308,61 +336,32 @@ class Comments extends StatelessWidget {
     return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const CircleAvatar(
-              radius: 18,
-              backgroundImage: AssetImage(
-                "assets/images/ab.png",
-              ),
-            ),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width * .1,
-            ),
-            Text(
-              "Siaka",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium!
-                  .copyWith(fontSize: 17),
-            )
-          ],
-        ),
-        SizedBox(
-          height: MediaQuery.sizeOf(context).height * .01,
-        ),
-        Row(
-          children: [
-            const Row(
+            Row(
               children: [
-                Icon(
-                  Icons.star_border_outlined,
-                  color: orange,
+                const CircleAvatar(
+                  radius: 18,
+                  backgroundImage: AssetImage(
+                    "assets/images/ab.png",
+                  ),
                 ),
-                Icon(
-                  Icons.star_border_outlined,
-                  color: orange,
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * .08,
                 ),
-                Icon(
-                  Icons.star_border_outlined,
-                  color: orange,
-                ),
-                Icon(
-                  Icons.star_border_outlined,
-                  color: grey,
-                ),
-                Icon(
-                  Icons.star_border_outlined,
-                  color: grey,
+                Text(
+                  "Siaka",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium!
+                      .copyWith(fontSize: 17),
                 )
               ],
-            ),
-            SizedBox(
-              width: MediaQuery.sizeOf(context).width * .04,
             ),
             const Text(
               "02/11/2023",
               style: TextStyle(
-                  color: grey, fontSize: 17, fontWeight: FontWeight.w700),
+                  color: grey, fontSize: 15, fontWeight: FontWeight.w700),
             )
           ],
         ),

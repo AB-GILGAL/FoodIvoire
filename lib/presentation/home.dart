@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/drawer.dart';
-import 'package:foodivoire/presentation/food_detail.dart';
-import 'package:foodivoire/presentation/vendor_detail.dart';
+import 'package:foodivoire/src/feature/menu/presentation/views/menu_detail.dart';
+import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +53,7 @@ class _HomeViewState extends State<HomeView> {
                         contentPadding:
                             const EdgeInsets.all(8.0).copyWith(left: 15),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(color: orange),
                         ),
                         fillColor: lightGrey,
@@ -126,7 +126,9 @@ class _HomeViewState extends State<HomeView> {
                               isSelected = index;
                               Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
-                                  return const FoodDetailView();
+                                  return MenuDetailView(
+                                    menu: food[index],
+                                  );
                                 },
                               ));
                             });
@@ -184,8 +186,8 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Text(
                   languageProvider.isEnglish
-                      ? 'Popular vendors'
-                      : "Vendeurs populaires",
+                      ? 'Popular Restaurants'
+                      : "Vendeurs Populaires",
                   style: Theme.of(context).textTheme.headlineMedium
                 ),
                 Text(
@@ -197,133 +199,15 @@ class _HomeViewState extends State<HomeView> {
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
-            ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(
-                      height: MediaQuery.sizeOf(context).height * 0.03,
-                    ),
-                shrinkWrap: true,
-                itemCount: popularVendors.length,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  final vendor = popularVendors[index];
-                  final img = vendor["image"];
-                  final name = vendor["name"];
-                  final distance = vendor["distance"];
-
-                  return PopularVendors(
-                      image: img,
-                      name: name,
-                      distance: distance,
-                      index: index,
-                      isSelectedIndex: isSelected1,
-                      onTap: () {
-                        setState(() {
-                          isSelected1 = index;
-                          Navigator.push(context, MaterialPageRoute(
-                            builder: (context) {
-                              return const VendorDetailView();
-                            },
-                          ));
-                        });
-                      });
-                }),
-          ],
+            const RestaurantBuilder()
+        ],
         ),
       ),
     );
   }
 }
 
-class PopularVendors extends StatelessWidget {
-  const PopularVendors(
-      {super.key,
-      this.distance,
-      this.image,
-      this.index,
-      this.isSelectedIndex,
-      this.name,
-      this.onTap});
 
-  final String? image;
-  final String? name;
-  final int? distance;
-  final int? index;
-  final int? isSelectedIndex;
-  final void Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Container(
-            height: MediaQuery.sizeOf(context).height * .09,
-            width: MediaQuery.sizeOf(context).width * .23,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image:
-                  DecorationImage(image: AssetImage(image!), fit: BoxFit.cover),
-            ),
-          ),
-          SizedBox(
-            width: MediaQuery.sizeOf(context).width * .02,
-          ),
-          SizedBox(
-            width: MediaQuery.sizeOf(context).width * .6,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name!,
-                      style: const TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.sizeOf(context).height * .02,
-                    ),
-                    const Row(
-                      children: [
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: orange,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: orange,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: orange,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: grey,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: grey,
-                        )
-                      ],
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.place_outlined),
-                    Text("$distance km"),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
 
 class FoodCard extends StatelessWidget {
   const FoodCard(

@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:foodivoire/presentation/home.dart';
+
 import 'package:foodivoire/presentation/order.dart';
-import 'package:foodivoire/presentation/vendor_detail.dart';
+import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart';
+import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
+import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_detail.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
-import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
-import '../src/feature/language/presentation/provider/lang_provider.dart';
+import '../../../language/presentation/provider/lang_provider.dart';
 
-class FoodDetailView extends StatefulWidget {
-  const FoodDetailView({super.key});
+class MenuDetailView extends StatefulWidget {
+  const MenuDetailView({super.key, this.menu, this.food});
+  final MenuDataModel? menu;
+  final Menu? food;
   // final String? image;
   // final String? name;
   // final String? description
 
   @override
-  State<FoodDetailView> createState() => _FoodDetailViewState();
+  State<MenuDetailView> createState() => _MenuDetailViewState();
 }
 
-class _FoodDetailViewState extends State<FoodDetailView> {
+class _MenuDetailViewState extends State<MenuDetailView> {
   int isSelected = 0;
 
   @override
@@ -33,7 +37,7 @@ class _FoodDetailViewState extends State<FoodDetailView> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                  image: AssetImage(CustomImages.fd1), fit: BoxFit.cover),
+                  image: NetworkImage(widget.food!.banner), fit: BoxFit.cover),
             ),
           ),
           Column(
@@ -53,7 +57,11 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                         },
                         child: const CircleAvatar(
                           backgroundColor: Colors.black45,
-                          child: Center(child: Icon(Icons.arrow_back_ios, color: white,)),
+                          child: Center(
+                              child: Icon(
+                            Icons.arrow_back_ios,
+                            color: white,
+                          )),
                         ),
                       ),
                     ),
@@ -86,12 +94,12 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Aloco poulet",
+                          Text(widget.food!.name,
                               style: Theme.of(context).textTheme.headlineLarge),
-                          const Row(
+                          Row(
                             children: [
                               Icon(Icons.favorite_outline),
-                              Text("100")
+                              Text(widget.food!.like.toString())
                             ],
                           )
                         ],
@@ -139,7 +147,7 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                                               .01,
                                         ),
                                         ReadMoreText(
-                                          "Le plat de poulet avec aloco est une combinaison savoureuse de morceaux de poulet grillé ou rôti accompagnés de tranches de bananes plantains frites.",
+                                          widget.food!.description,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyMedium,
@@ -178,7 +186,9 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .headlineMedium!
-                                                    .copyWith(color: green, fontSize: 18)),
+                                                    .copyWith(
+                                                        color: green,
+                                                        fontSize: 18)),
                                           ),
                                         ),
                                         SizedBox(
@@ -186,44 +196,7 @@ class _FoodDetailViewState extends State<FoodDetailView> {
                                                   .height *
                                               .04,
                                         ),
-                                        ListView.separated(
-                                            separatorBuilder: (context,
-                                                    index) =>
-                                                SizedBox(
-                                                  height:
-                                                      MediaQuery.sizeOf(context)
-                                                              .height *
-                                                          0.03,
-                                                ),
-                                            shrinkWrap: true,
-                                            itemCount: popularVendors.length,
-                                            scrollDirection: Axis.vertical,
-                                            itemBuilder: (context, index) {
-                                              final vendor =
-                                                  popularVendors[index];
-                                              final img = vendor["image"];
-                                              final name = vendor["name"];
-                                              final distance =
-                                                  vendor["distance"];
-
-                                              return PopularVendors(
-                                                  image: img,
-                                                  name: name,
-                                                  distance: distance,
-                                                  index: index,
-                                                  isSelectedIndex: isSelected,
-                                                  onTap: () {
-                                                    setState(() {
-                                                      isSelected = index;
-                                                      Navigator.push(context,
-                                                          MaterialPageRoute(
-                                                        builder: (context) {
-                                                          return const VendorDetailView();
-                                                        },
-                                                      ));
-                                                    });
-                                                  });
-                                            }),
+                                        const RestaurantBuilder()
                                       ],
                                     ),
                                   ),
@@ -268,10 +241,14 @@ class PopularFoods extends StatelessWidget {
       this.index,
       this.isSelectedIndex,
       this.name,
+      this.origin,
+      this.price,
       this.onTap});
 
   final String? image;
   final String? name;
+  final String? origin;
+  final int? price;
   final int? index;
   final int? isSelectedIndex;
   final void Function()? onTap;
@@ -287,55 +264,33 @@ class PopularFoods extends StatelessWidget {
             width: MediaQuery.sizeOf(context).width * .23,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              image:
-                  DecorationImage(image: AssetImage(image!), fit: BoxFit.cover),
+              image: DecorationImage(
+                  image: NetworkImage(image!), fit: BoxFit.cover),
             ),
           ),
           SizedBox(
             width: MediaQuery.sizeOf(context).width * .02,
           ),
-          SizedBox(
-            width: MediaQuery.sizeOf(context).width * .6,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name!,
-                      style: const TextStyle(fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.sizeOf(context).height * .02,
-                    ),
-                    const Row(
-                      children: [
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: orange,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: orange,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: orange,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: grey,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: grey,
-                        )
-                      ],
-                    )
-                  ],
+                Text(
+                  name!,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
                 ),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * .01,
+                ),
+                Text(origin!,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        overflow: TextOverflow.ellipsis, color: grey)),
+                Text("GH₵ ${price.toString()}",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w700, color: grey)),
               ],
             ),
           )
