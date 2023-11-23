@@ -16,7 +16,7 @@ class OTPRequestView extends StatefulWidget {
 
 class _OTPRequestViewState extends State<OTPRequestView> {
   final phoneController = TextEditingController();
-  String code = '';
+  String code = '+233';
   @override
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
@@ -89,18 +89,18 @@ class _OTPRequestViewState extends State<OTPRequestView> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                await context
-                    .read<AuthProvider>()
-                    .requestOTP(code + phoneController.text)
-                    .then((value) {
-                  value.fold((failure) {
-                    print(failure.message);
-                  }, (success) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const OTPValidationView(),
-                    ));
-                  });
-                });
+                // await context
+                //     .read<AuthProvider>()
+                //     .requestOTP(code + phoneController.text)
+                //     .then((value) {
+                //   value.fold((failure) {
+                //     print(failure.message);
+                //   }, (success) {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const OTPValidationView(),
+                ));
+                //   });
+                // });
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(green),
