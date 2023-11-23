@@ -18,7 +18,9 @@ void main() {
   injectMenuDependencies();
   runApp(const MainApp());
 }
+
 final getIt = GetIt.instance;
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 

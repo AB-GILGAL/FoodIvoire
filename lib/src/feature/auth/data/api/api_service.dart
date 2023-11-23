@@ -1,12 +1,17 @@
 import 'package:foodivoire/src/shared/constant/base_url.dart';
 import 'package:foodivoire/src/shared/errors/exception.dart';
 import 'package:foodivoire/src/shared/interceptor/http.client.interceptor.dart';
+import 'package:http/http.dart' as http;
 
 class AuthApiService {
   Future requestOTP(String telephone) async {
     const url = '$baseUrl/auth/send-otp';
     try {
-      final response = await client.post(url, body: {"username": telephone});
+      print(telephone);
+      final response = await client.post(url, body: {
+        "username": telephone,
+      });
+      print(response.body);
       if (response.statusCode != 200) {
         throw CustomException('Failed to request otp');
       }
