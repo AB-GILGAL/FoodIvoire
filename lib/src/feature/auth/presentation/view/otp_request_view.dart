@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:foodivoire/src/feature/auth/presentation/otp_validation.dart';
+import 'package:foodivoire/src/feature/auth/data/api/trial.dart';
+import 'package:foodivoire/src/feature/auth/presentation/view/otp_validation.dart';
 import 'package:foodivoire/src/feature/auth/presentation/provider/auth_provider.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:provider/provider.dart';
@@ -89,6 +90,7 @@ class _OTPRequestViewState extends State<OTPRequestView> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
+                await getthem();
                 // await context
                 //     .read<AuthProvider>()
                 //     .requestOTP(code + phoneController.text)
@@ -96,9 +98,9 @@ class _OTPRequestViewState extends State<OTPRequestView> {
                 //   value.fold((failure) {
                 //     print(failure.message);
                 //   }, (success) {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const OTPValidationView(),
-                ));
+                //     Navigator.of(context).push(MaterialPageRoute(
+                //       builder: (context) => const OTPValidationView(),
+                //     ));
                 //   });
                 // });
               },

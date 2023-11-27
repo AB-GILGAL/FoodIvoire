@@ -5,10 +5,10 @@ import 'package:http/http.dart' as http;
 
 class AuthApiService {
   Future requestOTP(String telephone) async {
-    const url = '$baseUrl/auth/send-otp';
+    final url = Uri.parse('$baseUrl/auth/send-otp');
     try {
       print(telephone);
-      final response = await http.post(Uri.parse(url), body: {
+      final response = await http.post(url, body: {
         "username": telephone,
       });
       print(response.reasonPhrase);
