@@ -8,10 +8,10 @@ class AuthApiService {
     const url = '$baseUrl/auth/send-otp';
     try {
       print(telephone);
-      final response = await client.post(url, body: {
+      final response = await http.post(Uri.parse(url), body: {
         "username": telephone,
       });
-      print(response.body);
+      print(response.reasonPhrase);
       if (response.statusCode != 200) {
         throw CustomException('Failed to request otp');
       }

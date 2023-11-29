@@ -96,10 +96,10 @@ class _OTPRequestViewState extends State<OTPRequestView> {
                 //   value.fold((failure) {
                 //     print(failure.message);
                 //   }, (success) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const OTPValidationView(),
-                    ));
-                  // });
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const OTPValidationView(),
+                ));
+                //   });
                 // });
               },
               style: ButtonStyle(
