@@ -8,6 +8,7 @@ import 'package:foodivoire/src/feature/menu/presentation/dependency/menu_depende
 import 'package:foodivoire/src/shared/interceptor/http.client.interceptor.dart';
 import 'package:foodivoire/src/splash.dart';
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +40,7 @@ class MainApp extends StatelessWidget {
         )
       ],
       child:
-          MaterialApp(theme: LightTheme.themeData(), home: const SplashView()),
+          GetMaterialApp(theme: LightTheme.themeData(), home: const SplashView()),
     );
   }
 }

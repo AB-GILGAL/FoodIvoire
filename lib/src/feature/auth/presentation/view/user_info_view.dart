@@ -39,7 +39,7 @@ class UserInfoView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(languageProvider.isEnglish ? 'Name' : 'Nom'),
+                Text(languageProvider.isEnglish ? 'First name' : 'Nom'),
                 const SizedBox(height: 10),
                 Container(
                   height: 50,
@@ -62,7 +62,7 @@ class UserInfoView extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(languageProvider.isEnglish ? 'Surname' : 'Prénom'),
+                Text(languageProvider.isEnglish ? 'Last name' : 'Prénom'),
                 const SizedBox(height: 10),
                 Container(
                   height: 50,

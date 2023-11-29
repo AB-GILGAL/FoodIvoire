@@ -54,8 +54,8 @@ class RestaurantDataModel {
     String phone;
     String otherPhone;
     String location;
-    double latitude;
-    double longitude;
+    int latitude;
+    int longitude;
     String description;
     String openHour;
     String closeHour;
