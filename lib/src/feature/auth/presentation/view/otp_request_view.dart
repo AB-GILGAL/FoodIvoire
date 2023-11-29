@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:foodivoire/src/feature/auth/data/api/trial.dart';
 import 'package:foodivoire/src/feature/auth/presentation/view/otp_validation.dart';
 import 'package:foodivoire/src/feature/auth/presentation/provider/auth_provider.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
@@ -78,7 +77,7 @@ class _OTPRequestViewState extends State<OTPRequestView> {
                   Expanded(
                     child: TextField(
                       controller: phoneController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           isDense: true, border: InputBorder.none),
                       keyboardType: TextInputType.phone,
                       // Add necessary logic to capture the entered phone number
@@ -90,19 +89,20 @@ class _OTPRequestViewState extends State<OTPRequestView> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
-                await getthem();
-                // await context
-                //     .read<AuthProvider>()
-                //     .requestOTP(code + phoneController.text)
-                //     .then((value) {
-                //   value.fold((failure) {
-                //     print(failure.message);
-                //   }, (success) {
-                //     Navigator.of(context).push(MaterialPageRoute(
-                //       builder: (context) => const OTPValidationView(),
-                //     ));
-                //   });
-                // });
+                await context
+                    .read<AuthProvider>()
+                    .requestOTP(code + phoneController.text)
+                    .then((value) {
+                  value.fold((failure) {
+                    print(failure.message);
+                  }, (success) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => OTPValidationView(
+                        telephone: code + phoneController.text,
+                      ),
+                    ));
+                  });
+                });
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(green),

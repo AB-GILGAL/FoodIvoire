@@ -5,9 +5,16 @@ import 'package:provider/provider.dart';
 
 import '../../../language/presentation/provider/lang_provider.dart';
 
-class UserInfoView extends StatelessWidget {
+class UserInfoView extends StatefulWidget {
   const UserInfoView({Key? key}) : super(key: key);
 
+  @override
+  State<UserInfoView> createState() => _UserInfoViewState();
+}
+
+class _UserInfoViewState extends State<UserInfoView> {
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
@@ -49,11 +56,11 @@ class UserInfoView extends StatelessWidget {
                     border: Border.all(width: 1.0, color: Colors.green),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const TextField(
-                    decoration: InputDecoration(
+                  child: TextField(
+                    controller: firstNameController,
+                    decoration: const InputDecoration(
                         isDense: true, border: InputBorder.none),
                     keyboardType: TextInputType.name,
-                    
                   ),
                 ),
               ],
@@ -72,8 +79,9 @@ class UserInfoView extends StatelessWidget {
                     border: Border.all(width: 1.0, color: Colors.green),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const TextField(
-                    decoration: InputDecoration(
+                  child: TextField(
+                    controller: lastNameController,
+                    decoration: const InputDecoration(
                         isDense: true, border: InputBorder.none),
                     keyboardType: TextInputType.name,
                     // Add necessary logic to capture the entered phone number
@@ -85,7 +93,10 @@ class UserInfoView extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const PreferencePage(),
+                  builder: (context) =>  PreferencePage(
+                    firstName: firstNameController.text,
+                    lastName: lastNameController.text,
+                  ),
                 ));
               },
               style: ButtonStyle(

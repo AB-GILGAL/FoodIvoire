@@ -1,12 +1,49 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:foodivoire/presentation/home.dart';
+import 'package:foodivoire/src/feature/auth/domain/utilities/user_model.dart'
+    as user;
+import 'package:foodivoire/src/feature/auth/presentation/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../../../language/presentation/provider/lang_provider.dart';
-import '../../../../shared/constant/colors.dart';
+import 'package:foodivoire/presentation/home.dart';
+import 'package:foodivoire/src/feature/auth/data/api/api_service.dart';
+import 'package:foodivoire/src/feature/auth/domain/utilities/allergies_model.dart';
 
-class PreferencePage extends StatelessWidget {
-  const PreferencePage({super.key});
+import '../../../../shared/constant/colors.dart';
+import '../../../language/presentation/provider/lang_provider.dart';
+
+class PreferencePage extends StatefulWidget {
+  const PreferencePage({
+    Key? key,
+    required this.firstName,
+    required this.lastName,
+  }) : super(key: key);
+  final String firstName;
+  final String lastName;
+
+  @override
+  State<PreferencePage> createState() => _PreferencePageState();
+}
+
+class _PreferencePageState extends State<PreferencePage> {
+  Future<List<Allergy>>? allergies;
+  fetchAlergies() async {
+    final result = await AuthApiService.allergies();
+    setState(() {
+      allergies = Future.value(result);
+    });
+  }
+
+  @override
+  void initState() {
+    fetchAlergies();
+    super.initState();
+  }
+
+  List<String> allergiesToDB = ['salt'];
+  List<String> preferencesToDB = ['Beans'];
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +71,12 @@ class PreferencePage extends StatelessWidget {
               ),
               _buildDescription(
                   "💖 ${languageProvider.isEnglish ? 'Preferences' : 'Préferences'}"),
-              _buildStaggeredGrid(9, 'Allergy'), // Preference Builder
+              _buildStaggeredGrid(
+                  9, 'Allergy', allergies!), // Preference Builder
               _buildDescription(
                   "🚫 ${languageProvider.isEnglish ? 'Allergies' : 'Allégires'}"),
-              _buildStaggeredGrid(9, 'Preference'), // Allergies Builder
+              _buildStaggeredGrid(
+                  9, 'Preference', allergies!), // Allergies Builder
               SizedBox(
                 height: MediaQuery.sizeOf(context).width * 0.05,
               ),
@@ -53,10 +92,22 @@ class PreferencePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const HomeView(),
-                    ));
+                  onPressed: () async {
+                    final customer = user.User(
+                      lastName: widget.lastName,
+                      firstName: widget.firstName,
+                      allergies: allergiesToDB,
+                      preferences: preferencesToDB,
+                    );
+                    await context
+                        .read<AuthProvider>()
+                        .createCustomer(customer)
+                        .then((value) {
+                      value.fold(
+                          (l) => print(l),
+                          (r) => Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const HomeView())));
+                    });
                   },
                   child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
                 ),
@@ -84,28 +135,45 @@ class PreferencePage extends StatelessWidget {
     );
   }
 
-  Widget _buildStaggeredGrid(int itemCount, String label) {
-    return Wrap(
-      children: List.generate(
-        itemCount,
-        (index) => Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Chip(
-            padding: const EdgeInsets.all(10),
-            backgroundColor: grey,
-            side: const BorderSide(color: grey),
-            label: Text(
-              index == 0
-                  ? 'spice'
-                  : index == 1
-                      ? 'rice'
-                      : index == 2
-                          ? 'medium-spicy'
-                          : '$label $index',
+  Widget _buildStaggeredGrid(int itemCount, String label, Future future) {
+    return FutureBuilder<dynamic>(
+      future: future,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // While the Future is still running, show a loading indicator.
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          // If there's an error, show an error message.
+          return Text('Error: ${snapshot.error}');
+        } else {
+          // If the Future is complete and no errors occurred, display the data.
+          log(snapshot.data);
+          List<Widget> chips = List.generate(
+            itemCount,
+            (index) => Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Chip(
+                padding: const EdgeInsets.all(10),
+                backgroundColor: grey,
+                side: const BorderSide(color: grey),
+                label: Text(
+                  index == 0
+                      ? 'spice'
+                      : index == 1
+                          ? 'rice'
+                          : index == 2
+                              ? 'medium-spicy'
+                              : '$label $index',
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
+          );
+
+          return Wrap(
+            children: chips,
+          );
+        }
+      },
     );
   }
 }
