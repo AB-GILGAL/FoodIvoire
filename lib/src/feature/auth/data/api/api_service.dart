@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:foodivoire/src/feature/auth/domain/usecase/verify_otp.dart';
 import 'package:foodivoire/src/feature/auth/domain/utilities/allergies_model.dart';
+import 'package:foodivoire/src/feature/auth/domain/utilities/preferences_model.dart';
 import 'package:foodivoire/src/feature/auth/domain/utilities/user_model.dart'
     as user;
 import 'package:foodivoire/src/shared/constant/base_url.dart';
@@ -58,7 +59,29 @@ class AuthApiService {
     try {
       final response = await client.get(url);
       if (response.statusCode != 200) {
+        print(response.body);
+
         throw CustomException('Failed to get list of allergies');
+      }else{
+        print(response.body);
+      }
+      return allergiesModelFromJson(response.body).data.allergy;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  static Future<List<Allergy>> preferences() async {
+    const url = '$baseUrl/preferences';
+    try {
+      final response = await client.get(url);
+      if (response.statusCode != 200) {
+        print(response.body);
+
+        throw CustomException('Failed to get list of preferences');
+      }else{
+        print(response.body);
       }
       return allergiesModelFromJson(response.body).data.allergy;
     } catch (e) {

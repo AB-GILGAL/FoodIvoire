@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:foodivoire/src/feature/auth/domain/utilities/user_model.dart'
     as user;
 import 'package:foodivoire/src/feature/auth/presentation/provider/auth_provider.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 import 'package:provider/provider.dart';
 
 import 'package:foodivoire/presentation/home.dart';
@@ -17,11 +18,11 @@ import '../../../language/presentation/provider/lang_provider.dart';
 class PreferencePage extends StatefulWidget {
   const PreferencePage({
     Key? key,
-    required this.firstName,
-    required this.lastName,
+    // required this.firstName,
+    // required this.lastName,
   }) : super(key: key);
-  final String firstName;
-  final String lastName;
+  // final String firstName;
+  // final String lastName;
 
   @override
   State<PreferencePage> createState() => _PreferencePageState();
@@ -29,16 +30,25 @@ class PreferencePage extends StatefulWidget {
 
 class _PreferencePageState extends State<PreferencePage> {
   Future<List<Allergy>>? allergies;
-  fetchAlergies() async {
-    final result = await AuthApiService.allergies();
+  Future<List<Allergy>>? preferences;
+  fetchAlergies() {
+    final allg = AuthApiService.allergies();
     setState(() {
-      allergies = Future.value(result);
+      allergies = allg;
+    });
+  }
+
+  fetchPreferences() {
+    final prfc = AuthApiService.preferences();
+    setState(()  {
+      preferences = prfc;
     });
   }
 
   @override
   void initState() {
     fetchAlergies();
+    fetchPreferences();
     super.initState();
   }
 
@@ -72,11 +82,11 @@ class _PreferencePageState extends State<PreferencePage> {
               _buildDescription(
                   "💖 ${languageProvider.isEnglish ? 'Preferences' : 'Préferences'}"),
               _buildStaggeredGrid(
-                  9, 'Allergy', allergies!), // Preference Builder
+                  9, 'Preference', preferences!), // Preference Builder
               _buildDescription(
                   "🚫 ${languageProvider.isEnglish ? 'Allergies' : 'Allégires'}"),
               _buildStaggeredGrid(
-                  9, 'Preference', allergies!), // Allergies Builder
+                  9, 'Allergy', allergies!), // Allergies Builder
               SizedBox(
                 height: MediaQuery.sizeOf(context).width * 0.05,
               ),
@@ -93,21 +103,22 @@ class _PreferencePageState extends State<PreferencePage> {
                     ),
                   ),
                   onPressed: () async {
-                    final customer = user.User(
-                      lastName: widget.lastName,
-                      firstName: widget.firstName,
-                      allergies: allergiesToDB,
-                      preferences: preferencesToDB,
-                    );
-                    await context
-                        .read<AuthProvider>()
-                        .createCustomer(customer)
-                        .then((value) {
-                      value.fold(
-                          (l) => print(l),
-                          (r) => Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const HomeView())));
-                    });
+                    // final customer = user.User(
+                    //   lastName: widget.lastName,
+                    //   firstName: widget.firstName,
+                    //   allergies: allergiesToDB,
+                    //   preferences: preferencesToDB,
+                    // );
+                    // await context
+                    //     .read<AuthProvider>()
+                    //     .createCustomer(customer)
+                    //     .then((value) {
+                    //   value.fold(
+                    //       (l) => print(l),
+                    //       (r) => 
+                    Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const HomeView()));
+                    // });
                   },
                   child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
                 ),
@@ -147,27 +158,23 @@ class _PreferencePageState extends State<PreferencePage> {
           return Text('Error: ${snapshot.error}');
         } else {
           // If the Future is complete and no errors occurred, display the data.
-          log(snapshot.data);
+          var data = snapshot.data;
+          log(snapshot.data!.toString());
           List<Widget> chips = List.generate(
-            itemCount,
-            (index) => Padding(
+            data.length,
+            (index) {
+              var dat = data[index];
+              return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Chip(
                 padding: const EdgeInsets.all(10),
                 backgroundColor: grey,
                 side: const BorderSide(color: grey),
                 label: Text(
-                  index == 0
-                      ? 'spice'
-                      : index == 1
-                          ? 'rice'
-                          : index == 2
-                              ? 'medium-spicy'
-                              : '$label $index',
+                 dat.name
                 ),
               ),
-            ),
-          );
+            );}  );
 
           return Wrap(
             children: chips,

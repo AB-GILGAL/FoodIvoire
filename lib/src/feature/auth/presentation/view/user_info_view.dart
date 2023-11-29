@@ -94,8 +94,8 @@ class _UserInfoViewState extends State<UserInfoView> {
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>  PreferencePage(
-                    firstName: firstNameController.text,
-                    lastName: lastNameController.text,
+                    // firstName: firstNameController.text,
+                    // lastName: lastNameController.text,
                   ),
                 ));
               },
