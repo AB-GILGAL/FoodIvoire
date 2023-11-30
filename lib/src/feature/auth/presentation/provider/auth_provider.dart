@@ -23,7 +23,16 @@ class AuthProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  String _userName = '';
+  get username => _userName;
+  setUserName(String userName) {
+    _userName = userName;
+    notifyListeners();
+  }
+
   Future<Either<Failure, String>> requestOTP(String telephone) async {
+    _isLoading = true;
+    notifyListeners();
     final result = await _requestOTP(Param(telephone));
 
     return result.fold((failure) {
@@ -32,7 +41,6 @@ class AuthProvider extends ChangeNotifier {
       return Left(Failure(failure.message));
     }, (success) async {
       _isLoading = false;
-      print(success);
       notifyListeners();
       return Right(success);
     });
@@ -40,6 +48,8 @@ class AuthProvider extends ChangeNotifier {
 
   Future<Either<Failure, bool>> loginCustomer(
       String telephone, String otp) async {
+    _isLoading = true;
+    notifyListeners();
     final result = await _loginCustomer(MultiParams(telephone, otp));
 
     return result.fold((failure) {
@@ -48,13 +58,14 @@ class AuthProvider extends ChangeNotifier {
       return Left(Failure(failure.message));
     }, (success) async {
       _isLoading = false;
-      print(success);
       notifyListeners();
       return Right(success);
     });
   }
 
-  Future<Either<Failure, String>> createCustomer(User user) async {
+  Future<Either<Failure, dynamic>> createCustomer(User user) async {
+    _isLoading = true;
+    notifyListeners();
     final result = await _createCustomer(Param(user));
 
     return result.fold((failure) {
@@ -63,7 +74,6 @@ class AuthProvider extends ChangeNotifier {
       return Left(Failure(failure.message));
     }, (success) async {
       _isLoading = false;
-      print(success);
       notifyListeners();
       return Right(success);
     });

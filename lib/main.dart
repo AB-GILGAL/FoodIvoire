@@ -4,7 +4,6 @@ import 'package:foodivoire/src/feature/Vendors/presentation/dependency/vendor_de
 import 'package:foodivoire/src/feature/Vendors/presentation/provider/vendor_provider.dart';
 import 'package:foodivoire/src/feature/auth/presentation/dependency/auth_dependencies.dart';
 import 'package:foodivoire/src/feature/auth/presentation/provider/auth_provider.dart';
-import 'package:foodivoire/src/feature/auth/presentation/view/preference.dart';
 import 'package:foodivoire/src/feature/menu/presentation/dependency/menu_dependency.dart';
 import 'package:foodivoire/src/shared/interceptor/http.client.interceptor.dart';
 import 'package:foodivoire/src/splash.dart';
@@ -40,7 +39,7 @@ class MainApp extends StatelessWidget {
         )
       ],
       child:
-          MaterialApp(theme: LightTheme.themeData(), home:  const PreferencePage()),
+          MaterialApp(theme: LightTheme.themeData(), home:  const SplashView()),
     );
   }
 }

@@ -147,7 +147,7 @@ class DrawerView extends StatelessWidget {
                   languageProvider.isEnglish
                   ? "LogOut"
                   : "Déconnection",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w600,
                   ),

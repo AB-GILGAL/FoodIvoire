@@ -1,21 +1,23 @@
-
 class User {
+  String userName;
   String lastName;
   String firstName;
-
-  List<String> preferences;
-  List<String> allergies;
+  List<num> preferences;
+  List<num> allergies;
 
   User({
+    required this.userName,
     required this.lastName,
     required this.firstName,
     required this.preferences,
     required this.allergies,
   });
   Map<String, dynamic> toJson() => {
+    "username":userName,
         "lastName": lastName,
-        "otherName": firstName,
-        "preferences": preferences,
-        "allergies": allergies,
+        "firstName": firstName,
+        "otherName": lastName.split(' ').last,
+        "preferences": preferences.toString(),
+        "allergies": allergies.toString(),
       };
 }

@@ -4,6 +4,7 @@ import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../../../language/presentation/provider/lang_provider.dart';
+import '../widgets/common_button.dart';
 
 class UserInfoView extends StatefulWidget {
   const UserInfoView({Key? key}) : super(key: key);
@@ -90,26 +91,17 @@ class _UserInfoViewState extends State<UserInfoView> {
               ],
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
+            CommonButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>  PreferencePage(
-                    // firstName: firstNameController.text,
-                    // lastName: lastNameController.text,
+                  builder: (context) => PreferencePage(
+                    firstName: firstNameController.text,
+                    lastName: lastNameController.text,
                   ),
                 ));
               },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(green),
-                foregroundColor: MaterialStateProperty.all(Colors.white),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
               child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
-            ),
+            )
           ],
         ),
       ),

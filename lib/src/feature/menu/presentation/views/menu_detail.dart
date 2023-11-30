@@ -98,7 +98,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                               style: Theme.of(context).textTheme.headlineLarge),
                           Row(
                             children: [
-                              Icon(Icons.favorite_outline),
+                              const Icon(Icons.favorite_outline),
                               Text(widget.food!.like.toString())
                             ],
                           )

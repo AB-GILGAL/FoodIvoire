@@ -169,11 +169,11 @@ Future<String> refreshAccessToken() async {
       throw CustomException('Couldn\'t refresh token');
     }
     if (response.statusCode == 200) {
-      final jsonData = jsonDecode(response.body);
+      final jsonData = jsonDecode(response.body)['data'];
       await storage.write(key: 'accessToken', value: jsonData['accessToken']);
       await storage.write(key: 'refreshToken', value: jsonData['refreshToken']);
     }
-    return jsonDecode(response.body)['accessToken'];
+    return jsonDecode(response.body)['data']['accessToken'];
   } catch (e) {
     rethrow;
   }

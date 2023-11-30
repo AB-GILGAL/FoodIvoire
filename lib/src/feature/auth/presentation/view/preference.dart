@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:foodivoire/src/feature/auth/domain/utilities/user_model.dart'
     as user;
 import 'package:foodivoire/src/feature/auth/presentation/provider/auth_provider.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
+import 'package:foodivoire/src/feature/auth/presentation/widgets/common_button.dart';
+import 'package:foodivoire/src/shared/errors/error.alert.dart';
+import 'package:foodivoire/src/shared/utils/extention_on_common_button.dart';
 import 'package:provider/provider.dart';
 
 import 'package:foodivoire/presentation/home.dart';
@@ -18,11 +20,11 @@ import '../../../language/presentation/provider/lang_provider.dart';
 class PreferencePage extends StatefulWidget {
   const PreferencePage({
     Key? key,
-    // required this.firstName,
-    // required this.lastName,
+    required this.firstName,
+    required this.lastName,
   }) : super(key: key);
-  // final String firstName;
-  // final String lastName;
+  final String firstName;
+  final String lastName;
 
   @override
   State<PreferencePage> createState() => _PreferencePageState();
@@ -40,7 +42,7 @@ class _PreferencePageState extends State<PreferencePage> {
 
   fetchPreferences() {
     final prfc = AuthApiService.preferences();
-    setState(()  {
+    setState(() {
       preferences = prfc;
     });
   }
@@ -52,8 +54,8 @@ class _PreferencePageState extends State<PreferencePage> {
     super.initState();
   }
 
-  List<String> allergiesToDB = ['salt'];
-  List<String> preferencesToDB = ['Beans'];
+  List<num> allergiesToDB = [];
+  List<num> preferencesToDB = [];
 
   @override
   Widget build(BuildContext context) {
@@ -82,46 +84,49 @@ class _PreferencePageState extends State<PreferencePage> {
               _buildDescription(
                   "💖 ${languageProvider.isEnglish ? 'Preferences' : 'Préferences'}"),
               _buildStaggeredGrid(
-                  9, 'Preference', preferences!), // Preference Builder
+                'Preference',
+                preferences!,
+                preferencesToDB,
+              ), // Preferences Builder
               _buildDescription(
                   "🚫 ${languageProvider.isEnglish ? 'Allergies' : 'Allégires'}"),
               _buildStaggeredGrid(
-                  9, 'Allergy', allergies!), // Allergies Builder
+                'Allergy',
+                allergies!,
+                allergiesToDB,
+              ), // Allergies Builder
               SizedBox(
                 height: MediaQuery.sizeOf(context).width * 0.05,
               ),
               SizedBox(
                 width: MediaQuery.sizeOf(context).width,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(green),
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                  ),
+                child: CommonButton(
+                 
                   onPressed: () async {
-                    // final customer = user.User(
-                    //   lastName: widget.lastName,
-                    //   firstName: widget.firstName,
-                    //   allergies: allergiesToDB,
-                    //   preferences: preferencesToDB,
-                    // );
-                    // await context
-                    //     .read<AuthProvider>()
-                    //     .createCustomer(customer)
-                    //     .then((value) {
-                    //   value.fold(
-                    //       (l) => print(l),
-                    //       (r) => 
-                    Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const HomeView()));
-                    // });
+                    final username = context.read<AuthProvider>().username;
+                    final customer = user.User(
+                      userName: username,
+                      lastName: widget.lastName,
+                      firstName: widget.firstName,
+                      allergies: allergiesToDB,
+                      preferences: preferencesToDB,
+                    );
+                    await context
+                        .read<AuthProvider>()
+                        .createCustomer(customer)
+                        .then((value) {
+                      value.fold(
+                        (l) => showErrorDialogue(context, l.message),
+                        (r) => Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (context) => const HomeView(),
+                            ),
+                            (route) => false),
+                      );
+                    });
                   },
                   child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
-                ),
+                ).loading(context.watch<AuthProvider>().isLoading),
               )
             ],
           ),
@@ -146,7 +151,7 @@ class _PreferencePageState extends State<PreferencePage> {
     );
   }
 
-  Widget _buildStaggeredGrid(int itemCount, String label, Future future) {
+  Widget _buildStaggeredGrid(String label, Future future, List container) {
     return FutureBuilder<dynamic>(
       future: future,
       builder: (context, snapshot) {
@@ -160,21 +165,29 @@ class _PreferencePageState extends State<PreferencePage> {
           // If the Future is complete and no errors occurred, display the data.
           var data = snapshot.data;
           log(snapshot.data!.toString());
-          List<Widget> chips = List.generate(
-            data.length,
-            (index) {
-              var dat = data[index];
-              return Padding(
+          List<Widget> chips = List.generate(data.length, (index) {
+            var dat = data[index];
+            return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Chip(
-                padding: const EdgeInsets.all(10),
-                backgroundColor: grey,
-                side: const BorderSide(color: grey),
-                label: Text(
-                 dat.name
+              child: GestureDetector(
+                onTap: () {
+                  container.contains(dat.id)
+                      ? container.remove(dat.id)
+                      : container.add(dat.id);
+                  setState(() {
+                    print(container.length);
+                  });
+                },
+                child: Chip(
+                  padding: const EdgeInsets.all(10),
+                  backgroundColor:
+                      container.contains(dat.id) ? green.withOpacity(.5) : grey,
+                  side: const BorderSide(color: grey),
+                  label: Text(dat.name),
                 ),
               ),
-            );}  );
+            );
+          });
 
           return Wrap(
             children: chips,
