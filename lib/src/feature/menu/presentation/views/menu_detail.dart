@@ -5,6 +5,8 @@ import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart
 import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
 import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_detail.dart';
 import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/popular_menu_model.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/suggested_menu_model.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
@@ -12,8 +14,10 @@ import 'package:readmore/readmore.dart';
 import '../../../language/presentation/provider/lang_provider.dart';
 
 class MenuDetailView extends StatefulWidget {
-  const MenuDetailView({super.key, this.menu, this.food});
+  const MenuDetailView({super.key, this.menu, this.food, this.popularMenu, this.suggestedMenu});
   final MenuDataModel? menu;
+  final PopularMenuDataModel? popularMenu;
+  final SuggestedMenuDataModel? suggestedMenu;
   final Menu? food;
   // final String? image;
   // final String? name;
@@ -37,7 +41,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                  image: NetworkImage(widget.food!.banner), fit: BoxFit.cover),
+                  image: NetworkImage(widget.food?.banner ?? widget.popularMenu?.banner ?? widget.suggestedMenu!.banner), fit: BoxFit.cover),
             ),
           ),
           Column(
@@ -94,12 +98,12 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(widget.food!.name,
+                          Text(widget.food?.name ?? widget.popularMenu?.name ?? widget.suggestedMenu!.name,
                               style: Theme.of(context).textTheme.headlineLarge),
                           Row(
                             children: [
                               const Icon(Icons.favorite_outline),
-                              Text(widget.food!.like.toString())
+                              Text(widget.food?.like.toString() ?? widget.popularMenu?.like.toString() ?? widget.suggestedMenu!.like.toString())
                             ],
                           )
                         ],
@@ -147,7 +151,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                                               .01,
                                         ),
                                         ReadMoreText(
-                                          widget.food!.description,
+                                          widget.food?.description ?? widget.popularMenu?.description ?? widget.suggestedMenu!.description,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyMedium,

@@ -71,6 +71,7 @@ double distance = 0.0;
       double distanceInKm = distanceInMeters / 1000;
       setState(() {
         distance = distanceInKm;
+        print(distance);
       });
     }
   }

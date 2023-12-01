@@ -5,6 +5,10 @@ import 'package:foodivoire/src/feature/Vendors/presentation/provider/vendor_prov
 import 'package:foodivoire/src/feature/auth/presentation/dependency/auth_dependencies.dart';
 import 'package:foodivoire/src/feature/auth/presentation/provider/auth_provider.dart';
 import 'package:foodivoire/src/feature/menu/presentation/dependency/menu_dependency.dart';
+import 'package:foodivoire/src/feature/menu/presentation/dependency/popular_menu_dependency.dart';
+import 'package:foodivoire/src/feature/menu/presentation/dependency/suggested_menu_dependency.dart';
+import 'package:foodivoire/src/feature/menu/presentation/provider/popular_menu_provider.dart';
+import 'package:foodivoire/src/feature/menu/presentation/provider/suggested_menu_provider.dart';
 import 'package:foodivoire/src/shared/interceptor/http.client.interceptor.dart';
 import 'package:foodivoire/src/splash.dart';
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
@@ -16,6 +20,8 @@ void main() {
   injectAuthDependencies();
   injectRestaurantDependencies();
   injectMenuDependencies();
+  injectPopularMenuDependencies();
+  injectSuggestedMenuDependencies();
   runApp(const MainApp());
 }
 
@@ -36,6 +42,12 @@ class MainApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<RestaurantProvider>(
           create: (context) => restaurantProvider,
+        ),
+        ChangeNotifierProvider<PopularMenuProvider>(
+          create: (context) => popularMenuProvider,
+        ),
+        ChangeNotifierProvider<SuggestedMenuProvider>(
+          create: (context) => suggestedMenuProvider,
         )
       ],
       child:

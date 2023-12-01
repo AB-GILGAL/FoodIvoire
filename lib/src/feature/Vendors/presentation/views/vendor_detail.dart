@@ -31,7 +31,7 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                  image: NetworkImage(widget.restaurant!.banner),
+                  image: NetworkImage(widget.restaurant?.banner ?? ''),
                   fit: BoxFit.cover),
             ),
           ),
