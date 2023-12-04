@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:foodivoire/src/feature/language/presentation/views/select_lang.dart';
+import 'package:foodivoire/src/feature/auth/presentation/auth_state.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
 
@@ -39,7 +39,7 @@ class _SplashViewState extends State<SplashView>
     Timer(const Duration(milliseconds: 4000), () {
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
-          return const SelectLanguage();
+          return const AuthStateView();
         },
       ));
     });

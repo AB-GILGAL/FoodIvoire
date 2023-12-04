@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/order.dart';
 import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart';
 import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
-import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_detail.dart';
+import 'package:foodivoire/src/feature/comments/presentation/comment_textfield.dart';
+import 'package:foodivoire/src/feature/likes/presentation/provider/likes_provider.dart';
 import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/popular_menu_model.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/suggested_menu_model.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
@@ -12,8 +15,11 @@ import 'package:readmore/readmore.dart';
 import '../../../language/presentation/provider/lang_provider.dart';
 
 class MenuDetailView extends StatefulWidget {
-  const MenuDetailView({super.key, this.menu, this.food});
+  const MenuDetailView(
+      {super.key, this.menu, this.food, this.popularMenu, this.suggestedMenu});
   final MenuDataModel? menu;
+  final PopularMenuDataModel? popularMenu;
+  final SuggestedMenuDataModel? suggestedMenu;
   final Menu? food;
   // final String? image;
   // final String? name;
@@ -25,6 +31,7 @@ class MenuDetailView extends StatefulWidget {
 
 class _MenuDetailViewState extends State<MenuDetailView> {
   int isSelected = 0;
+  bool isLiked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,196 +44,239 @@ class _MenuDetailViewState extends State<MenuDetailView> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                  image: NetworkImage(widget.food!.banner), fit: BoxFit.cover),
+                  image: NetworkImage(widget.food?.banner ??
+                      widget.popularMenu?.banner ??
+                      widget.suggestedMenu!.banner),
+                  fit: BoxFit.cover),
             ),
           ),
-          Column(
-            children: [
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * .04,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const CircleAvatar(
-                          backgroundColor: Colors.black45,
-                          child: Center(
-                              child: Icon(
-                            Icons.arrow_back_ios,
-                            color: white,
-                          )),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * .04,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const CircleAvatar(
+                            backgroundColor: Colors.black45,
+                            child: Center(
+                                child: Icon(
+                              Icons.arrow_back_ios,
+                              color: white,
+                            )),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.sizeOf(context).height * .16,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * .04,
-              ),
-              Container(
-                height: MediaQuery.sizeOf(context).height * .703,
-                decoration: const BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.horizontal(
-                    right: Radius.circular(30),
-                    left: Radius.circular(30),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ListView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
                       SizedBox(
-                        height: MediaQuery.sizeOf(context).height * .02,
+                        height: MediaQuery.sizeOf(context).height * .16,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(widget.food!.name,
-                              style: Theme.of(context).textTheme.headlineLarge),
-                          Row(
-                            children: [
-                              Icon(Icons.favorite_outline),
-                              Text(widget.food!.like.toString())
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: MediaQuery.sizeOf(context).height * .01,
-                      ),
-                      DefaultTabController(
-                          length: 2,
-                          initialIndex: 0,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: MediaQuery.sizeOf(context).height * .03,
-                                child: TabBar(
-                                    labelStyle: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium!
-                                        .copyWith(fontSize: 15),
-                                    labelColor: green,
-                                    unselectedLabelColor: grey,
-                                    indicatorColor: green,
-                                    indicatorSize: TabBarIndicatorSize.label,
-                                    tabs: [
-                                      const Tab(
-                                        text: "DETAILS",
-                                      ),
-                                      Tab(
-                                        text: languageProvider.isEnglish
-                                            ? 'COMMENT'
-                                            : "COMMENTAIRE",
-                                      ),
-                                    ]),
-                              ),
-                              SizedBox(
-                                height: MediaQuery.sizeOf(context).height * .57,
-                                child: TabBarView(children: [
-                                  SingleChildScrollView(
-                                    controller: ScrollController(),
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .01,
-                                        ),
-                                        ReadMoreText(
-                                          widget.food!.description,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium,
-                                          trimLines: 4,
-                                          textAlign: TextAlign.justify,
-                                          trimMode: TrimMode.Line,
-                                          trimCollapsedText: "Read more",
-                                          trimExpandedText: "Show less",
-                                          lessStyle: const TextStyle(
-                                              color: Colors.blue,
-                                              fontWeight: FontWeight.bold),
-                                          moreStyle: const TextStyle(
-                                              color: Colors.blue,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .02,
-                                        ),
-                                        Align(
-                                          alignment: Alignment.centerRight,
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.push(context,
-                                                  MaterialPageRoute(
-                                                builder: (context) {
-                                                  return const OrderView();
-                                                },
-                                              ));
-                                            },
-                                            child: Text(
-                                                languageProvider.isEnglish
-                                                    ? 'ORDER'
-                                                    : "SAVOIR",
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .headlineMedium!
-                                                    .copyWith(
-                                                        color: green,
-                                                        fontSize: 18)),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .04,
-                                        ),
-                                        const RestaurantBuilder()
-                                      ],
-                                    ),
-                                  ),
-                                  SingleChildScrollView(
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .02,
-                                        ),
-                                        const Comments(),
-                                        SizedBox(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .03,
-                                        ),
-                                        const Comments(),
-                                      ],
-                                    ),
-                                  )
-                                ]),
-                              ),
-                            ],
-                          ))
                     ],
                   ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * .04,
+                ),
+                Container(
+                  height: MediaQuery.sizeOf(context).height * .703,
+                  decoration: const BoxDecoration(
+                    color: white,
+                    borderRadius: BorderRadius.horizontal(
+                      right: Radius.circular(30),
+                      left: Radius.circular(30),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ListView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).height * .02,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                widget.food?.name ??
+                                    widget.popularMenu?.name ??
+                                    widget.suggestedMenu!.name,
+                                style:
+                                    Theme.of(context).textTheme.headlineLarge),
+                            Row(
+                              children: [
+                                InkWell(
+                                    onTap: ()async {
+                                      await context
+                                .read<LikesProvider>()
+                                .customerLikes(
+                                  
+                                  widget.menu?.id ?? widget.food?.id ?? widget.popularMenu?.id ?? widget.suggestedMenu!.id
+                                )
+                                .then((value) => value.fold(
+                                      (l) => print(l.message),
+                                      (r) => print(r),
+                                    ));
+                                      setState(() {
+                                        isLiked = !isLiked;
+                                      });
+                                    },
+                                    child: isLiked
+                                        ? const Icon(Icons.favorite,
+                                            color: green)
+                                        : const Icon(
+                                            Icons.favorite_outline,
+                                            color: green,
+                                          )),
+                                SizedBox(
+                                  width: MediaQuery.sizeOf(context).width * .01,
+                                ),
+                                Text(widget.food?.like.toString() ??
+                                    widget.popularMenu?.like.toString() ??
+                                    widget.suggestedMenu!.like.toString())
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).height * .01,
+                        ),
+                        DefaultTabController(
+                            length: 2,
+                            initialIndex: 0,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height:
+                                      MediaQuery.sizeOf(context).height * .03,
+                                  child: TabBar(
+                                      labelStyle: Theme.of(context)
+                                          .textTheme
+                                          .headlineMedium!
+                                          .copyWith(fontSize: 15),
+                                      labelColor: green,
+                                      unselectedLabelColor: grey,
+                                      indicatorColor: green,
+                                      indicatorSize: TabBarIndicatorSize.label,
+                                      tabs: [
+                                        const Tab(
+                                          text: "DETAILS",
+                                        ),
+                                        Tab(
+                                          text: languageProvider.isEnglish
+                                              ? 'COMMENT'
+                                              : "COMMENTAIRE",
+                                        ),
+                                      ]),
+                                ),
+                                SizedBox(
+                                  height:
+                                      MediaQuery.sizeOf(context).height * .57,
+                                  child: TabBarView(children: [
+                                    SingleChildScrollView(
+                                      controller: ScrollController(),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                .01,
+                                          ),
+                                          ReadMoreText(
+                                            widget.food?.description ??
+                                                widget
+                                                    .popularMenu?.description ??
+                                                widget
+                                                    .suggestedMenu!.description,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
+                                            trimLines: 4,
+                                            textAlign: TextAlign.justify,
+                                            trimMode: TrimMode.Line,
+                                            trimCollapsedText: "Read more",
+                                            trimExpandedText: "Show less",
+                                            lessStyle: const TextStyle(
+                                                color: Colors.blue,
+                                                fontWeight: FontWeight.bold),
+                                            moreStyle: const TextStyle(
+                                                color: Colors.blue,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                .02,
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerRight,
+                                            child: InkWell(
+                                              onTap: () {
+                                                Navigator.push(context,
+                                                    MaterialPageRoute(
+                                                  builder: (context) {
+                                                    return const OrderView();
+                                                  },
+                                                ));
+                                              },
+                                              child: Text(
+                                                  languageProvider.isEnglish
+                                                      ? 'ORDER'
+                                                      : "SAVOIR",
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .headlineMedium!
+                                                      .copyWith(
+                                                          color: green,
+                                                          fontSize: 18)),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                .04,
+                                          ),
+                                          const RestaurantBuilder()
+                                        ],
+                                      ),
+                                    ),
+                                    Stack(
+                                      children: [
+                                        SingleChildScrollView(
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        .02,
+                                              ),
+                                              // const CommentBuilder(restaurant: widget.popularMenu,),
+                                            ],
+                                          ),
+                                        ),
+                                        CommentTextField(
+                                            popularMenu: widget.popularMenu),
+                                      ],
+                                    )
+                                  ]),
+                                ),
+                              ],
+                            ))
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:foodivoire/src/feature/auth/presentation/otp_validation.dart';
+import 'package:foodivoire/src/feature/auth/presentation/view/otp_validation.dart';
 import 'package:foodivoire/src/feature/auth/presentation/provider/auth_provider.dart';
+import 'package:foodivoire/src/feature/auth/presentation/widgets/common_button.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
+import 'package:foodivoire/src/shared/errors/error.alert.dart';
+import 'package:foodivoire/src/shared/utils/extention_on_common_button.dart';
 import 'package:provider/provider.dart';
 
 import '../../../language/presentation/provider/lang_provider.dart';
@@ -77,7 +80,7 @@ class _OTPRequestViewState extends State<OTPRequestView> {
                   Expanded(
                     child: TextField(
                       controller: phoneController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           isDense: true, border: InputBorder.none),
                       keyboardType: TextInputType.phone,
                       // Add necessary logic to capture the entered phone number
@@ -87,32 +90,28 @@ class _OTPRequestViewState extends State<OTPRequestView> {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
+            CommonButton(
               onPressed: () async {
-                // await context
-                //     .read<AuthProvider>()
-                //     .requestOTP(code + phoneController.text)
-                //     .then((value) {
-                //   value.fold((failure) {
-                //     print(failure.message);
-                //   }, (success) {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const OTPValidationView(),
-                ));
-                //   });
-                // });
+                await context
+                    .read<AuthProvider>()
+                    .requestOTP(code + phoneController.text)
+                    .then((value) {
+                  value.fold((failure) {
+                    showErrorDialogue(context, failure.message);
+                  }, (success) {
+                    context
+                        .read<AuthProvider>()
+                        .setUserName(code + phoneController.text);
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => OTPValidationView(
+                        telephone: code + phoneController.text,
+                      ),
+                    ));
+                  });
+                });
               },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(green),
-                foregroundColor: MaterialStateProperty.all(Colors.white),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
-              ),
               child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
-            ),
+            ).loading(context.watch<AuthProvider>().isLoading),
           ],
         ),
       ),
