@@ -118,6 +118,7 @@ Future<List<PopularMenuDataModel>>? popularMenus;
 
 //   Future<List<PopularMenuDataModel>>? popularMenus;
 
+
 //   fetchPopularMenus() async {
 //     final result =
 //         await context.read<PopularMenuProvider>().fetchPopularMenus();
@@ -141,16 +142,20 @@ Future<List<PopularMenuDataModel>>? popularMenus;
 //     super.initState();
 //   }
 
-//   void filterMenus(String query) {
-//     setState(() {
-//       _filteredMenus = popularMenus?.then((menus) {
-//         return menus.where((menu) {
-//           // Implement your filtering criteria here
-//           return menu.name.toLowerCase().contains(query.toLowerCase());
-//         }).toList();
-//       }) ?? [];
-//     });
-//   }
+//  void filterMenus(String query) {
+//   setState(() {
+//     _filteredMenus = (popularMenus != null)
+//         ? popularMenus!.then((List<PopularMenuDataModel> menus) {
+//             return menus.where((menu) {
+//               // Implement your filtering criteria here
+//               return menu.name.toLowerCase().contains(query.toLowerCase());
+//             }).toList();
+//           })
+//         : [];
+//   });
+// }
+
+
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -168,7 +173,7 @@ Future<List<PopularMenuDataModel>>? popularMenus;
 //           ),
 //         ),
 //         Expanded(
-//           child: FutureBuilder(
+//           child: FutureBuilder<List<PopularMenuDataModel>>(
 //             future: popularMenus,
 //             builder: (context, snapshot) {
 //               if (snapshot.connectionState == ConnectionState.waiting) {
