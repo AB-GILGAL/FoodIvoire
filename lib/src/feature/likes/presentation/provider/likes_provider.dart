@@ -1,16 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:foodivoire/src/feature/rating/domain/usecase/rating.dart';
+import 'package:foodivoire/src/feature/likes/domain/usecase/likes.dart';
 import 'package:foodivoire/src/shared/errors/failure.dart';
 import 'package:foodivoire/src/shared/utils/usecase.dart';
 
-class RatingProvider extends ChangeNotifier {
-  final CustomerRating _customerRating;
+class LikesProvider extends ChangeNotifier {
+  final CustomerLikes _customerLikes;
 
-  RatingProvider({
+  LikesProvider({
 
-    required CustomerRating rating,
-  })  : _customerRating = rating;
+    required CustomerLikes likes,
+  })  : _customerLikes = likes;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -22,11 +22,11 @@ class RatingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Either<Failure, String>> customerRating(
-      int scale, int restaurantId) async {
+  Future<Either<Failure, String>> customerLikes(
+      int menuId) async {
     _isLoading = true;
     notifyListeners();
-    final result = await _customerRating(MultiParams(scale, restaurantId));
+    final result = await _customerLikes(Param(menuId));
     return result.fold((failure) {
       _isLoading = false;
       notifyListeners();

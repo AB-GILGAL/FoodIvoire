@@ -31,8 +31,7 @@ class PopularRestaurants extends StatefulWidget {
 }
 
 class _PopularRestaurantsState extends State<PopularRestaurants> {
-
-double distance = 0.0;
+   double distance = 0.0;
   Position? userLocation; // Store the user's location here
   double restaurantLatitude = 0.0;
   double restaurantLongitude = 0.0;
@@ -56,7 +55,7 @@ double distance = 0.0;
         _calculateDistance();
       });
     } catch (e) {
-      print(e);
+      Exception(e);
     }
   }
 
@@ -71,13 +70,30 @@ double distance = 0.0;
       double distanceInKm = distanceInMeters / 1000;
       setState(() {
         distance = distanceInKm;
-        print(distance);
+        
       });
     }
   }
 
+  List<IconData> getStarIcons() {
+    int rating = (widget.restaurant?.rating ?? 0) ~/ 2; // Assuming rating is out of 10
+
+    List<IconData> stars = List.generate(
+      5,
+      (index) => index < rating
+          ? Icons.star
+          : (index == rating && rating % 2 == 1)
+              ? Icons.star_half
+              : Icons.star_border,
+    );
+
+    return stars;
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<IconData> starIcons = getStarIcons();
+
     return InkWell(
       onTap: widget.onTap,
       child: Row(
@@ -92,7 +108,7 @@ double distance = 0.0;
             ),
           ),
           SizedBox(
-            width: MediaQuery.sizeOf(context).width * .02,
+            width: MediaQuery.of(context).size.width * .02,
           ),
           Expanded(
             child: Row(
@@ -103,49 +119,30 @@ double distance = 0.0;
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.restaurant!.name,
+                      widget.restaurant?.name ?? '',
                       style: const TextStyle(fontWeight: FontWeight.w700),
                     ),
                     SizedBox(
-                      height: MediaQuery.sizeOf(context).height * .01,
+                      height: MediaQuery.of(context).size.height * .01,
                     ),
-                    Text(widget.restaurant!.location),
-                    const Row(
+                    Text(widget.restaurant?.location ?? ''),
+                    Row(
                       children: [
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: orange,
-                          size: 20,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: orange,
-                          size: 20,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: orange,
-                          size: 20,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: grey,
-                          size: 20,
-                        ),
-                        Icon(
-                          Icons.star_border_outlined,
-                          color: grey,
-                          size: 20,
-                        )
+                        for (var starIcon in starIcons)
+                          Icon(
+                            starIcon,
+                            color: starIcon == Icons.star ? orange : grey,
+                            size: 20,
+                          ),
                       ],
                     )
                   ],
                 ),
-                 Row(
+                Row(
                   children: [
                     const Icon(Icons.place_outlined),
                     if (userLocation != null)
-                    Text('${distance.toStringAsFixed(2)} km'),
+                      Text('${distance.toStringAsFixed(2)} km'),
                   ],
                 )
               ],

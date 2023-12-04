@@ -4,6 +4,7 @@ import 'package:foodivoire/presentation/order.dart';
 import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart';
 import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
 import 'package:foodivoire/src/feature/comments/presentation/comment_textfield.dart';
+import 'package:foodivoire/src/feature/likes/presentation/provider/likes_provider.dart';
 import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 import 'package:foodivoire/src/feature/menu/domain/entities/popular_menu_model.dart';
 import 'package:foodivoire/src/feature/menu/domain/entities/suggested_menu_model.dart';
@@ -113,7 +114,17 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                             Row(
                               children: [
                                 InkWell(
-                                    onTap: () {
+                                    onTap: ()async {
+                                      await context
+                                .read<LikesProvider>()
+                                .customerLikes(
+                                  
+                                  widget.menu?.id ?? widget.food?.id ?? widget.popularMenu?.id ?? widget.suggestedMenu!.id
+                                )
+                                .then((value) => value.fold(
+                                      (l) => print(l.message),
+                                      (r) => print(r),
+                                    ));
                                       setState(() {
                                         isLiked = !isLiked;
                                       });

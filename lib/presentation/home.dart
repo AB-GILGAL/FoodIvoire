@@ -22,7 +22,6 @@ class _HomeViewState extends State<HomeView> {
   int isSelected = 0;
   int isSelected1 = 0;
 
-
   @override
   Widget build(BuildContext context) {
     final languageProvider = Provider.of<LanguageProvider>(context);
@@ -92,39 +91,38 @@ class _HomeViewState extends State<HomeView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  languageProvider.isEnglish
-                      ? "Popular food"
-                      : "Nouriture populaire",
-                  style: Theme.of(context).textTheme.headlineMedium
-                ),
-                Text(
-                  languageProvider.isEnglish ? "All" : "Tout",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold)
-                )
+                    languageProvider.isEnglish
+                        ? "Popular food"
+                        : "Nouriture populaire",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                Text(languageProvider.isEnglish ? "All" : "Tout",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontWeight: FontWeight.bold))
               ],
             ),
             SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.29,
-              child: const PopularMenuBuilder()),
+                height: MediaQuery.sizeOf(context).height * 0.29,
+                child: const PopularMenuBuilder()),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text(
-                  "Suggestion",
-                  style: Theme.of(context).textTheme.headlineMedium
-                ),
-                Text(
-                  languageProvider.isEnglish ? 'All' : "Tout",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold)
-                )
+                Text("Suggestion",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                Text(languageProvider.isEnglish ? 'All' : "Tout",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontWeight: FontWeight.bold))
               ],
             ),
             SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.29,
-              child: const SuggestedMenuBuilder()),
+                height: MediaQuery.sizeOf(context).height * 0.29,
+                child: const SuggestedMenuBuilder()),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
@@ -132,29 +130,27 @@ class _HomeViewState extends State<HomeView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  languageProvider.isEnglish
-                      ? 'Popular Restaurants'
-                      : "Vendeurs Populaires",
-                  style: Theme.of(context).textTheme.headlineMedium
-                ),
-                Text(
-                  languageProvider.isEnglish ? 'All' : "Tout",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold)
-                )
+                    languageProvider.isEnglish
+                        ? 'Popular Restaurants'
+                        : "Vendeurs Populaires",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                Text(languageProvider.isEnglish ? 'All' : "Tout",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontWeight: FontWeight.bold))
               ],
             ),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
             const RestaurantBuilder()
-        ],
+          ],
         ),
       ),
     );
   }
 }
-
-
 
 class FoodCard extends StatefulWidget {
   const FoodCard(
@@ -167,8 +163,7 @@ class FoodCard extends StatefulWidget {
       this.origin,
       this.reviews,
       this.popularMenus,
-      this.suggestedMenus
-      });
+      this.suggestedMenus});
   final PopularMenuDataModel? popularMenus;
   final SuggestedMenuDataModel? suggestedMenus;
   final String? image;
@@ -212,7 +207,8 @@ class _FoodCardState extends State<FoodCard> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                        image: NetworkImage(widget.popularMenus?.banner ?? ''), fit: BoxFit.cover),
+                        image: NetworkImage(widget.popularMenus?.banner ?? ''),
+                        fit: BoxFit.cover),
                   ),
                 ),
                 SizedBox(
@@ -238,9 +234,12 @@ class _FoodCardState extends State<FoodCard> {
                           Icons.favorite_border_outlined,
                           size: 15,
                         ),
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width * .01,
+                        ),
                         Text(
                           widget.popularMenus?.like.toString() ?? '',
-                          style: const TextStyle(fontWeight: FontWeight.w700),
+                          style: const TextStyle(fontWeight: FontWeight.w500),
                         )
                       ],
                     )
@@ -254,6 +253,7 @@ class _FoodCardState extends State<FoodCard> {
     );
   }
 }
+
 class FoodCard1 extends StatefulWidget {
   const FoodCard1(
       {super.key,
@@ -265,8 +265,7 @@ class FoodCard1 extends StatefulWidget {
       this.origin,
       this.reviews,
       this.popularMenus,
-      this.suggestedMenus
-      });
+      this.suggestedMenus});
   final PopularMenuDataModel? popularMenus;
   final SuggestedMenuDataModel? suggestedMenus;
   final String? image;
@@ -310,7 +309,9 @@ class _FoodCard1State extends State<FoodCard1> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                        image: NetworkImage(widget.suggestedMenus?.banner ?? ''), fit: BoxFit.cover),
+                        image:
+                            NetworkImage(widget.suggestedMenus?.banner ?? ''),
+                        fit: BoxFit.cover),
                   ),
                 ),
                 SizedBox(
@@ -336,9 +337,12 @@ class _FoodCard1State extends State<FoodCard1> {
                           Icons.favorite_border_outlined,
                           size: 15,
                         ),
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width * .01,
+                        ),
                         Text(
                           widget.suggestedMenus?.like.toString() ?? '',
-                          style: const TextStyle(fontWeight: FontWeight.w700),
+                          style: const TextStyle(fontWeight: FontWeight.w500),
                         )
                       ],
                     )

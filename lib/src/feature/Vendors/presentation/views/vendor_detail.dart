@@ -125,7 +125,7 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
                                     await context
                                 .read<RatingProvider>()
                                 .customerRating(
-                                  selectedStarIndex+1,
+                                  index+1,
                                   widget.restaurant!.id
                                 )
                                 .then((value) => value.fold(
