@@ -47,7 +47,7 @@ class _UserInfoViewState extends State<UserInfoView> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(languageProvider.isEnglish ? 'Name' : 'Nom'),
+                Text(languageProvider.isEnglish ? 'First name' : 'Nom'),
                 const SizedBox(height: 10),
                 Container(
                   height: 50,
@@ -58,6 +58,7 @@ class _UserInfoViewState extends State<UserInfoView> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
+                    style: const TextStyle(fontSize: 17),
                     controller: firstNameController,
                     decoration: const InputDecoration(
                         isDense: true, border: InputBorder.none),
@@ -70,7 +71,7 @@ class _UserInfoViewState extends State<UserInfoView> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(languageProvider.isEnglish ? 'Surname' : 'Prénom'),
+                Text(languageProvider.isEnglish ? 'Last name' : 'Prénom'),
                 const SizedBox(height: 10),
                 Container(
                   height: 50,
@@ -81,6 +82,7 @@ class _UserInfoViewState extends State<UserInfoView> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
+                    style: const TextStyle(fontSize: 17),
                     controller: lastNameController,
                     decoration: const InputDecoration(
                         isDense: true, border: InputBorder.none),

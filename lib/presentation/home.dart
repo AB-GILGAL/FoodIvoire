@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/drawer.dart';
-import 'package:foodivoire/src/feature/menu/presentation/views/menu_detail.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/popular_menu_model.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/suggested_menu_model.dart';
 import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
+import 'package:foodivoire/src/feature/menu/presentation/views/popular_menu_builder.dart';
+import 'package:foodivoire/src/feature/menu/presentation/views/suggested_menu_builder.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
@@ -88,96 +91,38 @@ class _HomeViewState extends State<HomeView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  languageProvider.isEnglish
-                      ? "Popular food"
-                      : "Nouriture populaire",
-                  style: Theme.of(context).textTheme.headlineMedium
-                ),
-                Text(
-                  languageProvider.isEnglish ? "All" : "Tout",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold)
-                )
+                    languageProvider.isEnglish
+                        ? "Popular food"
+                        : "Nouriture populaire",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                Text(languageProvider.isEnglish ? "All" : "Tout",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontWeight: FontWeight.bold))
               ],
             ),
             SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.29,
-                child: ListView.separated(
-                    separatorBuilder: (context, index) => SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.05,
-                        ),
-                    shrinkWrap: true,
-                    itemCount: foodItems.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      final food = foodItems[index];
-                      final img = food["image"];
-                      final name = food["name"];
-                      final origin = food["origin"];
-                      final reviews = food["reviews"];
-                      return FoodCard(
-                          image: img,
-                          name: name,
-                          origin: origin,
-                          reviews: reviews,
-                          index: index,
-                          isSelectedIndex: isSelected,
-                          onTap: () {
-                            setState(() {
-                              isSelected = index;
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return MenuDetailView(
-                                    menu: food[index],
-                                  );
-                                },
-                              ));
-                            });
-                          });
-                    })),
+                child: const PopularMenuBuilder()),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 Text(
-                  "Suggestion",
-                  style: Theme.of(context).textTheme.headlineMedium
-                ),
-                Text(
-                  languageProvider.isEnglish ? 'All' : "Tout",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold)
-                )
+                Text("Suggestion",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                Text(languageProvider.isEnglish ? 'All' : "Tout",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontWeight: FontWeight.bold))
               ],
             ),
             SizedBox(
                 height: MediaQuery.sizeOf(context).height * 0.29,
-                child: ListView.separated(
-                    separatorBuilder: (context, index) => SizedBox(
-                          width: MediaQuery.sizeOf(context).width * 0.05,
-                        ),
-                    shrinkWrap: true,
-                    itemCount: foodItems.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      final food = foodItems[index];
-                      final img = food["image"];
-                      final name = food["name"];
-                      final origin = food["origin"];
-                      final reviews = food["reviews"];
-                      return FoodCard(
-                          image: img,
-                          name: name,
-                          origin: origin,
-                          reviews: reviews,
-                          index: index,
-                          isSelectedIndex: isSelected,
-                          onTap: () {
-                            setState(() {
-                              isSelected = index;
-                            });
-                          });
-                    })),
+                child: const SuggestedMenuBuilder()),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
@@ -185,31 +130,29 @@ class _HomeViewState extends State<HomeView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  languageProvider.isEnglish
-                      ? 'Popular Restaurants'
-                      : "Vendeurs Populaires",
-                  style: Theme.of(context).textTheme.headlineMedium
-                ),
-                Text(
-                  languageProvider.isEnglish ? 'All' : "Tout",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold)
-                )
+                    languageProvider.isEnglish
+                        ? 'Popular Restaurants'
+                        : "Vendeurs Populaires",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                Text(languageProvider.isEnglish ? 'All' : "Tout",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontWeight: FontWeight.bold))
               ],
             ),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
             const RestaurantBuilder()
-        ],
+          ],
         ),
       ),
     );
   }
 }
 
-
-
-class FoodCard extends StatelessWidget {
+class FoodCard extends StatefulWidget {
   const FoodCard(
       {super.key,
       this.image,
@@ -218,7 +161,11 @@ class FoodCard extends StatelessWidget {
       this.isSelectedIndex,
       this.onTap,
       this.origin,
-      this.reviews});
+      this.reviews,
+      this.popularMenus,
+      this.suggestedMenus});
+  final PopularMenuDataModel? popularMenus;
+  final SuggestedMenuDataModel? suggestedMenus;
   final String? image;
   final String? name;
   final String? origin;
@@ -228,9 +175,14 @@ class FoodCard extends StatelessWidget {
   final void Function()? onTap;
 
   @override
+  State<FoodCard> createState() => _FoodCardState();
+}
+
+class _FoodCardState extends State<FoodCard> {
+  @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15).copyWith(left: 2),
         child: Container(
@@ -255,14 +207,15 @@ class FoodCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                        image: AssetImage(image!), fit: BoxFit.cover),
+                        image: NetworkImage(widget.popularMenus?.banner ?? ''),
+                        fit: BoxFit.cover),
                   ),
                 ),
                 SizedBox(
                   height: MediaQuery.sizeOf(context).height * .01,
                 ),
                 Text(
-                  name!,
+                  widget.popularMenus?.name ?? '',
                   style: const TextStyle(fontWeight: FontWeight.w700),
                 ),
                 SizedBox(
@@ -272,18 +225,124 @@ class FoodCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      origin!,
+                      widget.popularMenus?.origin ?? '',
                       style: const TextStyle(color: orange),
                     ),
                     Row(
                       children: [
                         const Icon(
-                          Icons.message,
+                          Icons.favorite_border_outlined,
                           size: 15,
                         ),
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width * .01,
+                        ),
                         Text(
-                          reviews.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.w700),
+                          widget.popularMenus?.like.toString() ?? '',
+                          style: const TextStyle(fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FoodCard1 extends StatefulWidget {
+  const FoodCard1(
+      {super.key,
+      this.image,
+      this.name,
+      this.index,
+      this.isSelectedIndex,
+      this.onTap,
+      this.origin,
+      this.reviews,
+      this.popularMenus,
+      this.suggestedMenus});
+  final PopularMenuDataModel? popularMenus;
+  final SuggestedMenuDataModel? suggestedMenus;
+  final String? image;
+  final String? name;
+  final String? origin;
+  final int? reviews;
+  final int? index;
+  final int? isSelectedIndex;
+  final void Function()? onTap;
+
+  @override
+  State<FoodCard1> createState() => _FoodCard1State();
+}
+
+class _FoodCard1State extends State<FoodCard1> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: widget.onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15).copyWith(left: 2),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: white,
+              boxShadow: [
+                BoxShadow(
+                    color: grey.withOpacity(0.4),
+                    offset: const Offset(0, 0),
+                    blurRadius: 2,
+                    spreadRadius: 2)
+              ]),
+          width: MediaQuery.sizeOf(context).width * 0.55,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: MediaQuery.sizeOf(context).height * .15,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                        image:
+                            NetworkImage(widget.suggestedMenus?.banner ?? ''),
+                        fit: BoxFit.cover),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * .01,
+                ),
+                Text(
+                  widget.suggestedMenus?.name ?? '',
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * .012,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.suggestedMenus?.origin ?? '',
+                      style: const TextStyle(color: orange),
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.favorite_border_outlined,
+                          size: 15,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width * .01,
+                        ),
+                        Text(
+                          widget.suggestedMenus?.like.toString() ?? '',
+                          style: const TextStyle(fontWeight: FontWeight.w500),
                         )
                       ],
                     )
