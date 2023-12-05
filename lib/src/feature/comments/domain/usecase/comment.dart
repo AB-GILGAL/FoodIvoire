@@ -14,3 +14,15 @@ class CustomerComment
     return await repo.customerComment(param.data1, param.data2);
   }
 }
+
+class CustomerMenuComment
+    implements UseCase<String, MultiParams<String, int, String>> {
+  final MenuCommentRepository repo;
+  CustomerMenuComment(this.repo);
+
+  @override
+  Future<Either<Failure, String>> call(
+      MultiParams<String, int, String> param) async {
+    return await repo.customerMenuComment(param.data1, param.data2);
+  }
+}

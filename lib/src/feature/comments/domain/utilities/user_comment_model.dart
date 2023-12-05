@@ -11,3 +11,17 @@ class Comment {
         "restaurantId": restaurantId,
       };
 }
+
+class MenuComment {
+  String comment;
+  int menuId;
+
+  MenuComment({
+    required this.comment,
+    required this.menuId,
+  });
+  Map<String, dynamic> toJson() => {
+    "comment":comment,
+        "menuId": menuId,
+      };
+}

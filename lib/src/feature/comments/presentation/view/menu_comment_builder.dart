@@ -1,59 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart';
 import 'package:foodivoire/src/feature/comments/presentation/view/comment.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 
 
+class MenuCommentBuilder extends StatefulWidget {
+  const MenuCommentBuilder({Key? key, this.menu}) : super(key: key);
+    final MenuDataModel? menu;
 
-class CommentBuilder extends StatefulWidget {
-  const CommentBuilder({Key? key, required this.restaurant}) : super(key: key);
-  final RestaurantDataModel? restaurant;
+  
+
 
   @override
-  State<CommentBuilder> createState() => _CommentBuilderState();
+  State<MenuCommentBuilder> createState() => _MenuCommentBuilderState();
 }
 
-class _CommentBuilderState extends State<CommentBuilder> {
-  late Future<RestaurantDataModel?> commentsFuture;
+class _MenuCommentBuilderState extends State<MenuCommentBuilder> {
+  late Future<MenuDataModel?> commentsFuture;
 
   @override
   void initState() {
-    fetchRestaurants();
+    fetchMenus();
     super.initState();
   }
 
-  void fetchRestaurants() {
-    commentsFuture = Future.value(widget.restaurant);
+  void fetchMenus() {
+    commentsFuture = Future.value(widget.menu);
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<RestaurantDataModel?>(
+    return FutureBuilder<MenuDataModel?>(
       future: commentsFuture,
-      builder: (context, AsyncSnapshot<RestaurantDataModel?> snapshot) {
+      builder: (context, AsyncSnapshot<MenuDataModel?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(
             child: Text('Error: ${snapshot.error}'),
           );
-        } else if (snapshot.hasData && snapshot.data != null) {
-          final comments = snapshot.data!;
-          return buildCommentsListView(comments);
+        } else if (snapshot.hasData && snapshot.data!.comments != null) {
+          final comments = snapshot.data!.comments;
+          return buildMenuCommentsListView(comments);
         } else {
-          return const Center(child: Text('No comment available.'));
+          return const Center(child: Text('No menu comment available.'));
         }
       },
     );
   }
 
-  Widget buildCommentsListView(RestaurantDataModel comments) {
+  Widget buildMenuCommentsListView(MenuDataModel comments) {
     return ListView.separated(
       separatorBuilder: (context, index) => SizedBox(
         height: MediaQuery.of(context).size.height * 0.03,
       ),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: comments.comments!.length,
+      itemCount: comments.comments.length,
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
         var comment = comments.comments?.isNotEmpty == true

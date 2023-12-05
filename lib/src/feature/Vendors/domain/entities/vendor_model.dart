@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
+
 RestaurantModel restaurantModelFromJson(String str) => RestaurantModel.fromJson(json.decode(str));
 
 String restaurantModelToJson(RestaurantModel data) => json.encode(data.toJson());
@@ -60,7 +62,7 @@ class RestaurantDataModel {
     String openHour;
     String closeHour;
     String banner;
-    int rating;
+    num rating;
     List<Comment>? comments;
     List<Menu>? menu;
     DateTime createdAt;

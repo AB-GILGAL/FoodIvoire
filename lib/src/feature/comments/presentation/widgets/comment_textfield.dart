@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart';
 import 'package:foodivoire/src/feature/comments/presentation/provider/comment_provider.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/popular_menu_model.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/suggested_menu_model.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:provider/provider.dart';
 
 class CommentTextField extends StatefulWidget {
-  const CommentTextField({super.key,  this.restaurant, this.food, this.menu, this.popularMenu, this.suggestedMenu});
+  const CommentTextField({super.key,  this.restaurant});
   final RestaurantDataModel? restaurant;
-  final MenuDataModel? menu;
-  final PopularMenuDataModel? popularMenu;
-  final SuggestedMenuDataModel? suggestedMenu;
-  final Menu? food;
+  
 
   @override
   State<CommentTextField> createState() => _CommentTextFieldState();
@@ -83,7 +77,7 @@ class _CommentTextFieldState extends State<CommentTextField> {
                                 .read<CommentProvider>()
                                 .customerComment(
                                   _textEditingController.text,
-                                  widget.restaurant?.id ?? widget.menu?.id ?? widget.food?.id ?? widget.popularMenu?.id ?? widget.suggestedMenu!.id,
+                                  widget.restaurant!.id,
                                 )
                                 .then((value) => value.fold(
                                       (l) => print(l.message),

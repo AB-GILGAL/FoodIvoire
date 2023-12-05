@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/delivery_map.dart';
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
-import 'package:foodivoire/src/shared/utils/images.dart';
 import 'package:provider/provider.dart';
 
 class OrderView extends StatefulWidget {
-  const OrderView({super.key});
+  const OrderView({super.key, this.menu,});
+  final MenuDataModel? menu;
+
+  
 
   @override
   State<OrderView> createState() => _OrderViewState();
@@ -67,7 +70,7 @@ class _OrderViewState extends State<OrderView> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
-                        image: AssetImage(CustomImages.fd1),
+                        image: NetworkImage(widget.menu!.banner),
                         fit: BoxFit.cover)),
               ),
               SizedBox(

@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:foodivoire/src/feature/menu/data/api/popular_menu_api_service.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/popular_menu_model.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 import 'package:foodivoire/src/feature/menu/domain/repository/popular_menu_repo.dart';
 import 'package:foodivoire/src/shared/errors/exception.dart';
 import 'package:foodivoire/src/shared/errors/failure.dart';
@@ -14,7 +14,7 @@ class PopularMenuRepoImpl implements PopularMenuRepo {
   PopularMenuRepoImpl(this.api);
 
   @override
-  Future<Either<Failure, List<PopularMenuDataModel>>> fetchPopularMenus()async {
+  Future<Either<Failure, List<MenuDataModel>>> fetchPopularMenus()async {
     try {
       final result = await api.fetchPopularMenus();
       return Right(result);

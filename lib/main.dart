@@ -6,6 +6,7 @@ import 'package:foodivoire/src/feature/auth/presentation/dependency/auth_depende
 import 'package:foodivoire/src/feature/auth/presentation/provider/auth_provider.dart';
 import 'package:foodivoire/src/feature/comments/presentation/dependency/comment_dependencies.dart';
 import 'package:foodivoire/src/feature/comments/presentation/provider/comment_provider.dart';
+import 'package:foodivoire/src/feature/comments/presentation/provider/menu_comment_provider.dart';
 import 'package:foodivoire/src/feature/likes/presentation/dependency/likes_dependencies.dart';
 import 'package:foodivoire/src/feature/likes/presentation/provider/likes_provider.dart';
 import 'package:foodivoire/src/feature/menu/presentation/dependency/menu_dependency.dart';
@@ -30,6 +31,7 @@ void main() {
   injectPopularMenuDependencies();
   injectSuggestedMenuDependencies();
   injectCommentDependencies();
+  injectMenuCommentDependencies();
   injectRatingDependencies();
   injectLikesDependencies();
   runApp(const MainApp());
@@ -62,12 +64,16 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider<CommentProvider>(
           create: (context) => commentProvider,
         ),
+        ChangeNotifierProvider<MenuCommentProvider>(
+          create: (context) => menuCommentProvider,
+        ),
         ChangeNotifierProvider<RatingProvider>(
           create: (context) => ratingProvider,
         ),
         ChangeNotifierProvider<LikesProvider>(
           create: (context) => likesProvider,
-        )
+        ),
+        
       ],
       child:
           // GetMaterialApp(theme: LightTheme.themeData(), home: const SplashView()),

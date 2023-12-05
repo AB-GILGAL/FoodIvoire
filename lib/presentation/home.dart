@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/drawer.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/popular_menu_model.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/suggested_menu_model.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
 import 'package:foodivoire/src/feature/menu/presentation/views/popular_menu_builder.dart';
 import 'package:foodivoire/src/feature/menu/presentation/views/suggested_menu_builder.dart';
@@ -164,8 +163,8 @@ class FoodCard extends StatefulWidget {
       this.reviews,
       this.popularMenus,
       this.suggestedMenus});
-  final PopularMenuDataModel? popularMenus;
-  final SuggestedMenuDataModel? suggestedMenus;
+  final MenuDataModel? popularMenus;
+  final MenuDataModel? suggestedMenus;
   final String? image;
   final String? name;
   final String? origin;
@@ -266,8 +265,8 @@ class FoodCard1 extends StatefulWidget {
       this.reviews,
       this.popularMenus,
       this.suggestedMenus});
-  final PopularMenuDataModel? popularMenus;
-  final SuggestedMenuDataModel? suggestedMenus;
+  final MenuDataModel? popularMenus;
+  final MenuDataModel? suggestedMenus;
   final String? image;
   final String? name;
   final String? origin;

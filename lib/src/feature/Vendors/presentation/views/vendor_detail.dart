@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
-import 'package:foodivoire/src/feature/comments/presentation/comment_textfield.dart';
+import 'package:foodivoire/src/feature/comments/presentation/widgets/comment_textfield.dart';
 import 'package:foodivoire/src/feature/comments/presentation/view/comment_builder.dart';
 import 'package:foodivoire/src/feature/menu/presentation/views/menu_detail.dart';
 import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart';
@@ -255,7 +255,7 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
                                                       MaterialPageRoute(
                                                         builder: (context) {
                                                           return MenuDetailView(
-                                                            food: food,
+                                                            menu: food,
                                                           );
                                                         },
                                                       ),

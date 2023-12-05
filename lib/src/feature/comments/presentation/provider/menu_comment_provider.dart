@@ -4,13 +4,13 @@ import 'package:foodivoire/src/feature/comments/domain/usecase/comment.dart';
 import 'package:foodivoire/src/shared/errors/failure.dart';
 import 'package:foodivoire/src/shared/utils/usecase.dart';
 
-class CommentProvider extends ChangeNotifier {
-  final CustomerComment _customerComment;
+class MenuCommentProvider extends ChangeNotifier {
+  final CustomerMenuComment _customerMenuComment;
 
-  CommentProvider({
+  MenuCommentProvider({
 
-    required CustomerComment comment,
-  })  : _customerComment = comment;
+    required CustomerMenuComment comment,
+  })  : _customerMenuComment = comment;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -22,11 +22,11 @@ class CommentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Either<Failure, String>> customerComment(
-      String comment, int restaurantId) async {
+  Future<Either<Failure, String>> customerMenuComment(
+      String comment, int menuId) async {
     _isLoading = true;
     notifyListeners();
-    final result = await _customerComment(MultiParams(comment, restaurantId));
+    final result = await _customerMenuComment(MultiParams(comment, menuId));
     return result.fold((failure) {
       _isLoading = false;
       notifyListeners();
@@ -36,6 +36,6 @@ class CommentProvider extends ChangeNotifier {
       notifyListeners();
       return Right(success);
     });
-      }
+  }
 
 }

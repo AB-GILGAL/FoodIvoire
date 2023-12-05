@@ -84,8 +84,9 @@ Future<List<MenuDataModel>>? menus;
                         setState(() {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
+                              final menu = MenuDataModel(id: id, name: name, price: price, description: description, origin: origin, banner: banner, like: like, likeStatus: likeStatus, comments: comments, restaurant: restaurant, preferences: preferences, allergies: allergies, createdAt: createdAt, updatedAt: updatedAt,);
                               return  MenuDetailView(
-                                menu: MenuDataModel(id: id, name: name, price: price, description: description, origin: origin, banner: banner, like: like, likeStatus: likeStatus, comments: comments, restaurant: restaurant, preferences: preferences, allergies: allergies, createdAt: createdAt, updatedAt: updatedAt),
+                                menu: menu
                               );
                             },
                           ));
