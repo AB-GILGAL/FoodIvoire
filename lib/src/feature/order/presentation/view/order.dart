@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/delivery_map.dart';
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
+import 'package:foodivoire/src/feature/order/data/api/order_api_service.dart';
+import 'package:foodivoire/src/feature/order/domain/utilities/order_model.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
-import 'package:foodivoire/src/shared/utils/images.dart';
+import 'package:foodivoire/src/shared/utils/show.snacbar.dart';
 import 'package:provider/provider.dart';
 
 class OrderView extends StatefulWidget {
-  const OrderView({super.key});
+  const OrderView({
+    super.key,
+    this.menu,
+  });
+  final dynamic menu;
 
   @override
   State<OrderView> createState() => _OrderViewState();
@@ -29,7 +35,7 @@ class _OrderViewState extends State<OrderView> {
     }
   }
 
-  int qty = 0;
+  int qty = 1;
 
   void add() {
     setState(() {
@@ -67,15 +73,16 @@ class _OrderViewState extends State<OrderView> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
-                        image: AssetImage(CustomImages.fd1),
+                        image: NetworkImage(widget.menu!.banner),
                         fit: BoxFit.cover)),
               ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height * .02,
               ),
-              const Text(
-                "Aloco poulet",
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
+              Text(
+                widget.menu.name,
+                style:
+                    const TextStyle(fontWeight: FontWeight.w700, fontSize: 25),
               ),
               SizedBox(
                 height: MediaQuery.sizeOf(context).height * .02,
@@ -86,14 +93,14 @@ class _OrderViewState extends State<OrderView> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        languageProvider.isEnglish ? 'Vendor' : "Vendeur :",
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.sizeOf(context).height * .02,
-                      ),
+                      // Text(
+                      //   languageProvider.isEnglish ? 'Vendor' : "Vendeur :",
+                      //   style: const TextStyle(
+                      //       fontSize: 18, fontWeight: FontWeight.w500),
+                      // ),
+                      // SizedBox(
+                      //   height: MediaQuery.sizeOf(context).height * .02,
+                      // ),
                       Text(
                         languageProvider.isEnglish
                             ? 'Quantity :'
@@ -104,13 +111,13 @@ class _OrderViewState extends State<OrderView> {
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * .02,
                       ),
-                      Text(
-                        languageProvider.isEnglish
-                            ? 'Supplement :'
-                            : "Suplément :",
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
+                      // Text(
+                      //   languageProvider.isEnglish
+                      //       ? 'Supplement :'
+                      //       : "Suplément :",
+                      //   style: const TextStyle(
+                      //       fontSize: 18, fontWeight: FontWeight.w500),
+                      // ),
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * .02,
                       ),
@@ -122,37 +129,37 @@ class _OrderViewState extends State<OrderView> {
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * .02,
                       ),
-                      Text(
-                        languageProvider.isEnglish
-                            ? 'Cooking time :'
-                            : "Temps de cuisson :",
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.sizeOf(context).height * .02,
-                      ),
-                      Text(
-                          languageProvider.isEnglish
-                              ? "Delivery"
-                              : "Livraison :",
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                          )),
+                      // Text(
+                      //   languageProvider.isEnglish
+                      //       ? 'Cooking time :'
+                      //       : "Temps de cuisson :",
+                      //   style: const TextStyle(
+                      //       fontSize: 18, fontWeight: FontWeight.w500),
+                      // ),
+                      // SizedBox(
+                      //   height: MediaQuery.sizeOf(context).height * .02,
+                      // ),
+                      // Text(
+                      //     languageProvider.isEnglish
+                      //         ? "Delivery"
+                      //         : "Livraison :",
+                      //     style: const TextStyle(
+                      //       fontSize: 18,
+                      //       fontWeight: FontWeight.w500,
+                      //     )),
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Miss Zahui",
-                        style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.w500),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.sizeOf(context).height * .02,
-                      ),
+                      // const Text(
+                      //   "Miss Zahui",
+                      //   style: TextStyle(
+                      //       fontSize: 17, fontWeight: FontWeight.w500),
+                      // ),
+                      // SizedBox(
+                      //   height: MediaQuery.sizeOf(context).height * .02,
+                      // ),
                       Row(
                         children: [
                           GestureDetector(
@@ -223,23 +230,6 @@ class _OrderViewState extends State<OrderView> {
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * .02,
                       ),
-                      Container(
-                        height: MediaQuery.sizeOf(context).height * 0.03,
-                        width: MediaQuery.sizeOf(context).width * .06,
-                        decoration: BoxDecoration(
-                            color: white,
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: black)),
-                        child: const Center(
-                          child: Text(
-                            "2",
-                            style: TextStyle(
-                              color: black,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ),
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * .02,
                       ),
@@ -250,10 +240,10 @@ class _OrderViewState extends State<OrderView> {
                             color: white,
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(color: black)),
-                        child: const Center(
+                        child: Center(
                           child: Text(
-                            "45 000 FCFA",
-                            style: TextStyle(
+                            '${qty * widget.menu.price} FCFA',
+                            style: const TextStyle(
                               color: black,
                               fontSize: 15,
                             ),
@@ -263,21 +253,21 @@ class _OrderViewState extends State<OrderView> {
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * .02,
                       ),
-                      const Text(
-                        "30 min",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.sizeOf(context).height * .02,
-                      ),
-                      const Text(
-                        "Dans 15 min",
-                        style: TextStyle(
-                          fontSize: 15,
-                        ),
-                      ),
+                      // const Text(
+                      //   "30 min",
+                      //   style: TextStyle(
+                      //     fontSize: 15,
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: MediaQuery.sizeOf(context).height * .02,
+                      // ),
+                      // const Text(
+                      //   "Dans 15 min",
+                      //   style: TextStyle(
+                      //     fontSize: 15,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],
@@ -305,23 +295,43 @@ class _OrderViewState extends State<OrderView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return  const MapScreen();
-                                },
-                              ));
+                    onPressed: () async {
+                      final order = OrderModel(
+                        orderNumber: generateRandomId(),
+                        amount: (qty * widget.menu.price).toDouble(),
+                        items: [
+                          {
+                            "itemId": widget.menu.id,
+                            "restaurantId": widget.menu.restaurant.id,
+                            "quantity": qty,
+                            "price": widget.menu.price,
+                          },
+                        ],
+                      );
+                      await placeOrder(order).then((value) => showCustomSnackBar(context,'Order placed successfully',green));
                     },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(green)),
                     child: Text(
                         languageProvider.isEnglish ? 'CONFIRM' : "VALIDER"),
                   ),
-                  Text(languageProvider.isEnglish ? "ON PLACE" : "SUR PLACE",
+                  GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const MapScreen();
+                        },
+                      ),
+                    ),
+                    child: Text(
+                      languageProvider.isEnglish ? "ON PLACE" : "SUR PLACE",
                       style: Theme.of(context)
                           .textTheme
                           .headlineMedium!
-                          .copyWith(color: green, fontSize: 17))
+                          .copyWith(color: green, fontSize: 17),
+                    ),
+                  )
                 ],
               ),
               SizedBox(

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/suggested_menu_model.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 import 'package:foodivoire/src/feature/menu/domain/usecase/fetch_suggested_menu.dart';
 import 'package:foodivoire/src/shared/errors/failure.dart';
 import 'package:foodivoire/src/shared/utils/usecase.dart';
@@ -20,7 +20,7 @@ class SuggestedMenuProvider extends ChangeNotifier {
   }
 
   //fetch Vendors 
-  Future<Either<Failure, List<SuggestedMenuDataModel>>> fetchSuggestedMenus(
+  Future<Either<Failure, List<MenuDataModel>>> fetchSuggestedMenus(
   ) async {
     
     final result = await _fetchSuggestedMenus(NoParams(

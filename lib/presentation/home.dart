@@ -1,15 +1,170 @@
+// import 'package:flutter/material.dart';
+// import 'package:foodivoire/presentation/drawer.dart';
+// import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
+// import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
+// import 'package:foodivoire/src/feature/menu/presentation/views/popular_menu_builder.dart';
+// import 'package:foodivoire/src/feature/menu/presentation/views/suggested_menu_builder.dart';
+// import 'package:foodivoire/src/shared/constant/colors.dart';
+// import 'package:foodivoire/src/shared/utils/images.dart';
+// import 'package:provider/provider.dart';
+
+// import '../src/feature/language/presentation/provider/lang_provider.dart';
+
+// class HomeView extends StatefulWidget {
+//   const HomeView({super.key});
+
+//   @override
+//   State<HomeView> createState() => _HomeViewState();
+// }
+
+// class _HomeViewState extends State<HomeView> {
+//   int isSelected = 0;
+//   int isSelected1 = 0;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final languageProvider = Provider.of<LanguageProvider>(context);
+//     return Scaffold(
+//       backgroundColor: white,
+//       appBar: AppBar(
+//         foregroundColor: black,
+//         backgroundColor: white,
+//         elevation: 0,
+//       ),
+//       drawer: const DrawerView(),
+//       body: Padding(
+//         padding: const EdgeInsets.symmetric(horizontal: 20),
+//         child: ListView(
+//           children: [
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 const Icon(
+//                   Icons.search,
+//                   color: Colors.black,
+//                   size: 30,
+//                 ),
+//                 SizedBox(
+//                   height: MediaQuery.of(context).size.height * .05,
+//                   width: MediaQuery.of(context).size.width * 0.7,
+//                   child: TextField(
+//                     cursorHeight: 20,
+//                     cursorColor: green,
+//                     style: const TextStyle(fontSize: 15),
+//                     decoration: InputDecoration(
+//                         contentPadding:
+//                             const EdgeInsets.all(8.0).copyWith(left: 15),
+//                         enabledBorder: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(10),
+//                           borderSide: const BorderSide(color: orange),
+//                         ),
+//                         fillColor: lightGrey,
+//                         filled: true,
+//                         focusedBorder: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(20),
+//                           borderSide: const BorderSide(color: orange),
+//                         ),
+//                         // isDense: true,
+//                         isCollapsed: true),
+//                   ),
+//                 ),
+//                 SizedBox(
+//                   width: MediaQuery.of(context).size.width * 0.06,
+//                   child: Image.asset(CustomImages.filter),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(
+//               height: MediaQuery.sizeOf(context).height * .02,
+//             ),
+//             Text(
+//               languageProvider.isEnglish
+//                   ? "Enjoy an unforgettable gastronomic experience in côte D'ivoire"
+//                   : "vivez une expeience gastronomique inoubliable en côte D’ivoire",
+//               textAlign: TextAlign.center,
+//             ),
+//             SizedBox(
+//               height: MediaQuery.sizeOf(context).height * .02,
+//             ),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 Text(
+//                     languageProvider.isEnglish
+//                         ? "Popular food"
+//                         : "Nouriture populaire",
+//                     style: Theme.of(context).textTheme.headlineMedium),
+//                 Text(languageProvider.isEnglish ? "All" : "Tout",
+//                     style: Theme.of(context)
+//                         .textTheme
+//                         .headlineSmall!
+//                         .copyWith(fontWeight: FontWeight.bold))
+//               ],
+//             ),
+//             SizedBox(
+//                 height: MediaQuery.sizeOf(context).height * 0.29,
+//                 child: const PopularMenuBuilder()),
+//             SizedBox(
+//               height: MediaQuery.sizeOf(context).height * .02,
+//             ),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 Text("Suggestion",
+//                     style: Theme.of(context).textTheme.headlineMedium),
+//                 Text(languageProvider.isEnglish ? 'All' : "Tout",
+//                     style: Theme.of(context)
+//                         .textTheme
+//                         .headlineSmall!
+//                         .copyWith(fontWeight: FontWeight.bold))
+//               ],
+//             ),
+//             SizedBox(
+//                 height: MediaQuery.sizeOf(context).height * 0.29,
+//                 child: const SuggestedMenuBuilder()),
+//             SizedBox(
+//               height: MediaQuery.sizeOf(context).height * .02,
+//             ),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 Text(
+//                     languageProvider.isEnglish
+//                         ? 'Popular Restaurants'
+//                         : "Vendeurs Populaires",
+//                     style: Theme.of(context).textTheme.headlineMedium),
+//                 Text(languageProvider.isEnglish ? 'All' : "Tout",
+//                     style: Theme.of(context)
+//                         .textTheme
+//                         .headlineSmall!
+//                         .copyWith(fontWeight: FontWeight.bold))
+//               ],
+//             ),
+//             SizedBox(
+//               height: MediaQuery.sizeOf(context).height * .02,
+//             ),
+//             const RestaurantBuilder()
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/drawer.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/popular_menu_model.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/suggested_menu_model.dart';
 import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
-import 'package:foodivoire/src/feature/menu/presentation/views/popular_menu_builder.dart';
-import 'package:foodivoire/src/feature/menu/presentation/views/suggested_menu_builder.dart';
+import 'package:foodivoire/src/feature/menu/presentation/provider/popular_menu_provider.dart';
+import 'package:foodivoire/src/feature/menu/presentation/provider/suggested_menu_provider.dart';
+import 'package:foodivoire/src/feature/menu/presentation/views/menu_detail.dart';
+import 'package:foodivoire/src/shared/utils/show.snacbar.dart';
+import 'package:provider/provider.dart';
+import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:foodivoire/src/shared/utils/images.dart';
-import 'package:provider/provider.dart';
-
-import '../src/feature/language/presentation/provider/lang_provider.dart';
+import 'package:foodivoire/src/feature/menu/presentation/views/popular_menu_builder.dart';
+import 'package:foodivoire/src/feature/menu/presentation/views/suggested_menu_builder.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -19,8 +174,174 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  int isSelected = 0;
-  int isSelected1 = 0;
+//   int isSelected = 0;
+//   int isSelected1 = 0;
+//   final TextEditingController _searchController = TextEditingController();
+//   List<Map<String, dynamic>> filteredFoodItems = List.from(foodItems);
+
+//   void filterFoodItems(String query) {
+//     setState(() {
+//       if (query.isEmpty) {
+//         filteredFoodItems = List.from(foodItems);
+//       } else {
+//         filteredFoodItems = foodItems
+//             .where((food) =>
+//                 food['name'].toLowerCase().contains(query.toLowerCase()))
+//             .toList();
+//       }
+//     });
+//   }
+
+//   // int isSelected = 0;
+//   late Future<List<MenuDataModel>> popularMenus;
+//   late Future<List<MenuDataModel>> suggestedMenus;
+//   late List<MenuDataModel> filteredMenus = [];
+//   late List<MenuDataModel> filtered1Menus = [];
+
+//   // TextEditingController _searchController = TextEditingController();
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     popularMenus = fetchPopularMenus();
+//     suggestedMenus = fetchSuggestedMenus();
+//   }
+
+//   Future<List<MenuDataModel>> fetchPopularMenus() async {
+//     final result =
+//         await context.read<PopularMenuProvider>().fetchPopularMenus();
+
+//     return result.fold(
+//       (failure) {
+//         showCustomSnackBar(context, failure.message, orange);
+//         return [];
+//       },
+//       (success) {
+//         setState(() {
+//           filteredMenus = success;
+//         });
+//         return success;
+//       },
+//     );
+//   }
+
+//    Future<List<MenuDataModel>> fetchSuggestedMenus() async {
+//     final result =
+//         await context.read<SuggestedMenuProvider>().fetchSuggestedMenus();
+
+//     return result.fold(
+//       (failure) {
+//         showCustomSnackBar(context, failure.message, orange);
+//         return [];
+//       },
+//       (success) {
+//         setState(() {
+//           filtered1Menus = success;
+//         });
+//         return success;
+//       },
+//     );
+//   }
+
+//   void filterMenus(String query) async {
+//   List<MenuDataModel> allMenus = await popularMenus;
+
+//   setState(() {
+//     if (query.isEmpty) {
+//       filteredMenus = List.from(allMenus);
+//     } else {
+//       filteredMenus = allMenus
+//           .where((menu) => menu.name.toLowerCase().contains(query.toLowerCase()))
+//           .toList();
+//     }
+//   });
+// }
+
+//  void filter1Menus(String query) async {
+//   List<MenuDataModel> allMenus = await suggestedMenus;
+
+//   setState(() {
+//     if (query.isEmpty) {
+//       filtered1Menus = List.from(allMenus);
+//     } else {
+//       filtered1Menus = allMenus
+//           .where((menu) => menu.name.toLowerCase().contains(query.toLowerCase()))
+//           .toList();
+//     }
+//   });
+// }
+
+
+int isSelected = 0;
+  late Future<List<MenuDataModel>> popularMenus;
+  late Future<List<MenuDataModel>> suggestedMenus;
+  List<MenuDataModel> filteredMenus = [];
+  List<MenuDataModel> filtered1Menus = [];
+  late TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    popularMenus = fetchPopularMenus();
+    suggestedMenus = fetchSuggestedMenus();
+    _searchController = TextEditingController();
+  }
+
+  Future<List<MenuDataModel>> fetchPopularMenus() async {
+    final result =
+        await context.read<PopularMenuProvider>().fetchPopularMenus();
+
+    return result.fold(
+      (failure) {
+        showCustomSnackBar(context, failure.message, orange);
+        return [];
+      },
+      (success) {
+        setState(() {
+          filteredMenus = success;
+        });
+        return success;
+      },
+    );
+  }
+
+   Future<List<MenuDataModel>> fetchSuggestedMenus() async {
+    final result =
+        await context.read<SuggestedMenuProvider>().fetchSuggestedMenus();
+
+    return result.fold(
+      (failure) {
+        showCustomSnackBar(context, failure.message, orange);
+        return [];
+      },
+      (success) {
+        setState(() {
+          filtered1Menus = success;
+        });
+        return success;
+      },
+    );
+  }
+
+  void filterMenus(String query) async {
+    List<MenuDataModel> allPopularMenus = await popularMenus;
+    List<MenuDataModel> allSuggestedMenus = await suggestedMenus;
+
+    setState(() {
+      if (query.isEmpty) {
+        filteredMenus = List.from(allPopularMenus);
+        filtered1Menus = List.from(allSuggestedMenus);
+      } else {
+        filteredMenus = allPopularMenus
+            .where((menu) => menu.name.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+
+        filtered1Menus = allSuggestedMenus
+            .where((menu) => menu.name.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,15 +366,18 @@ class _HomeViewState extends State<HomeView> {
                   color: Colors.black,
                   size: 30,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .05,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: TextField(
-                    cursorHeight: 20,
-                    cursorColor: green,
-                    style: const TextStyle(fontSize: 15),
-                    decoration: InputDecoration(
-                        contentPadding:
+            
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .05,
+              width: MediaQuery.of(context).size.width * 0.7,
+              child: TextField(
+                controller: _searchController,
+                onChanged: (query) => filterMenus(query),
+                cursorHeight: 20,
+                cursorColor: green,
+                style: const TextStyle(fontSize: 15),
+                decoration: InputDecoration(
+                    contentPadding:
                             const EdgeInsets.all(8.0).copyWith(left: 15),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -68,22 +392,14 @@ class _HomeViewState extends State<HomeView> {
                         // isDense: true,
                         isCollapsed: true),
                   ),
-                ),
-                SizedBox(
+                    ),
+             SizedBox(
                   width: MediaQuery.of(context).size.width * 0.06,
                   child: Image.asset(CustomImages.filter),
                 ),
               ],
             ),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height * .02,
-            ),
-            Text(
-              languageProvider.isEnglish
-                  ? "Enjoy an unforgettable gastronomic experience in côte D'ivoire"
-                  : "vivez une expeience gastronomique inoubliable en côte D’ivoire",
-              textAlign: TextAlign.center,
-            ),
+
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
@@ -95,16 +411,71 @@ class _HomeViewState extends State<HomeView> {
                         ? "Popular food"
                         : "Nouriture populaire",
                     style: Theme.of(context).textTheme.headlineMedium),
-                Text(languageProvider.isEnglish ? "All" : "Tout",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall!
-                        .copyWith(fontWeight: FontWeight.bold))
+                Text(
+                  languageProvider.isEnglish ? "All" : "Tout",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .copyWith(fontWeight: FontWeight.bold),
+                )
               ],
             ),
             SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.29,
-                child: const PopularMenuBuilder()),
+              height: MediaQuery.sizeOf(context).height * 0.29,
+              child:Column(
+      children: [
+        Expanded(
+          child: FutureBuilder<List<MenuDataModel>>(
+            future: popularMenus,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              } else if (filteredMenus.isEmpty) {
+                return const Center(child: Text('No matching menu.'));
+              } else {
+                return ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.05,
+                  ),
+                  shrinkWrap: true,
+                  itemCount: filteredMenus.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    var popularMenu = filteredMenus[index];
+
+                    return FoodCard(
+                      popularMenus: popularMenu,
+                      index: index,
+                      isSelectedIndex: null,
+                      onTap: () {
+                        setState(() {
+                          isSelected = index;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return MenuDetailView(
+                                  menu: popularMenu,
+                                );
+                              },
+                            ),
+                          );
+                        });
+                      },
+                    );
+                  },
+                );
+              }
+            },
+          ),
+        ),
+      ],
+    ),
+            ),
             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
@@ -113,17 +484,72 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Text("Suggestion",
                     style: Theme.of(context).textTheme.headlineMedium),
-                Text(languageProvider.isEnglish ? 'All' : "Tout",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall!
-                        .copyWith(fontWeight: FontWeight.bold))
+                Text(
+                  languageProvider.isEnglish ? 'All' : "Tout",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall!
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.29,
-                child: const SuggestedMenuBuilder()),
-            SizedBox(
+              height: MediaQuery.sizeOf(context).height * 0.29,
+              child: Column(
+      children: [
+        Expanded(
+          child: FutureBuilder<List<MenuDataModel>>(
+            future: suggestedMenus,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error: ${snapshot.error}'),
+                );
+              } else if (filteredMenus.isEmpty) {
+                return const Center(child: Text('No matching menu.'));
+              } else {
+                return ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.05,
+                  ),
+                  shrinkWrap: true,
+                  itemCount: filtered1Menus.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    var suggestedMenu = filtered1Menus[index];
+
+                    return FoodCard1(
+                      suggestedMenus: suggestedMenu,
+                      index: index,
+                      isSelectedIndex: null,
+                      onTap: () {
+                        setState(() {
+                          isSelected = index;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return MenuDetailView(
+                                  menu: suggestedMenu,
+                                );
+                              },
+                            ),
+                          );
+                        });
+                      },
+                    );
+                  },
+                );
+              }
+            },
+          ),
+        ),
+      ],
+    ),
+            ),
+             SizedBox(
               height: MediaQuery.sizeOf(context).height * .02,
             ),
             Row(
@@ -147,10 +573,14 @@ class _HomeViewState extends State<HomeView> {
             const RestaurantBuilder()
           ],
         ),
+          
       ),
+    
     );
   }
 }
+
+// ... existing code
 
 class FoodCard extends StatefulWidget {
   const FoodCard(
@@ -164,8 +594,8 @@ class FoodCard extends StatefulWidget {
       this.reviews,
       this.popularMenus,
       this.suggestedMenus});
-  final PopularMenuDataModel? popularMenus;
-  final SuggestedMenuDataModel? suggestedMenus;
+  final MenuDataModel? popularMenus;
+  final MenuDataModel? suggestedMenus;
   final String? image;
   final String? name;
   final String? origin;
@@ -266,8 +696,8 @@ class FoodCard1 extends StatefulWidget {
       this.reviews,
       this.popularMenus,
       this.suggestedMenus});
-  final PopularMenuDataModel? popularMenus;
-  final SuggestedMenuDataModel? suggestedMenus;
+  final MenuDataModel? popularMenus;
+  final MenuDataModel? suggestedMenus;
   final String? image;
   final String? name;
   final String? origin;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/home.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/suggested_menu_model.dart';
+import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 import 'package:foodivoire/src/feature/menu/presentation/provider/suggested_menu_provider.dart';
 import 'package:foodivoire/src/feature/menu/presentation/views/menu_detail.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
@@ -8,7 +8,8 @@ import 'package:foodivoire/src/shared/utils/show.snacbar.dart';
 import 'package:provider/provider.dart';
 
 class SuggestedMenuBuilder extends StatefulWidget {
-  const SuggestedMenuBuilder({super.key});
+  const SuggestedMenuBuilder({super.key, this.menu});
+  final dynamic menu;
 
   @override
   State<SuggestedMenuBuilder> createState() => _SuggestedMenuBuilderState();
@@ -17,7 +18,7 @@ class SuggestedMenuBuilder extends StatefulWidget {
 class _SuggestedMenuBuilderState extends State<SuggestedMenuBuilder> {
   int isSelected = 0;
 
-  Future<List<SuggestedMenuDataModel>>? suggestedMenus;
+  Future<List<MenuDataModel>>? suggestedMenus;
   fetchSuggestedMenus() async {
     final result =
         await context.read<SuggestedMenuProvider>().fetchSuggestedMenus();
@@ -77,7 +78,7 @@ class _SuggestedMenuBuilderState extends State<SuggestedMenuBuilder> {
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
                             return MenuDetailView(
-                              suggestedMenu: suggestedMenu,
+                              menu: suggestedMenu,
                             );
                           },
                         ));

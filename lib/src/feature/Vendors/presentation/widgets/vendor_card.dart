@@ -50,8 +50,8 @@ class _PopularRestaurantsState extends State<PopularRestaurants> {
       setState(() {
         userLocation = position;
         // Initialize restaurantLatitude and restaurantLongitude here
-        restaurantLatitude = widget.restaurant!.latitude;
-        restaurantLongitude = widget.restaurant!.longitude;
+        // restaurantLatitude = widget.restaurant!.latitude;
+        // restaurantLongitude = widget.restaurant!.longitude;
         _calculateDistance();
       });
     } catch (e) {

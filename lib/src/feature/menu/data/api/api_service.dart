@@ -19,11 +19,13 @@ class MenuApiService {
       const url =
           "$baseUrl/menu";
       final response = await client.get(url);
+        log(response.body);
+
       if (response.statusCode != 200) {
         log(response.body);
         throw CustomException('${response.reasonPhrase}');
       }
-      return menuModelFromJson(response.body).data.data;
+      return menuModelFromJson(response.body).data?.data??[];
     } catch (e) {
       rethrow;
     }

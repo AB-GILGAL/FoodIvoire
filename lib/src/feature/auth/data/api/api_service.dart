@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:foodivoire/main.dart';
 import 'package:foodivoire/src/feature/auth/domain/utilities/allergies_model.dart';
 import 'package:foodivoire/src/feature/auth/domain/utilities/user_model.dart'
     as user;
 import 'package:foodivoire/src/shared/constant/base_url.dart';
 import 'package:foodivoire/src/shared/errors/exception.dart';
 import 'package:foodivoire/src/shared/interceptor/http.client.interceptor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthApiService {
   Future requestOTP(String telephone) async {
@@ -46,6 +49,7 @@ class AuthApiService {
       bool isUser = json.decode(response.body)['data']['accessToken'] != null
           ? true
           : json.decode(response.body)['data']['isCustomer'];
+          await getSession();
       return isUser;
     } catch (e) {
       rethrow;
@@ -91,5 +95,46 @@ class AuthApiService {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future getSession()async{
+    const url = "$baseUrl/auth/session";
+    try {
+      final response = await client.get(url);
+      if(response.statusCode != 200){
+        throw CustomException('Failed to get session');
+      }
+      final userSession = json.decode(response.body)['data']['id'];
+    await  storage.write(key: 'session', value: userSession); 
+   log( 'Session: ${await storage.read(key: 'session')}');
+          } catch (e) {
+      log("$e");
+    }
+
+  }
+
+
+  //fetch user data
+ static Future fetchUserData(String id)async{
+    final url = "$baseUrl/customers/$id";
+    try {
+      final response = await client.get(url);
+      if(response.statusCode!=200){
+        throw CustomException('Failed to get user data');
+      }
+      final user = json.decode(response.body);
+      final userData = storage.write(key: 'userData', value: user);
+    } catch (e) {
+      log("$e");
+    }
+
+  }
+
+ static Future logOut() async {
+    try {
+  await storage.deleteAll();
+} on Exception catch (e) {
+  log('Failed to log out');
+}
   }
 }

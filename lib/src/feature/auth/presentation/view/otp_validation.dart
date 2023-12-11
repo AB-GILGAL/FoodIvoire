@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:foodivoire/presentation/home.dart';
 import 'package:foodivoire/src/feature/auth/presentation/view/user_info_view.dart';
@@ -76,9 +75,10 @@ class _OTPValidationViewState extends State<OTPValidationView> {
                     .then((value) {
                   value.fold((failure) {
                     showErrorDialogue(context, failure.message);
-                  }, (success) {
+                  }, (success) async {
                     success
-                        ? Navigator.of(context).push(MaterialPageRoute(
+                        ?
+                        await  Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => const HomeView(),
                           ))
                         : Navigator.of(context).push(MaterialPageRoute(
@@ -87,13 +87,12 @@ class _OTPValidationViewState extends State<OTPValidationView> {
                   });
                 });
               },
-              
               child: Text(languageProvider.isEnglish ? 'Next' : 'Suivant'),
             ).loading(context.watch<AuthProvider>().isLoading),
             const SizedBox(height: 10),
             CommonButton(
               onPressed: () async {},
-            bgColor: grey,
+              bgColor: grey,
               child: Text(languageProvider.isEnglish
                   ? 'Send another code'
                   : 'Envoyer un autre code'),

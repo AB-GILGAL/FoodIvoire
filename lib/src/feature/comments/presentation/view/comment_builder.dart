@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart';
 import 'package:foodivoire/src/feature/comments/presentation/view/comment.dart';
 
+
+
 class CommentBuilder extends StatefulWidget {
   const CommentBuilder({Key? key, required this.restaurant}) : super(key: key);
   final RestaurantDataModel? restaurant;
@@ -58,8 +60,10 @@ class _CommentBuilderState extends State<CommentBuilder> {
             ? comments.comments![index]
             : null;
 
+            print("Hmmmmmm $comment");
+
         final img = comment?.customer.avatar;
-        final name = comment?.customer.otherName;
+        final name = "${comment?.customer.otherName} ${comment?.customer.lastName}";
         final date = comment?.createdAt;
         final commentText = comment?.comment;
 

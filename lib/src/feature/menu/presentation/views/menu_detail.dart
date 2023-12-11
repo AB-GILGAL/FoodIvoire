@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:foodivoire/presentation/order.dart';
-import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart';
+import 'package:foodivoire/src/feature/order/presentation/view/order.dart';
 import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
-import 'package:foodivoire/src/feature/comments/presentation/comment_textfield.dart';
+import 'package:foodivoire/src/feature/comments/presentation/view/menu_comment_builder.dart';
+import 'package:foodivoire/src/feature/comments/presentation/widgets/menu_comment_textfield.dart';
 import 'package:foodivoire/src/feature/likes/presentation/provider/likes_provider.dart';
 import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/popular_menu_model.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/suggested_menu_model.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
@@ -16,14 +14,9 @@ import '../../../language/presentation/provider/lang_provider.dart';
 
 class MenuDetailView extends StatefulWidget {
   const MenuDetailView(
-      {super.key, this.menu, this.food, this.popularMenu, this.suggestedMenu});
-  final MenuDataModel? menu;
-  final PopularMenuDataModel? popularMenu;
-  final SuggestedMenuDataModel? suggestedMenu;
-  final Menu? food;
-  // final String? image;
-  // final String? name;
-  // final String? description
+      {super.key,required this.menu,});
+  final dynamic menu;
+ 
 
   @override
   State<MenuDetailView> createState() => _MenuDetailViewState();
@@ -44,9 +37,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                  image: NetworkImage(widget.food?.banner ??
-                      widget.popularMenu?.banner ??
-                      widget.suggestedMenu!.banner),
+                  image: NetworkImage(widget.menu.banner),
                   fit: BoxFit.cover),
             ),
           ),
@@ -106,9 +97,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                                widget.food?.name ??
-                                    widget.popularMenu?.name ??
-                                    widget.suggestedMenu!.name,
+                                widget.menu.name,
                                 style:
                                     Theme.of(context).textTheme.headlineLarge),
                             Row(
@@ -118,8 +107,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                                       await context
                                 .read<LikesProvider>()
                                 .customerLikes(
-                                  
-                                  widget.menu?.id ?? widget.food?.id ?? widget.popularMenu?.id ?? widget.suggestedMenu!.id
+                                 widget.menu.id
                                 )
                                 .then((value) => value.fold(
                                       (l) => print(l.message),
@@ -139,9 +127,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                                 SizedBox(
                                   width: MediaQuery.sizeOf(context).width * .01,
                                 ),
-                                Text(widget.food?.like.toString() ??
-                                    widget.popularMenu?.like.toString() ??
-                                    widget.suggestedMenu!.like.toString())
+                                Text(widget.menu.like.toString())
                               ],
                             )
                           ],
@@ -191,11 +177,7 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                                                 .01,
                                           ),
                                           ReadMoreText(
-                                            widget.food?.description ??
-                                                widget
-                                                    .popularMenu?.description ??
-                                                widget
-                                                    .suggestedMenu!.description,
+                                            widget.menu.description ,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium,
@@ -223,7 +205,8 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                                                 Navigator.push(context,
                                                     MaterialPageRoute(
                                                   builder: (context) {
-                                                    return const OrderView();
+                                                    return  OrderView(
+                                                  menu:widget.menu  );
                                                   },
                                                 ));
                                               },
@@ -259,12 +242,12 @@ class _MenuDetailViewState extends State<MenuDetailView> {
                                                             .height *
                                                         .02,
                                               ),
-                                              // const CommentBuilder(restaurant: widget.popularMenu,),
+                                               MenuCommentBuilder(menu: widget.menu,),
                                             ],
                                           ),
                                         ),
-                                        CommentTextField(
-                                            popularMenu: widget.popularMenu),
+                                        MenuCommentTextField(
+                                            menu: widget.menu),
                                       ],
                                     )
                                   ]),
