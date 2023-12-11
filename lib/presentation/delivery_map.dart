@@ -36,7 +36,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Delivery Tracking'),
+        title: const Text('Restaurant route'),
       ),
       body: GoogleMap(
         onMapCreated: (controller) {

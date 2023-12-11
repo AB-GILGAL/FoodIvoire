@@ -37,7 +37,7 @@ class _CommentsState extends State<Comments> {
                 CircleAvatar(
                   radius: 18,
                   backgroundImage: NetworkImage(
-                    widget.img ?? '',
+                    widget.img! ,
                   ),
                 ),
                 SizedBox(

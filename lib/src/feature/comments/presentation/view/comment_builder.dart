@@ -60,8 +60,10 @@ class _CommentBuilderState extends State<CommentBuilder> {
             ? comments.comments![index]
             : null;
 
+            print("Hmmmmmm $comment");
+
         final img = comment?.customer.avatar;
-        final name = comment?.customer.otherName;
+        final name = "${comment?.customer.otherName} ${comment?.customer.lastName}";
         final date = comment?.createdAt;
         final commentText = comment?.comment;
 

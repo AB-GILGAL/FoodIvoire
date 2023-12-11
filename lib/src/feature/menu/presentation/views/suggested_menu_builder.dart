@@ -8,7 +8,8 @@ import 'package:foodivoire/src/shared/utils/show.snacbar.dart';
 import 'package:provider/provider.dart';
 
 class SuggestedMenuBuilder extends StatefulWidget {
-  const SuggestedMenuBuilder({super.key});
+  const SuggestedMenuBuilder({super.key, this.menu});
+  final dynamic menu;
 
   @override
   State<SuggestedMenuBuilder> createState() => _SuggestedMenuBuilderState();

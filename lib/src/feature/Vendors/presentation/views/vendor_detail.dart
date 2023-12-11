@@ -7,6 +7,7 @@ import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart
 import 'package:foodivoire/src/feature/language/presentation/provider/lang_provider.dart';
 import 'package:foodivoire/src/feature/rating/presentation/provider/rating_provider.dart';
 import 'package:foodivoire/src/shared/constant/colors.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
@@ -21,6 +22,25 @@ class RestaurantDetailView extends StatefulWidget {
 
 class _RestaurantDetailViewState extends State<RestaurantDetailView> {
   int selectedStarIndex = 0;
+  String openingTime = '09:00';
+  String closingTime = '18:00';
+
+  bool isShopOpen() {
+    String currentTime = DateFormat('HH:mm').format(DateTime.now());
+
+    if (currentTime.compareTo(openingTime) >= 0 && currentTime.compareTo(closingTime) < 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  void initState() {
+    openingTime = widget.restaurant!.openHour;
+    closingTime = widget.restaurant!.closeHour;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +98,8 @@ class _RestaurantDetailViewState extends State<RestaurantDetailView> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              languageProvider.isEnglish ? "OPEN" : "OUVERT",
+                              isShopOpen() ? languageProvider.isEnglish ? "OPEN" : "OUVERT" : languageProvider.isEnglish ? "CLOSED" : "FERMÉE",
+                              
                               style: const TextStyle(
                                 color: green,
                                 fontWeight: FontWeight.w600,

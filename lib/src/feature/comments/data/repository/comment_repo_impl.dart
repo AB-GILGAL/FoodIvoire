@@ -8,6 +8,8 @@ import 'package:foodivoire/src/feature/comments/domain/repository/comment_reposi
 import 'package:foodivoire/src/shared/errors/exception.dart';
 import 'package:foodivoire/src/shared/errors/failure.dart';
 
+import '../../../Vendors/domain/entities/vendor_model.dart';
+
 class CommentRepoImpl implements CommentRepository {
   final CommentApiService api;
 
@@ -15,11 +17,11 @@ class CommentRepoImpl implements CommentRepository {
  
 
   @override
-  Future<Either<Failure, String>> customerComment (
+  Future<Either<Failure, Comment>> customerComment (
       String comment, int restaurantId) async {
     try {
-     await api.customerComment(comment, restaurantId);
-      return  const Right('Done');
+    final comMent = await api.customerComment(comment, restaurantId);
+      return   Right(comMent);
     } on CustomException catch (error) {
       return Left(Failure(error.message));
       
@@ -39,11 +41,11 @@ class MenuCommentRepoImpl implements MenuCommentRepository {
  
 
   @override
-  Future<Either<Failure, String>> customerMenuComment (
+  Future<Either<Failure, Comment>> customerMenuComment (
       String comment, int menuId) async {
     try {
-     await api.customerMenuComment(comment, menuId);
-      return  const Right('Done');
+    final comMent = await api.customerMenuComment(comment, menuId);
+      return   Right(comMent);
     } on CustomException catch (error) {
       return Left(Failure(error.message));
       

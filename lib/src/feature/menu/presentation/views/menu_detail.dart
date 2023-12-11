@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:foodivoire/presentation/order.dart';
+import 'package:foodivoire/src/feature/order/presentation/view/order.dart';
 import 'package:foodivoire/src/feature/Vendors/presentation/views/vendor_builder.dart';
 import 'package:foodivoire/src/feature/comments/presentation/view/menu_comment_builder.dart';
 import 'package:foodivoire/src/feature/comments/presentation/widgets/menu_comment_textfield.dart';

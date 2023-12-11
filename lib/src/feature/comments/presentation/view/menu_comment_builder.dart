@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodivoire/src/feature/comments/presentation/view/comment.dart';
-import 'package:foodivoire/src/feature/menu/domain/entities/menu_model.dart';
 
 
 class MenuCommentBuilder extends StatefulWidget {
   const MenuCommentBuilder({Key? key, this.menu}) : super(key: key);
-    final MenuDataModel? menu;
+    final dynamic menu;
 
   
 
@@ -15,7 +14,7 @@ class MenuCommentBuilder extends StatefulWidget {
 }
 
 class _MenuCommentBuilderState extends State<MenuCommentBuilder> {
-  late Future<MenuDataModel?> commentsFuture;
+  late Future<dynamic> commentsFuture;
 
   @override
   void initState() {
@@ -24,14 +23,20 @@ class _MenuCommentBuilderState extends State<MenuCommentBuilder> {
   }
 
   void fetchMenus() {
+  if (widget.menu != null) {
     commentsFuture = Future.value(widget.menu);
+  } else {
+    // Handle the case when widget.menu is null, e.g., set commentsFuture to a default value.
+    commentsFuture = Future.value(/* default value or null */);
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<MenuDataModel?>(
+    return FutureBuilder<dynamic>(
       future: commentsFuture,
-      builder: (context, AsyncSnapshot<MenuDataModel?> snapshot) {
+      builder: (context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
@@ -48,29 +53,30 @@ class _MenuCommentBuilderState extends State<MenuCommentBuilder> {
     );
   }
 
-  Widget buildMenuCommentsListView(MenuDataModel comments) {
+  Widget buildMenuCommentsListView(dynamic comments) {
     return ListView.separated(
       separatorBuilder: (context, index) => SizedBox(
         height: MediaQuery.of(context).size.height * 0.03,
       ),
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: comments.comments.length,
+      itemCount: comments.length,
       scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
-        var comment = comments.comments?.isNotEmpty == true
-            ? comments.comments![index]
+        var comment = comments?.isNotEmpty == true
+            ? comments![index]
             : null;
+            print("yooooo $comment");
 
-        final img = comment?.customer.avatar;
-        final name = comment?.customer.otherName;
-        final date = comment?.createdAt;
-        final commentText = comment?.comment;
+        final img = comment['customer']['avatar'];
+        final name = "${comment["customer"]["otherName"]} ${comment["customer"]["lastName"]}";
+        final date = comment["createdAt"];
+        final commentText = comment["comment"];
 
         return Comments(
           img: img,
           name: name,
-          dateTime: date,
+          dateTime: DateTime.tryParse(date),
           comment: commentText,
         );
       },

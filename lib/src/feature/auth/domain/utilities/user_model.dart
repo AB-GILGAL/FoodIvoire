@@ -16,7 +16,7 @@ class User {
     "username":userName,
         "lastName": lastName,
         "firstName": firstName,
-        "otherName": lastName.split(' ').last,
+        "otherName": firstName.split(' ').last,
         "preferences": preferences.toString(),
         "allergies": allergies.toString(),
       };

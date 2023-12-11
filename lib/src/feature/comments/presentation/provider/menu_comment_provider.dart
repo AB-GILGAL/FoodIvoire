@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:foodivoire/src/feature/Vendors/domain/entities/vendor_model.dart';
 import 'package:foodivoire/src/feature/comments/domain/usecase/comment.dart';
 import 'package:foodivoire/src/shared/errors/failure.dart';
 import 'package:foodivoire/src/shared/utils/usecase.dart';
@@ -22,7 +23,7 @@ class MenuCommentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<Either<Failure, String>> customerMenuComment(
+  Future<Either<Failure, Comment>> customerMenuComment(
       String comment, int menuId) async {
     _isLoading = true;
     notifyListeners();

@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class MenuCommentTextField extends StatefulWidget {
   const MenuCommentTextField({super.key, this.menu});
-  final MenuDataModel? menu;
+  final dynamic menu;
 
   @override
   State<MenuCommentTextField> createState() => _MenuCommentTextFieldState();
